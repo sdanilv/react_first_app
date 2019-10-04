@@ -1,0 +1,13 @@
+
+.title{
+    background-color: gold;
+}
+
+.posts{
+    padding: 3px;
+}
+
+.title textarea{
+    width: 80%;
+    height: 100px;;
+}

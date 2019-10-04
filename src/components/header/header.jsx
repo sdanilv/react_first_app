@@ -1,11 +1,12 @@
 import React  from "react"
+import style from "./header.module.css"
 
 const Header = () =>{
     return(
-<header>
+<div className={style.header}>
     <img src = 'https://s1.logaster.com/static/v3/img/products/logo.png' alt='abc' />
     Header
-</header>
+</div>
     );
 }
 

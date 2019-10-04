@@ -1,0 +1,26 @@
+.post{
+    border: 2px inset black;
+    background-color: yellow;
+    margin: 2px;
+}
+
+.post img{
+    height: 50px;
+}
+
+.title{
+    align-content: flex-start;
+    align-items: flex-start;
+    text-align: center;
+    vertical-align: top;
+    display: inline;
+    padding: 10px;
+}
+
+.message{
+padding: 10px;
+}
+
+.like img{
+    height: 10px; 
+}

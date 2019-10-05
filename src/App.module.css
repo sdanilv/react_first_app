@@ -1,0 +1,36 @@
+.appGrid{
+display: grid;
+margin: 0 auto;
+/* background-color: rgb(231, 228, 228); */
+/* width: 50%; */
+grid-template-areas:
+"header header"
+"sidebar content"
+;
+
+grid-template-rows: 10vh 90vh;
+grid-template-columns: 2fr 10fr;
+/* grid-gap: 10px; */
+}
+
+.content > div{
+  /* grid-area: content; */
+  /* background-color: green; */
+  /* width:800px; */
+  }
+
+  .content {
+    grid-area: content;
+    
+  }
+  .sidebar{
+    grid-area: sidebar;
+    background-color: white;
+    
+  }
+
+  .header{
+    grid-area: header;   
+    
+    }
+

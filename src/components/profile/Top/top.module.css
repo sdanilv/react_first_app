@@ -1,0 +1,25 @@
+.headerImg{
+width : 100%;
+height: 200px;
+grid-area: h;
+    }
+
+    .avaImg{
+        width : 80%;
+height: 80%;
+grid-area: a;
+margin-left: 5%;
+    }
+
+    .description{
+        grid-area: d;
+    }
+    .header{
+        height: 53vh;
+        display:grid;
+        grid-template-columns:  1fr 8fr;
+        grid-template-rows: 2fr 2fr;
+        grid-template-areas: "h h" "a d";
+
+        grid-gap: 10px;
+    }

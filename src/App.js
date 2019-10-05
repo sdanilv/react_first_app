@@ -1,20 +1,28 @@
 import React from "react";
-import style from "./App.css"
+import style from "./App.module.css";
 import Header from "./components/header/header";
 import Navbar from "./components/navbar/navbar";
 import Profile from "./components/profile/profile";
+import { Route, BrowserRouter } from "react-router-dom";
+import Dialogs from "./components/dialogs/dialogs";
 
-const App = ()=>{
-return(
-<div className = "app-wrape">
-  <Header />
-  <Navbar />
-  <div className={style.content}>
-  <Profile />
-  </div>
-</div>
-
-);
-}
+const App = () => {
+  return (
+    <BrowserRouter>
+      <div className={style.appGrid}>
+        <div className={style.header}>
+          <Header />
+        </div>
+        <div className={style.sidebar}>
+          <Navbar />
+        </div>
+        <div className={style.content}>
+          <Route path="/profile" component={Profile} />
+          <Route path="/dialogs" component={Dialogs} />
+        </div>
+      </div>
+    </BrowserRouter>
+  );
+};
 
 export default App;

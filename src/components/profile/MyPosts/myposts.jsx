@@ -8,7 +8,7 @@ const Myposts = props => {
   let areaRef = React.createRef();
   let clickEvent = () => {
     // debugger;
-    props.addPost(areaRef.current.value);
+    props.addPost();
   };
 
   let areaKeyEvent=(e)=>{

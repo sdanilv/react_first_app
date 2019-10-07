@@ -65,17 +65,17 @@ export let addLetter = letter => {
   render();
 };
 
-export let addPost = post => {
+export let addPost = () => {
   // debugger;
   let postComponent = {
     name: "My",
     age: 26,
-    message: post,
+    message: state.Profile.textArea,
     likeCount: 0,
     ava: "https://2krota.ru/wp-content/uploads/2019/02/0_i-1-1024x1547.jpg"
   };
-  state.posts.push(postComponent);
-
+  state.Profile.posts.push(postComponent);
+  state.Profile.textArea = "";
   render();
 };
 

@@ -6,7 +6,7 @@ import Profile from "./components/profile/profile";
 import { Route, BrowserRouter } from "react-router-dom";
 import Dialogs from "./components/dialogs/dialogs";
 
-const App = () => {
+const App = props => {
   return (
     <BrowserRouter>
       <div className={style.appGrid}>
@@ -17,8 +17,20 @@ const App = () => {
           <Navbar />
         </div>
         <div className={style.content}>
-          <Route path="/profile" component={Profile} />
-          <Route path="/dialogs" component={Dialogs} />
+          <Route
+            path="/profile"
+            render={() => (
+              <Profile
+                addPost={props.addPost}
+                addLetter={props.addLetter}
+                profile={props.state.Profile}
+              />
+            )}
+          />
+          <Route
+            path="/dialogs"
+            render={() => <Dialogs dialogs={props.state.Dialogs.dialogs} />}
+          />
         </div>
       </div>
     </BrowserRouter>

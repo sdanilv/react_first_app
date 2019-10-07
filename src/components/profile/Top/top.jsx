@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
-import style from "./top.module.css";
+import style from "./Top.module.css";
 
 const Top = () => {
   return (

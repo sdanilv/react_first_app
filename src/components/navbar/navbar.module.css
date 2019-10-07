@@ -2,6 +2,7 @@
   /* grid-area: sidebar; */
   background-color: white;
   position: fixed;
+  width: 16vw;
 }
 .sidebar a.active {
   color: black;

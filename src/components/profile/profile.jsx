@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./profile.module.css";
 import Myposts from "./MyPosts/myposts";
-import Top from "./Top/Top";
+import Top from "./Top/Top.jsx";
 
 const Profile = (props) => {
   return (

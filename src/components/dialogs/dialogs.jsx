@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./dialogs.module.css";
-import Chat from "./Chat/chat";
+// import Chat from "./Chat/chat";
 
 
 import Dialog from "./dialog/dialog"

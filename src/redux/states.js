@@ -1,3 +1,6 @@
+const UPDATE_POST_TEXT_AREA = "UPDATE-POST-TEXT-AREA";
+const ADD_POST = "ADD-POST";
+
 let store = {
   _callSubscriber() {
     console.log(this);
@@ -35,24 +38,24 @@ let store = {
           img: "https://s3.amazonaws.com/uifaces/faces/twitter/gt/128.jpg"
         }
       ],
-      // chats: [
-      //   {
-      //     id: 0,
-      //     messages: ["Utah", "Fargus", "96548"]
-      //   },
-      //   {
-      //     id: 1,
-      //     messages: ["Utah", "adsadada", "Human"]
-      //   },
-      //   {
-      //     id: 2,
-      //     messages: ["Uadsa", "adsadada", "Human"]
-      //   },
-      //   {
-      //     id: 3,
-      //     messages: ["Utah", "Fargus", "96548"]
-      //   }
-      // ]
+      chats: [
+        {
+          id: 0,
+          messages: ["Utah", "Fargus", "96548"]
+        },
+        {
+          id: 1,
+          messages: ["Utah", "adsadada", "Human"]
+        },
+        {
+          id: 2,
+          messages: ["Uadsa", "adsadada", "Human"]
+        },
+        {
+          id: 3,
+          messages: ["Utah", "Fargus", "96548"]
+        }
+      ]
     },
 
     Profile: {
@@ -83,13 +86,20 @@ let store = {
       textArea: ""
     }
   },
-
-  addLetter(letter) {
-    this._state.Profile.textArea = letter;
-    this._callSubscriber(this._state);
+  getState(){
+    return this._state;
+  },
+  setEvent( observer){
+    this._callSubscriber= observer;
   },
 
-  addPost() {
+dispatcher(action){
+ if( action.type===UPDATE_POST_TEXT_AREA){
+          this._state.Profile.textArea = action.text;
+          this._callSubscriber(this._state);
+        }
+
+        if( action.type===ADD_POST) {
     // debugger;
     let postComponent = {
       name: "My",
@@ -101,15 +111,11 @@ let store = {
     this._state.Profile.posts.push(postComponent);
     this._state.Profile.textArea = "";
     this._callSubscriber(this._state);
-  },
-
-  setEvent( observer){
-this._callSubscriber= observer;
-  },
-
-  getState(){
-    return this._state;
   }
+}
 };
 
+export const AddPostAction(){
+  
+}
 export default store;

@@ -8,7 +8,7 @@ import Dialog from "./dialog/dialog"
 
 
 const Dialogs = (props) => {
-    debugger;
+    // debugger;
     let dialogsElements  = props.dialogs.map(d=> <Dialog name={d.name} lastMessage={d.lastMessage} ava={d.img}/>);
     return (
         <div><h1>My dialogs</h1>

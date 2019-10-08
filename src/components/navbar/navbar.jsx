@@ -10,7 +10,7 @@ let links = [{adress : "/profile", img : "https://cdn2.iconfinder.com/data/icons
 
 
 ];
-let linksMap = links.map(l=><div><NavLink to={l.adress} activeClassName={style.active}><img src={l.img}/>&nbsp;{l.text}</NavLink></div>);
+let linksMap = links.map(l=><div><NavLink to={l.adress} activeClassName={style.active}><img src={l.img} alt="navbarIcon"/>&nbsp;{l.text}</NavLink></div>);
 
 const Navbar = () => {
     return (

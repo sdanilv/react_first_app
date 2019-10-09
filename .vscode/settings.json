@@ -1,0 +1,21 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    ".gitignore": true,
+    "README.md": true,
+    "node_modules": true,
+    ".vscode": true,
+    "package-lock.json": true,
+    "package.json": true,
+    "public": true,
+    "serviceWorker.js": true,
+    "src/serviceWorker.js": true,
+    "src/logo.svg": true,
+    "src/App.test.js": true
+  },
+  "explorerExclude.backup": null
+}

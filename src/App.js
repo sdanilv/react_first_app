@@ -7,7 +7,7 @@ import { Route, BrowserRouter } from "react-router-dom";
 import Dialogs from "./components/dialogs/dialogs";
 
 const App = props => {
-  // debugger;
+// debugger;
   return (
     <BrowserRouter>
       <div className={style.appGrid}>
@@ -22,8 +22,9 @@ const App = props => {
             path="/profile"
             render={() => (
               <Profile
-                dispatcher={props.dispatcher}
-                profile={props.state.Profile}
+              profile={props.state.ProfilePage}
+              dispatch={props.dispatch}
+              store = {props.store}
               />
             )}
           />
@@ -31,9 +32,8 @@ const App = props => {
             path="/dialogs"
             render={() => (
               <Dialogs
-                dialogs={props.state.Dialogs}
-               
-                dispatcher={props.dispatcher}
+                dialogs={props.state.DialogsPage}
+                dispatch={props.dispatch}
               />
             )}
           />

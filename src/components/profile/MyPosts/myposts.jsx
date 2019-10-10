@@ -4,7 +4,7 @@ import Post from "./Post/post";
 import TextArea from "./TextArea/TextArea";
 
 const Myposts = props => {
-  // debugger;
+ 
   let postElements = props.posts.map(p => (
     <Post
       name={p.name}
@@ -17,7 +17,7 @@ const Myposts = props => {
 
   return (
     <div className={style.posts}>
-      <TextArea dispatcher={props.dispatcher} textArea={props.textArea} />
+      <TextArea dispatch={props.dispatch} textArea={props.textArea} />
       <div>{postElements}</div>
     </div>
   );

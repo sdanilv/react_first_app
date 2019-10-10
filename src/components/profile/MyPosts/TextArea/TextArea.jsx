@@ -3,24 +3,24 @@ import style from "./textarea.module.css";
 import {
   AddPostAction,
   UpdatePostTextAreaAction
-} from "../../../../redux/states";
+} from "../../../../redux/profileReducer";
 
 const TextArea = props => {
-  let areaRef = React.createRef();
   let clickEvent = () => {
     // debugger;
-    props.dispatcher(AddPostAction());
+    props.dispatch(AddPostAction());
   };
 
   let areaKeyEvent = e => {
     // debugger;
-    props.dispatcher(UpdatePostTextAreaAction(areaRef.current.value));
+    let textAreaBody= e.target.value;
+    props.dispatch(UpdatePostTextAreaAction(textAreaBody));
   };
 
   return (
     <div className={style.textarea}>
       {/* <textarea value={props.textArea} ref={areaRef} onKeyDown={areaKeyEvent}/> */}
-      <textarea value={props.textArea} ref={areaRef} onChange={areaKeyEvent} />
+      <textarea value={props.textArea}  onChange={areaKeyEvent} />
       <button onClick={clickEvent}>Submit</button>
     </div>
   );

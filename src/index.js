@@ -10,10 +10,11 @@ import * as serviceWorker from "./serviceWorker";
 let renderDOMTree = state => {
 
   ReactDOM.render(
+    
     <App
       state={state}
-      addLetter={store.addLetter.bind(store)}
-      addPost={store.addPost.bind(store)}
+      dispatcher={store.dispatcher.bind(store)}
+      
     />,
 
     document.getElementById("root")

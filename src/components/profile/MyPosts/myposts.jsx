@@ -1,23 +1,10 @@
 import React from "react";
 import style from "./myposts.module.css";
 import Post from "./Post/post";
-// import { addLetter } from "../../../redux/state";
-
+import TextArea from "./TextArea/TextArea";
 
 const Myposts = props => {
-  let areaRef = React.createRef();
-  let clickEvent = () => {
-    // debugger;
-    props.addPost();
-  };
-
-  let areaKeyEvent=(e)=>{
-    // debugger;
-    props.addLetter(areaRef.current.value)
-   
-  }
-
-
+  // debugger;
   let postElements = props.posts.map(p => (
     <Post
       name={p.name}
@@ -30,11 +17,7 @@ const Myposts = props => {
 
   return (
     <div className={style.posts}>
-      <div className={style.textarea}>
-        {/* <textarea value={props.textArea} ref={areaRef} onKeyDown={areaKeyEvent}/> */}
-        <textarea value={props.textArea} ref={areaRef} onChange={areaKeyEvent} />
-        <button onClick={clickEvent}>Submit</button>
-      </div>
+      <TextArea dispatcher={props.dispatcher} textArea={props.textArea} />
       <div>{postElements}</div>
     </div>
   );

@@ -1,19 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import "./App.module.css";
-// import "./index.css";
 import App from "./App.js";
 import store from "./redux/storeRedux";
 import * as serviceWorker from "./serviceWorker";
-import StoreContext from "./StoreContext.js";
+import {Provider} from 'react-redux';
 
 let renderDOMTree = state => {
   // debugger;
 
   ReactDOM.render(
-    <StoreContext.Provider value={store}>
+  <Provider store={store}>
       <App state={state} dispatch={store.dispatch.bind(store)} />
-    </StoreContext.Provider>,
+    </Provider>,
     document.getElementById("root")
   );
   // debugger;

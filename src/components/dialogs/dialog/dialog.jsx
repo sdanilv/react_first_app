@@ -5,7 +5,6 @@ import style from "./dialog.module.css"
 
 const Dialog = (props) => {
     return (
-
         <div className={style.dialog}>
            <img src={props.ava} alt="dialogAva"/>
            <div className={style.name}> {props.name}</div>

@@ -29,6 +29,7 @@ const initationState = {
 
 const profileReducer = (state = initationState, action) => {
     if (action.type === UPDATE_POST_TEXT_AREA) {
+      debugger;
     state.textArea = action.text;
   }
 

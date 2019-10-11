@@ -1,10 +1,9 @@
 import React from "react";
 import style from "./myposts.module.css";
 import Post from "./Post/post";
-import TextArea from "./TextArea/TextArea";
+import TextAreaContainer from "./TextArea/TextAreaContainer";
 
 const Myposts = props => {
- 
   let postElements = props.posts.map(p => (
     <Post
       name={p.name}
@@ -17,7 +16,7 @@ const Myposts = props => {
 
   return (
     <div className={style.posts}>
-      <TextArea dispatch={props.dispatch} textArea={props.textArea} />
+      <TextAreaContainer />
       <div>{postElements}</div>
     </div>
   );

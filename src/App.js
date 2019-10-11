@@ -11,36 +11,35 @@ const App = props => {
   return (
     <BrowserRouter>
       {/* */}
-        <div className={style.appGrid}>
-          <div className={style.header}>
-            <Header />
-          </div>
-          <div className={style.sidebar}>
-            <Navbar />
-          </div>
-          <div className={style.content}>
-            <Route
-              path='/profile'
-              render={() => (
-                <Profile
-                  profile={props.state.ProfilePage}
-                  dispatch={props.dispatch}
-                  store={props.store}
-                />
-              )}
-            />
-            <Route
-              path='/dialogs'
-              render={() => (
-                <Dialogs
-                  dialogs={props.state.DialogsPage}
-                  dispatch={props.dispatch}
-                />
-              )}
-            />
-          </div>
+      <div className={style.appGrid}>
+        <div className={style.header}>
+          <Header />
         </div>
-      </Store.Context>
+        <div className={style.sidebar}>
+          <Navbar />
+        </div>
+        <div className={style.content}>
+          <Route
+            path='/profile'
+            render={() => (
+              <Profile
+                profile={props.state.ProfilePage}
+                dispatch={props.dispatch}
+                store={props.store}
+              />
+            )}
+          />
+          <Route
+            path='/dialogs'
+            render={() => (
+              <Dialogs
+                dialogs={props.state.DialogsPage}
+                dispatch={props.dispatch}
+              />
+            )}
+          />
+        </div>
+      </div>
     </BrowserRouter>
   );
 };

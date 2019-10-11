@@ -3,10 +3,11 @@ import style from "./chat.module.css"
 
 
 
-const chat = (props) => {
+const Chat = (props) => {
+    // debugger;
     return (
         <div className={style.chat}> {props.chat}</div>
     );
 }
 
-export default chat;
+export default Chat;

@@ -10,6 +10,7 @@ const App = props => {
   // debugger;
   return (
     <BrowserRouter>
+      {/* */}
       <div className={style.appGrid}>
         <div className={style.header}>
           <Header />
@@ -19,18 +20,23 @@ const App = props => {
         </div>
         <div className={style.content}>
           <Route
-            path="/profile"
+            path='/profile'
             render={() => (
               <Profile
-                addPost={props.addPost}
-                addLetter={props.addLetter}
-                profile={props.state.Profile}
+                profile={props.state.ProfilePage}
+                dispatch={props.dispatch}
+                store={props.store}
               />
             )}
           />
           <Route
-            path="/dialogs"
-            render={() => <Dialogs dialogs={props.state.Dialogs.dialogs} />}
+            path='/dialogs'
+            render={() => (
+              <Dialogs
+                dialogs={props.state.DialogsPage}
+                dispatch={props.dispatch}
+              />
+            )}
           />
         </div>
       </div>

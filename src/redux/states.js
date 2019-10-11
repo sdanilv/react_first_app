@@ -1,12 +1,13 @@
-const UPDATE_POST_TEXT_AREA = "UPDATE-POST-TEXT-AREA";
-const ADD_POST = "ADD-POST";
+import profileReducer from "./profileReducer";
+import navbarReducer from "./navbarReducer";
+import dialogsReducer from "./dialogsReducer";
 
 let store = {
   _callSubscriber() {
     console.log(this);
   },
   _state: {
-    Dialogs: {
+    DialogsPage: {
       dialogs: [
         {
           name: "Boris",
@@ -55,10 +56,10 @@ let store = {
           id: 3,
           messages: ["Utah", "Fargus", "96548"]
         }
-      ]
+      ],
+      textArea: ""
     },
-
-    Profile: {
+    ProfilePage: {
       posts: [
         {
           name: "Boris",
@@ -84,38 +85,22 @@ let store = {
         }
       ],
       textArea: ""
-    }
+    },
+    Navbar: {}
   },
-  getState(){
+  getState() {
     return this._state;
   },
-  setEvent( observer){
-    this._callSubscriber= observer;
+  setEvent(observer) {
+    this._callSubscriber = observer;
   },
 
-dispatcher(action){
- if( action.type===UPDATE_POST_TEXT_AREA){
-          this._state.Profile.textArea = action.text;
-          this._callSubscriber(this._state);
-        }
-
-        if( action.type===ADD_POST) {
-    // debugger;
-    let postComponent = {
-      name: "My",
-      age: 26,
-      message: this._state.Profile.textArea,
-      likeCount: 0,
-      ava: "https://2krota.ru/wp-content/uploads/2019/02/0_i-1-1024x1547.jpg"
-    };
-    this._state.Profile.posts.push(postComponent);
-    this._state.Profile.textArea = "";
+  dispatcher(action) {
+    profileReducer(action, this._state.ProfilePage);
+    dialogsReducer(action, this._state.DialogsPage);
+    navbarReducer(action, this._state.Navbar);
     this._callSubscriber(this._state);
   }
-}
 };
 
-export const AddPostAction(){
-  
-}
 export default store;

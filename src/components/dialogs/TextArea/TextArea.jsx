@@ -1,19 +1,15 @@
 import React from "react";
 import style from "./textarea.module.css";
-import { AddChatAction, UpdateChatTextAreaAction } from "../../../redux/dialogsReducer";
 
 const TextArea = props => {
-  // debugger;
-  // let areaRef = React.createRef();
   let clickEvent = () => {
-    // debugger;
-    props.dispatch(AddChatAction());
+    props.clickEvent();
   };
 
   let areaKeyEvent = e => {
-    let textAreaBody= e.target.value;
+    let textAreaBody = e.target.value;
     // debugger;
-    props.dispatch(UpdateChatTextAreaAction(textAreaBody));
+    props.areaKeyEvent(textAreaBody);
   };
 
   return (

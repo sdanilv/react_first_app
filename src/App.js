@@ -7,38 +7,40 @@ import { Route, BrowserRouter } from "react-router-dom";
 import Dialogs from "./components/dialogs/dialogs";
 
 const App = props => {
-// debugger;
+  // debugger;
   return (
     <BrowserRouter>
-      <div className={style.appGrid}>
-        <div className={style.header}>
-          <Header />
+      {/* */}
+        <div className={style.appGrid}>
+          <div className={style.header}>
+            <Header />
+          </div>
+          <div className={style.sidebar}>
+            <Navbar />
+          </div>
+          <div className={style.content}>
+            <Route
+              path='/profile'
+              render={() => (
+                <Profile
+                  profile={props.state.ProfilePage}
+                  dispatch={props.dispatch}
+                  store={props.store}
+                />
+              )}
+            />
+            <Route
+              path='/dialogs'
+              render={() => (
+                <Dialogs
+                  dialogs={props.state.DialogsPage}
+                  dispatch={props.dispatch}
+                />
+              )}
+            />
+          </div>
         </div>
-        <div className={style.sidebar}>
-          <Navbar />
-        </div>
-        <div className={style.content}>
-          <Route
-            path="/profile"
-            render={() => (
-              <Profile
-              profile={props.state.ProfilePage}
-              dispatch={props.dispatch}
-              store = {props.store}
-              />
-            )}
-          />
-          <Route
-            path="/dialogs"
-            render={() => (
-              <Dialogs
-                dialogs={props.state.DialogsPage}
-                dispatch={props.dispatch}
-              />
-            )}
-          />
-        </div>
-      </div>
+      </Store.Context>
     </BrowserRouter>
   );
 };

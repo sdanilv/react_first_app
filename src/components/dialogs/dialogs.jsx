@@ -4,7 +4,7 @@ import style from "./dialogs.module.css";
 
 import Chat from "./Chat/Chat";
 import Dialog from "./dialog/dialog";
-import TextArea from "./TextArea/TextArea";
+import TextAreaContainer from "./TextArea/TextAreaContainer";
 
 const Dialogs = props => {
   // debugger;
@@ -17,7 +17,10 @@ const Dialogs = props => {
       <h1>My dialogs</h1>
       <div className={style.dialogs}>
         {dialogsElements}
-        <TextArea dispatch={props.dispatch} textArea={props.dialogs.textArea} />
+        <TextAreaContainer
+          dispatch={props.dispatch}
+          textArea={props.dialogs.textArea}
+        />
         {chatsElement}
       </div>
     </div>

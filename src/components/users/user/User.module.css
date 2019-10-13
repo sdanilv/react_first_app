@@ -1,0 +1,11 @@
+.user {
+  margin: 20px;
+  border: 2px solid silver;
+  padding: 5px;
+  width: 80%
+}
+
+.user > img{
+  width: 100px;
+  height: 100px
+}

@@ -2,7 +2,8 @@
   /* grid-area: sidebar; */
   background-color: white;
   position: fixed;
-  width: 16vw;
+  width: 13vw;
+  /* display: none; */
 }
 .sidebar a.active {
   color: black;
@@ -17,18 +18,22 @@
   color: black;
 }
 
-.sidebar div {
-  /* border: 1px solid darkblue; */
-  /* margin: 2px;
-  margin-top: 1rem; */
-  font-family: segoeui;
-  font-size: 1.2rem;
- /* padding-top: 1rem;
- padding-bottom: 1rem;
- padding-left: 2rem; */
- padding:  1rem 1rem 1rem 2rem
+/* @media all and (min-width : 700px){ */
+  .sidebar div {
+    font-family: segoeui;
+    font-size: 1.2rem;
+   padding:  1rem 1rem 1rem 2rem
+  }
+/* } */
 
+
+
+@media all and (max-width : 700px){
+  .sidebar div {
+    padding:  1rem 0 1rem 0
+  }
 }
+
 .sidebar div:hover  {
   background-color: aliceblue;
 }

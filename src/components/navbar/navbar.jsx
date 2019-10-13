@@ -6,7 +6,8 @@ let links = [{adress : "/profile", img : "https://cdn2.iconfinder.com/data/icons
 {adress : "/dialogs", img : "https://media.istockphoto.com/vectors/cartoon-dialogs-cloud-line-icon-vector-id1094490216", text : "Message"},
 {adress : "/music", img : "https://cdn2.iconfinder.com/data/icons/freecns-cumulus/16/519586-083_Music-512.png", text : "Music"},
 {adress : "/news", img : "https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/news-256.png", text : "News"},
-{adress : "/setting", img : "https://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-75-256.png", text : "Settings"}
+{adress : "/setting", img : "https://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-75-256.png", text : "Settings"},
+{adress : "/users", img : "https://static.thenounproject.com/png/2526006-84.png", text : "Search"},
 
 
 ];

@@ -1,7 +1,7 @@
 import React from "react";
-import style from "./myposts.module.css";
+import style from "./MyPosts.module.css";
 import Post from "./Post/post";
-import TextAreaContainer from "./TextArea/TextAreaContainer";
+import TextArea from "./TextArea/TextArea";
 
 const Myposts = props => {
   let postElements = props.posts.map(p => (
@@ -16,7 +16,7 @@ const Myposts = props => {
 
   return (
     <div className={style.posts}>
-      <TextAreaContainer />
+      <TextArea  textArea={props.textArea}  areaKeyEvent={props.areaKeyEvent} clickSubmitEvent={props.clickSubmitEvent}/>
       <div>{postElements}</div>
     </div>
   );

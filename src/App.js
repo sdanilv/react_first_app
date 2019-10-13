@@ -4,13 +4,14 @@ import Header from "./components/header/header";
 import Navbar from "./components/navbar/navbar";
 import Profile from "./components/profile/profile";
 import { Route, BrowserRouter } from "react-router-dom";
-import Dialogs from "./components/dialogs/dialogs";
+import DialogsContainer from "./components/dialogs/DialogsContainer";
+
+import UsersContainer from "./components/users/UsersContainer";
 
 const App = props => {
   // debugger;
   return (
     <BrowserRouter>
-      {/* */}
       <div className={style.appGrid}>
         <div className={style.header}>
           <Header />
@@ -19,25 +20,9 @@ const App = props => {
           <Navbar />
         </div>
         <div className={style.content}>
-          <Route
-            path='/profile'
-            render={() => (
-              <Profile
-                profile={props.state.ProfilePage}
-                dispatch={props.dispatch}
-                store={props.store}
-              />
-            )}
-          />
-          <Route
-            path='/dialogs'
-            render={() => (
-              <Dialogs
-                dialogs={props.state.DialogsPage}
-                dispatch={props.dispatch}
-              />
-            )}
-          />
+          <Route path="/users" render={() => <UsersContainer />} />
+          <Route path="/profile" render={() => <Profile />} />
+          <Route path="/dialogs" render={() => <DialogsContainer />} />
         </div>
       </div>
     </BrowserRouter>

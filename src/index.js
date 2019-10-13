@@ -15,6 +15,7 @@ let renderDOMTree = state => {
     document.getElementById("root")
   );
   // debugger;
+  console.log(state);
 };
 
 renderDOMTree(store.getState());

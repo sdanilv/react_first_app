@@ -16,7 +16,7 @@ let mapStateToProps = state => ({
 });
 let mapDispatchToProps = dispatch => ({
   clickEvent: () => {
-    debugger;
+    // debugger;
     const action = AddChatAction();
     dispatch(action);
   },

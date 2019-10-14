@@ -6,10 +6,10 @@ import TextArea from "./TextArea/TextArea";
 
 const Dialogs = props => {
   // debugger;
-  let dialogsElements = props.lastMessages.map(d => (
-    <Dialog name={d.name} lastMessage={d.lastMessage} ava={d.img} />
+  let dialogsElements = props.lastMessages.map((d, index) => (
+    <Dialog  key={index}  name={d.name} lastMessage={d.lastMessage} ava={d.img} />
   ));
-  let chatsElement = props.chats.map(c => <Chat chat={c.messages} />);
+  let chatsElement = props.chats.map((c, index) => <Chat key={index} chat={c.messages} />);
   return (
     <div>
       <h1>My dialogs</h1>
@@ -17,7 +17,7 @@ const Dialogs = props => {
         {dialogsElements}
         <TextArea
           clickEvent={props.clickEvent}
-          areaKeyEvent = {props.areaKeyEvent}
+          areaKeyEvent={props.areaKeyEvent}
           textArea={props.textArea}
         />
         {chatsElement}

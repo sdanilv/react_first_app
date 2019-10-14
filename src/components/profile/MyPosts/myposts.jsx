@@ -4,8 +4,9 @@ import Post from "./Post/post";
 import TextArea from "./TextArea/TextArea";
 
 const Myposts = props => {
-  let postElements = props.posts.map(p => (
+  let postElements = props.posts.map((p, index )=> (
     <Post
+      key={index}
       name={p.name}
       age={p.age}
       message={p.message}
@@ -16,7 +17,11 @@ const Myposts = props => {
 
   return (
     <div className={style.posts}>
-      <TextArea  textArea={props.textArea}  areaKeyEvent={props.areaKeyEvent} clickSubmitEvent={props.clickSubmitEvent}/>
+      <TextArea
+        textArea={props.textArea}
+        areaKeyEvent={props.areaKeyEvent}
+        clickSubmitEvent={props.clickSubmitEvent}
+      />
       <div>{postElements}</div>
     </div>
   );

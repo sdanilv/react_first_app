@@ -20,9 +20,9 @@ const App = props => {
           <Navbar />
         </div>
         <div className={style.content}>
-          <Route path="/users" render={() => <UsersContainer />} />
-          <Route path="/profile" render={() => <Profile />} />
-          <Route path="/dialogs" render={() => <DialogsContainer />} />
+          <Route key="user" path="/users" render={() => <UsersContainer />} />
+          <Route key="profile" path="/profile" render={() => <Profile />} />
+          <Route key="dialogs" path="/dialogs" render={() => <DialogsContainer />} />
         </div>
       </div>
     </BrowserRouter>

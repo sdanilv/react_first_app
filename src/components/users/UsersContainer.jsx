@@ -1,10 +1,11 @@
 // import React from "react";
 import Users from "./Users";
 import { connect } from "react-redux";
-import { subs, unsubs } from "../../redux/usersReduser";
+import { subs, unsubs, setUser } from "../../redux/usersReduser";
+;
 
 let mapStateProper = state => {
-  return {users: state.Users.users};
+  return { users: state.Users.users };
 };
 let mapDispatchToProper = dispatch => {
   return {
@@ -13,6 +14,9 @@ let mapDispatchToProper = dispatch => {
     },
     unsubs: userId => {
       dispatch(unsubs(userId));
+    },
+    setUsers: users => {
+      dispatch(setUser(users));
     }
   };
 };

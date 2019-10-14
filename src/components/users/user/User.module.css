@@ -2,10 +2,10 @@
   margin: 20px;
   border: 2px solid silver;
   padding: 5px;
-  width: 80%
+  width: 80%;
 }
 
-.user > img{
+.user img {
   width: 100px;
-  height: 100px
+  height: 100px;
 }

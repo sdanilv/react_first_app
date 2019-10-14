@@ -1,24 +1,62 @@
 import React from "react";
 import User from "./user/User";
-import style from "./Users.module.css"
+import style from "./Users.module.css";
+import * as axios from "axios";
 
-const Users = props => {
+// let usersMap = [];
+// let pagesCount;
+class Users extends React.Component {
   // debugger;
-  console.log(style.u);
-  let usersMap = props.users.map(u => (
-    <User
-      key={u.id}
-      avaImg={u.avaImg}
-      subscribe={u.subscribe}
-      name={u.name}
-      description={u.description}
-      home={u.home}
-      subs={()=>props.subs(u.id)}
-      unsubs={()=>props.unsubs(u.id)}
-    />
-  ));
 
-  return (<div className={style.u} >{ usersMap }</div>);
-};
+  goToPage(user, int) {
+    axios
+      .get(`https://social-network.samuraijs.com/api/1.0/users?page=2`)
+      .then(result => {
+        // debugger;
+        user.props.setUsers(result.data.items);
+        // pagesCount = Math.ceil(result.data.totalCount / 3);
+      });
+  }
+  componentDidMount() {
+    axios
+      .get("https://social-network.samuraijs.com/api/1.0/users?count=3")
+      .then(result => {
+        this.props.setUsers(result.data.items);
+        // pagesCount = Math.ceil(result.data.totalCount / 3);
+        // debugger;
+      });
+    // .catch(err => {
+    //   console.log(err);
+    // });
+  }
 
+  render() {
+    // debugger;
+    let users = this.props.users.map(u => (
+      <User
+        key={u.id}
+        avaImg={
+          u.photos.small
+            ? u.photos.small
+            : "https://cdn2.iconfinder.com/data/icons/business-management-52/96/Artboard_20-512.png"
+        }
+        subscribed={u.followed}
+        name={u.name}
+        status={u.status}
+        // home={u.home}
+        subs={() => this.props.subs(u.id)}
+        unsubs={() => this.props.unsubs(u.id)}
+      />
+    ));
+
+    return (
+      <div>
+        {/* <div className={style.pagination}> */}
+        <button onClick={this.goToPage}>2</button>
+        {/* </div> */}
+        <div className={style.u}>{users}</div>
+      </div>
+    );
+  }
+}
 export default Users;

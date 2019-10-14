@@ -4,10 +4,11 @@
   height: 10vh;
   background-color:rgb(75, 75, 75);
   align-items: center;
+  opacity: 0.5;
   /* align-content: center; */
   /* text-align: auto; */
   display: grid;
-  grid-template-columns: 2fr 5fr 1fr 1fr;
+  grid-template-columns: 2fr 5fr 1fr 1fr 1fr;
 }
 .header img {
   width: 50px;

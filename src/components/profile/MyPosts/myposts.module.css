@@ -1,8 +1,4 @@
-
-
-.posts{
-    padding: 3px;
-    
+.posts {
+  padding: 3px;
+  display: grid;
 }
-
-

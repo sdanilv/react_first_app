@@ -10,19 +10,18 @@ const Top = () => {
         src="https://www.w3schools.com/howto/img_snow_wide.jpg"
         alt="content"
       />
-      <div>
+      <div className={style.avaImg}>
         {" "}
         <img
           className={style.avaImg}
           src="https://2krota.ru/wp-content/uploads/2019/02/0_i-1-1024x1547.jpg"
         />
       </div>
-        <div>
-          <span className={style.description}>
-            Awesome Frozen Cheese proactive scale New York Awesome Wooden Fish
-            Digitized
-          </span>
-        </div>
+
+      <span className={style.description}>
+        Awesome Frozen Cheese proactive scale New York Awesome Wooden Fish
+        Digitized
+      </span>
     </div>
   );
 };

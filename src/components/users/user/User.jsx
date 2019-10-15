@@ -18,9 +18,13 @@ const User = props => {
       </div>
       <div>
         {props.subscribed ? (
-          <button onClick={unsubscribe}>Subscribed</button>
+          <button className={style.subs} onClick={unsubscribe}>
+            Subs
+          </button>
         ) : (
-          <button onClick={subscribe}>Unsubscribed</button>
+          <button className={style.unsubs} onClick={subscribe}>
+            Unsubs
+          </button>
         )}
       </div>
       <div>{props.home}</div>

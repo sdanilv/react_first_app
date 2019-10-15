@@ -1,54 +1,17 @@
-// const initiationState = {
-//   users: [
-//     {
-//       id: 1,
-//       avaImg:
-//         "https://s3.amazonaws.com/uifaces/faces/twitter/davidmerrique/128.jpg",
-//       subscribe: false,
-//       name: "Denis",
-//       description: "Love cofee",
-//       home: "Ukraine, Kiev"
-//     },
-//     {
-//       id: 2,
-//       avaImg:
-//         "https://s3.amazonaws.com/uifaces/faces/twitter/raphaelnikson/128.jpg",
-//       subscribe: true,
-//       name: "Jed",
-//       description: "Love cofee",
-//       home: "Ukraine, Kiev"
-//     },
-//     {
-//       id: 3,
-//       avaImg:
-//         "https://s3.amazonaws.com/uifaces/faces/twitter/iamkeithmason/128.jpg",
-//       subscribe: false,
-//       name: "Rasheed",
-//       description: "Love cofee",
-//       home: "Ukraine, Kiev"
-//     }
-//   ]
-// };
 // import React from "react";
 
 const SUBSCRIBE_USER = "SUBSCRIBE-USER";
 const UNSUBSCRIBE_USER = "UNSUBSCRIBE-USER";
 const SET_USERS = "SET-USER";
+const CHANGE_PAGE = "CHANGE_PAGE";
+const CHANGE_ALL_USERS_COUNT = "CHANGE_ALL_USERS_COUNT";
+const CHANGE_PAGE_USERS_COUNT = "CHANGE_PAGE_USERS_COUNT";
 
 let initiationState = {
-  users: [
-    // {
-    //   name: "gzq44726",
-    //   id: 3870,
-    //   uniqueUrlName: null,
-    //   photos: {
-    //     small: null,
-    //     large: null
-    //   },
-    //   status: null,
-    //   followed: false
-    // }
-  ]
+  users: [],
+  allUsersCount: 0,
+  countUsersInPage: 6,
+  currentPage: 3
 };
 
 // debugger;
@@ -75,7 +38,12 @@ let usersReduser = (state = initiationState, action) => {
     case SET_USERS:
       // debugger;
       return { ...state, users: action.users };
-
+    case CHANGE_PAGE:
+      return { ...state, currentPage: action.numberPage };
+    case CHANGE_ALL_USERS_COUNT:
+      return { ...state, allUsersCount: action.allUsersCount };
+    case CHANGE_PAGE_USERS_COUNT:
+      return { ...state, countUsersInPage: action.countUsersInPage };
     default:
       return state;
   }
@@ -92,6 +60,18 @@ export let unsubs = userId => ({
 export let setUser = users => ({
   type: SET_USERS,
   users: users
+});
+export let setCurrentPage = number => ({
+  type: CHANGE_PAGE,
+  numberPage: number
+});
+export let setAllUsersCount = count => ({
+  type: CHANGE_ALL_USERS_COUNT,
+  allUsersCount: count
+});
+export let setCountUsersInPage = count => ({
+  type: CHANGE_PAGE_USERS_COUNT,
+  countUsersInPage: count
 });
 
 export default usersReduser;

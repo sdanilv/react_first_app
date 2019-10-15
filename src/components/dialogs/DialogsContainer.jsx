@@ -8,7 +8,6 @@ import {
 import { connect } from "react-redux";
 import Dialogs from "./Dialogs";
 
-
 let mapStateToProps = state => ({
   textArea: state.DialogsPage.textArea,
   lastMessages: state.DialogsPage.lastMessages,
@@ -21,7 +20,7 @@ let mapDispatchToProps = dispatch => ({
     dispatch(action);
   },
 
-  areaKeyEvent : text => {
+  areaKeyEvent: text => {
     // debugger;
     const action = UpdateChatTextAreaAction(text);
     dispatch(action);

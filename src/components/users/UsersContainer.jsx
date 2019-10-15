@@ -1,11 +1,22 @@
 // import React from "react";
 import Users from "./Users";
 import { connect } from "react-redux";
-import { subs, unsubs, setUser } from "../../redux/usersReduser";
-;
+import {
+  subs,
+  unsubs,
+  setUser,
+  setAllUsersCount,
+  setCurrentPage,
+  setCountUsersInPage
+} from "../../redux/usersReduser";
 
 let mapStateProper = state => {
-  return { users: state.Users.users };
+  return {
+    users: state.Users.users,
+    allUsersCount: state.Users.allUsersCount,
+    countUsersInPage: state.Users.countUsersInPage,
+    currentPage: state.Users.currentPage
+  };
 };
 let mapDispatchToProper = dispatch => {
   return {
@@ -17,6 +28,15 @@ let mapDispatchToProper = dispatch => {
     },
     setUsers: users => {
       dispatch(setUser(users));
+    },
+    setAllUsersCount: count => {
+      dispatch(setAllUsersCount(count));
+    },
+    setCurrentPage: count => {
+      dispatch(setCurrentPage(count));
+    },
+    setCountUsersInPage: count => {
+      dispatch(setCountUsersInPage(count));
     }
   };
 };

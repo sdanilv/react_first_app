@@ -10,6 +10,7 @@
   height: 100%;
   /* grid-area: a; */
   grid-column: 1/2;
+  grid-row: 2/4;
   /* display: flex; */
   /* margin-left: 5%; */
 }
@@ -19,26 +20,33 @@
     grid-column: 1/3;
   }
 }
+.fullName {
+  font-size: 1.5em;
 
-.description {
-  /* grid-area: d; */
   grid-column: 3/6;
+  grid-row: 2;
 }
-
+.aboutMe {
+  grid-column: 3/6;
+  grid-row: 3;
+}
+.lookingForAJob {
+  width: 30px;
+  height: 30px;
+  grid-row: 4;
+  padding: 1px;
+}
+.lookingForAJobDescription {
+  grid-row: 4;
+  grid-column: 2/4;
+  text-justify: auto;
+  padding-top: 5px;
+}
 .header {
-  /* height: 53vh; */
   display: grid;
   grid-template-columns: repeat(6, 2fr);
-  grid-template-rows: minmax(100px, auto);
-  /* grid-template-areas: "h h" "a d"; */
-  /* grid-gap: 10px; */
+  grid-template-rows:
+    minmax(100px, auto)
+    minmax(50px, auto)
+    minmax(50px, auto);
 }
-
-/* @media all and (max-width: 620px) and (min-width : 460px)
-{
-    .header {
-        grid-template-columns: 3fr 8fr;
-    }
-}
-
-} */

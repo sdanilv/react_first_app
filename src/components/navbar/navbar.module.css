@@ -19,27 +19,24 @@
 }
 
 /* @media all and (min-width : 700px){ */
-  .sidebar div {
-    font-family: segoeui;
-    font-size: 1.2rem;
-   padding:  1rem 1rem 1rem 2rem
-  }
+.sidebar div {
+  font-family: segoeui;
+  font-size: 1.2rem;
+  padding: 1rem 1rem 1rem 2rem;
+}
 /* } */
 
-
-
-@media all and (max-width : 700px){
+@media all and (max-width: 700px) {
   .sidebar div {
-    padding:  1rem 0 1rem 0
+    padding: 1rem 0 1rem 0;
   }
 }
 
-.sidebar div:hover  {
+.sidebar div:hover {
   background-color: aliceblue;
 }
 
-.sidebar img{
-width: 1rem;
-height: 1rem;;
-
+.sidebar img {
+  width: 1rem;
+  height: 1rem;
 }

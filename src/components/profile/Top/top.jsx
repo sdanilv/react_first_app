@@ -3,7 +3,7 @@ import React from "react";
 import style from "./Top.module.css";
 
 const Top = props => {
-  debugger;
+  // debugger;
   return (
     <div className={style.header}>
       <img
@@ -15,11 +15,23 @@ const Top = props => {
         {" "}
         <img className={style.avaImg} src={props.profile.photos.small} />
       </div>
-
-      <span className={style.description}>
-        {props.profile.fullName}
-        {props.profile.aboutMe}
-      </span>
+      <div className={style.fullName}> {props.profile.fullName}</div>
+      <div className={style.aboutMe}>{props.profile.aboutMe}</div>
+      {props.profile.lookingForAJob ? (
+        <>
+          <img
+            className={style.lookingForAJob}
+            src='https://image.flaticon.com/icons/svg/65/65053.svg'
+            alt='findJob'
+          />
+          <div className={style.lookingForAJobDescription}>
+            {props.profile.lookingForAJobDescription}
+          </div>
+        </>
+      ) : (
+        <div></div>
+      )}
+      }
     </div>
   );
 };

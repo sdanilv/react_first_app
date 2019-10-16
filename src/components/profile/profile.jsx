@@ -4,7 +4,7 @@ import style from "./Profile.module.css";
 import Top from "./Top/Top.jsx";
 
 const Profile = props => {
-  debugger;
+  // debugger;
   return (
     <div className={style.profile}>
       <Top profile={props.profile ? props.profile : props.myprofile} />

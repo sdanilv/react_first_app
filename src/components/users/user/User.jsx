@@ -1,5 +1,6 @@
 import React from "react";
 import style from "./User.module.css";
+import { NavLink } from "react-router-dom";
 const User = props => {
   // debugger;
   let unsubscribe = () => {
@@ -14,7 +15,9 @@ const User = props => {
     // key={u.userId}
     <div className={style.user}>
       <div>
-        <img src={props.avaImg} alt='userAva' />
+        <NavLink to={`profile/${props.userId}`}>
+          <img src={props.avaImg} alt='userAva' />
+        </NavLink>
       </div>
       <div>
         {props.subscribed ? (

@@ -34,6 +34,7 @@ const Users = props => {
   let users = props.users.map(u => (
     <User
       key={u.id}
+      userId={u.id}
       avaImg={u.photos.small ? u.photos.small : avaIcon}
       subscribed={u.followed}
       name={u.name}

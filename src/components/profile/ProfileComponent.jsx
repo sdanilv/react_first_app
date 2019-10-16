@@ -1,6 +1,6 @@
 import React from "react";
 import * as axios from "axios";
-
+import { withRouter } from "react-router-dom";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 // import profileReducer from "../../redux/profileReducer";
@@ -10,10 +10,13 @@ class ProfileComponent extends React.Component {
   componentDidMount() {
     // debugger;
     axios
-      .get("https://social-network.samuraijs.com/api/1.0/profile/2")
+      .get(
+        "https://social-network.samuraijs.com/api/1.0/profile/" +
+          this.props.match.params.userId
+      )
       .then(result => {
-        // debugger;
         this.props.setProfile(result.data);
+        // debugger;
       });
   }
   render() {
@@ -33,7 +36,16 @@ let mapDispatchToProps = dispatch => ({
     dispatch(setProfile(profile));
   }
 });
+
+let profileWithRouter = withRouter(ProfileComponent);
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProfileComponent);
+)(profileWithRouter);
+
+// export default withRouter(
+//   connect(
+//     mapStateToProps,
+//     mapDispatchToProps
+//   )(ProfileComponent)
+// );

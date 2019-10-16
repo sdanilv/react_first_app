@@ -57,7 +57,7 @@ export let unsubs = userId => ({
   type: UNSUBSCRIBE_USER,
   userId: userId
 });
-export let setUser = users => ({
+export let setUsers = users => ({
   type: SET_USERS,
   users: users
 });

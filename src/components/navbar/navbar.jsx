@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./navbar.module.css";
+import style from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
 
 let links = [
@@ -48,7 +48,7 @@ let links = [
 let linksMap = links.map((l, index) => (
   <div key={index}>
     <NavLink to={l.adress} activeClassName={style.active}>
-      <img src={l.img} alt="navbarIcon" />
+      <img src={l.img} alt='navbarIcon' />
       &nbsp;{l.text}
     </NavLink>
   </div>
@@ -57,9 +57,7 @@ let linksMap = links.map((l, index) => (
 const Navbar = () => {
   return (
     <div className={style.sidebar}>
-      <nav>
-        {linksMap}
-      </nav>
+      <nav>{linksMap}</nav>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import style from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import TextArea from "./TextArea/TextArea";
 
-const Myposts = props => {
+const MyPosts = props => {
   let postElements = props.posts.map((p, index) => (
     <Post
       key={index}
@@ -26,4 +26,4 @@ const Myposts = props => {
     </div>
   );
 };
-export default Myposts;
+export default MyPosts;

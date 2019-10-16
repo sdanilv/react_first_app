@@ -1,12 +1,13 @@
 import React from "react";
 import style from "./App.module.css";
-import Header from "./components/header/header";
-import Navbar from "./components/navbar/navbar";
-import Profile from "./components/profile/profile";
+import Header from "./components/header/Header";
+import Navbar from "./components/navbar/Navbar";
+
 import { Route, BrowserRouter } from "react-router-dom";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 
 import UsersContainer from "./components/users/UsersContainer";
+import ProfileComponent from "./components/profile/ProfileComponent";
 
 const App = props => {
   // debugger;
@@ -20,9 +21,17 @@ const App = props => {
           <Navbar />
         </div>
         <div className={style.content}>
-          <Route key="user" path="/users" render={() => <UsersContainer />} />
-          <Route key="profile" path="/profile" render={() => <Profile />} />
-          <Route key="dialogs" path="/dialogs" render={() => <DialogsContainer />} />
+          <Route key='user' path='/users' render={() => <UsersContainer />} />
+          <Route
+            key='profile'
+            path='/profile'
+            render={() => <ProfileComponent />}
+          />
+          <Route
+            key='dialogs'
+            path='/dialogs'
+            render={() => <DialogsContainer />}
+          />
         </div>
       </div>
     </BrowserRouter>

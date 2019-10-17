@@ -7,9 +7,10 @@ import { auth } from "../../redux/authReduce";
 class HeaderContainer extends React.Component {
   componentDidMount() {
     Axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-      withCredentials: true
+      withCredentials: true,
+      header: { "API-KEY": "ade57208-42e1-4033-bb19-07633193cdde" }
     }).then(response => {
-      debugger;
+      // debugger;
       if (response.data.resultCode === 0) {
         this.props.auth(response.data.data);
       }

@@ -12,7 +12,11 @@ class ProfileComponent extends React.Component {
     axios
       .get(
         "https://social-network.samuraijs.com/api/1.0/profile/" +
-          this.props.match.params.userId
+          this.props.match.params.userId,
+        {
+          withCredentials: true,
+          header: { "API-KEY": "ade57208-42e1-4033-bb19-07633193cdde" }
+        }
       )
       .then(result => {
         this.props.setProfile(result.data);

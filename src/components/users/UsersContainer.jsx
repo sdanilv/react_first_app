@@ -1,5 +1,5 @@
 import React from "react";
-import * as axios from "axios";
+import axios from "axios";
 import Users from "./Users";
 import { connect } from "react-redux";
 import {
@@ -16,28 +16,50 @@ class UsersContainer extends React.Component {
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.countUsersInPage}&page=${this.props.currentPage}`,
-        { withCredential: true }
+        { withCredentials: true }
       )
       .then(result => {
         this.props.setUsers(result.data.items);
         this.props.setAllUsersCount(result.data.totalCount);
-        // debugger;
       })
       .catch(err => {
         console.log(err);
       });
   }
 
-  subscribe = () => {
-    // axios.post("");
-    return this.props.subs;
+  subscribe = userId => {
+    axios
+      .post(
+        `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
+        {},
+        {
+          withCredentials: true,
+          headers: { "API-KEY": "ade57208-42e1-4033-bb19-07633193cdde" }
+        }
+      )
+      .then(response => {
+        if (response.data.resultCode === 0) return this.props.subs(userId);
+      });
   };
+
+  unsubscribe = userId => {
+    axios
+      .delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
+        withCredentials: true,
+        headers: { "API-KEY": "ade57208-42e1-4033-bb19-07633193cdde" }
+      })
+      .then(response => {
+        if (response.data.resultCode === 0) return this.props.unsubs(userId);
+      });
+  };
+
   onPageClick = page => {
     // debugger;
     this.props.setCurrentPage(page);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.countUsersInPage}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.countUsersInPage}`,
+        { withCredential: true }
       )
       .then(result => {
         this.props.setUsers(result.data.items);
@@ -52,8 +74,8 @@ class UsersContainer extends React.Component {
           currentPage={this.props.currentPage}
           onPageClick={this.onPageClick}
           users={this.props.users}
-          subs={this.props.subs}
-          unsubs={this.props.unsubs}
+          subs={this.subscribe}
+          unsubs={this.unsubscribe}
           // setUsers={this.props.setUsers}
           // setCurrentPage={this.props.setCurrentPage}
           // setAllUsersCount={this.props.setAllUsersCount}

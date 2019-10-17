@@ -15,7 +15,8 @@ class UsersContainer extends React.Component {
   componentDidMount() {
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.countUsersInPage}&page=${this.props.currentPage}`
+        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.countUsersInPage}&page=${this.props.currentPage}`,
+        { withCredential: true }
       )
       .then(result => {
         this.props.setUsers(result.data.items);
@@ -27,6 +28,10 @@ class UsersContainer extends React.Component {
       });
   }
 
+  subscribe = () => {
+    // axios.post("");
+    return this.props.subs;
+  };
   onPageClick = page => {
     // debugger;
     this.props.setCurrentPage(page);

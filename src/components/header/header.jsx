@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./Header.module.css";
 
-const Header = () => {
+const Header = props => {
   return (
     <div className={style.header}>
       <img
@@ -9,8 +9,14 @@ const Header = () => {
         alt='abc'
       />
       <div className={style.topic}>Smile:</div>
-      <button>SigIn</button>
-      <button>Register</button>
+      {!props.isSignIn ? (
+        <>
+          <button> SigIn</button>
+          <button>Register</button>
+        </>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

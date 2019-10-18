@@ -6,12 +6,14 @@ const SET_USERS = "SET-USER";
 const CHANGE_PAGE = "CHANGE_PAGE";
 const CHANGE_ALL_USERS_COUNT = "CHANGE_ALL_USERS_COUNT";
 const CHANGE_PAGE_USERS_COUNT = "CHANGE_PAGE_USERS_COUNT";
-
+const ADD_IN_BLOCK_BUTTONS = "ADD_IN_BLOCK_BUTTONS";
+const REMOVE_FROM_BLOCK_BUTTONS = "REMOVE_IN_BLOCK_BUTTONS";
 let initiationState = {
   users: [],
   allUsersCount: 0,
   countUsersInPage: 6,
-  currentPage: 3
+  currentPage: 3,
+  blockedSubButtons: []
 };
 
 // debugger;
@@ -36,7 +38,6 @@ let usersReduser = (state = initiationState, action) => {
         })
       };
     case SET_USERS:
-      // debugger;
       return { ...state, users: action.users };
     case CHANGE_PAGE:
       return { ...state, currentPage: action.numberPage };
@@ -44,6 +45,19 @@ let usersReduser = (state = initiationState, action) => {
       return { ...state, allUsersCount: action.allUsersCount };
     case CHANGE_PAGE_USERS_COUNT:
       return { ...state, countUsersInPage: action.countUsersInPage };
+    case ADD_IN_BLOCK_BUTTONS:
+      return {
+        ...state,
+        blockedSubButtons: [...state.blockedSubButtons, action.blockedButton]
+      };
+    case REMOVE_FROM_BLOCK_BUTTONS:
+      // debugger;
+      return {
+        ...state,
+        blockedSubButtons: state.blockedSubButtons.filter(
+          button => button !== action.blockedButton
+        )
+      };
     default:
       return state;
   }
@@ -72,6 +86,16 @@ export let setAllUsersCount = count => ({
 export let setCountUsersInPage = count => ({
   type: CHANGE_PAGE_USERS_COUNT,
   countUsersInPage: count
+});
+
+export let addInBlockButtons = button => ({
+  type: ADD_IN_BLOCK_BUTTONS,
+  blockedButton: button
+});
+
+export let removeFromBlockButtons = button => ({
+  type: REMOVE_FROM_BLOCK_BUTTONS,
+  blockedButton: button
 });
 
 export default usersReduser;

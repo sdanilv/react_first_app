@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import Users from "./Users";
 import { connect } from "react-redux";
 import {
@@ -8,63 +7,47 @@ import {
   setUsers,
   setAllUsersCount,
   setCurrentPage,
-  setCountUsersInPage
+  setCountUsersInPage,
+  addInBlockButtons,
+  removeFromBlockButtons
 } from "../../redux/usersReduser";
+import { UsersApi } from "../../api/api";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.countUsersInPage}&page=${this.props.currentPage}`,
-        { withCredentials: true }
-      )
-      .then(result => {
-        this.props.setUsers(result.data.items);
-        this.props.setAllUsersCount(result.data.totalCount);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    UsersApi.getUsers(this.props.currentPage, this.props.countUsersInPage).then(
+      result => {
+        this.props.setUsers(result.items);
+        this.props.setAllUsersCount(result.totalCount);
+      }
+    );
   }
-
-  subscribe = userId => {
-    axios
-      .post(
-        `https://social-network.samuraijs.com/api/1.0/follow/${userId}`,
-        {},
-        {
-          withCredentials: true,
-          headers: { "API-KEY": "ade57208-42e1-4033-bb19-07633193cdde" }
-        }
-      )
-      .then(response => {
-        if (response.data.resultCode === 0) return this.props.subs(userId);
-      });
-  };
-
-  unsubscribe = userId => {
-    axios
-      .delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-        withCredentials: true,
-        headers: { "API-KEY": "ade57208-42e1-4033-bb19-07633193cdde" }
-      })
-      .then(response => {
-        if (response.data.resultCode === 0) return this.props.unsubs(userId);
-      });
-  };
 
   onPageClick = page => {
     // debugger;
     this.props.setCurrentPage(page);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.countUsersInPage}`,
-        { withCredential: true }
-      )
-      .then(result => {
-        this.props.setUsers(result.data.items);
-      });
+    UsersApi.getUsers(page, this.props.countUsersInPage).then(result => {
+      this.props.setUsers(result.items);
+    });
   };
+
+  subscribe = userId => {
+    this.props.addInBlockButtons(userId);
+    UsersApi.follow(userId).then(response => {
+      this.props.removeFromBlockButtons(userId);
+      if (response.data.resultCode === 0) return this.props.subs(userId);
+    });
+  };
+
+  unsubscribe = userId => {
+    this.props.addInBlockButtons(userId);
+    UsersApi.unfollow(userId).then(response => {
+      this.props.removeFromBlockButtons(userId);
+      if (response.data.resultCode === 0) return this.props.unsubs(userId);
+      // debugger;
+    });
+  };
+
   render() {
     return (
       <>
@@ -76,6 +59,7 @@ class UsersContainer extends React.Component {
           users={this.props.users}
           subs={this.subscribe}
           unsubs={this.unsubscribe}
+          blockedSubButtons={this.props.blockedSubButtons}
           // setUsers={this.props.setUsers}
           // setCurrentPage={this.props.setCurrentPage}
           // setAllUsersCount={this.props.setAllUsersCount}
@@ -91,7 +75,8 @@ let mapStateProper = state => {
     users: state.Users.users,
     allUsersCount: state.Users.allUsersCount,
     countUsersInPage: state.Users.countUsersInPage,
-    currentPage: state.Users.currentPage
+    currentPage: state.Users.currentPage,
+    blockedSubButtons: state.Users.blockedSubButtons
   };
 };
 
@@ -103,6 +88,8 @@ export default connect(
     setUsers,
     setAllUsersCount,
     setCurrentPage,
-    setCountUsersInPage
+    setCountUsersInPage,
+    addInBlockButtons,
+    removeFromBlockButtons
   }
 )(UsersContainer);

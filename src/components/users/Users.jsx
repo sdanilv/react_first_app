@@ -13,6 +13,7 @@ const Users = props => {
   for (let i = 1; i < numbersPage; i++) {
     arrayOfPages.push(i);
   }
+
   let button = p => {
     return (
       <button
@@ -23,6 +24,7 @@ const Users = props => {
       </button>
     );
   };
+
   let pages = arrayOfPages.map(p => {
     if ((p >= 1 && p <= 5) || p === arrayOfPages.length) {
       return button(p);
@@ -41,6 +43,7 @@ const Users = props => {
       status={u.status}
       subs={() => props.subs(u.id)}
       unsubs={() => props.unsubs(u.id)}
+      blockedSubButtons={props.blockedSubButtons}
     />
   ));
 

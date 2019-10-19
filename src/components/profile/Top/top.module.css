@@ -8,6 +8,7 @@
 .avaImg {
   width: 100%;
   height: 100%;
+  padding: 5px;
   /* grid-area: a; */
   grid-column: 1/2;
   grid-row: 2/4;

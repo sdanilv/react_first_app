@@ -2,7 +2,7 @@ import React from "react";
 import style from "./textarea.module.css";
 
 const TextArea = props => {
-  // debugger;
+
   let clickEvent = () => {
     // debugger;
     props.clickSubmitEvent();

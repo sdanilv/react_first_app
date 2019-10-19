@@ -41,3 +41,13 @@
     color: #041226 !important;
    
 }
+
+.login{
+ font-size: 2rem;
+color: white;
+}
+
+.ava > img{
+  height: 50px;
+    width: 50px;
+}

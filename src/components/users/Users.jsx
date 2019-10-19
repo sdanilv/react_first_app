@@ -2,7 +2,7 @@ import React from "react";
 import User from "./user/User";
 import style from "./Users.module.css";
 
-import avaIcon from "../../img/avatar.ico";
+
 
 const Users = props => {
   // debugger;
@@ -37,17 +37,18 @@ const Users = props => {
     <User
       key={u.id}
       userId={u.id}
-      avaImg={u.photos.small ? u.photos.small : avaIcon}
+      avaImg={u.photos.small}
       subscribed={u.followed}
       name={u.name}
       status={u.status}
-      subs={() => props.subs(u.id)}
-      unsubs={() => props.unsubs(u.id)}
+      subs={ props.subs}
+      unsubs={props.unsubs}
       blockedSubButtons={props.blockedSubButtons}
     />
   ));
 
   return (
+    
     <div>
       <div className={style.pagination}>{pages}</div>
       <div className={style.u}>{users}</div>

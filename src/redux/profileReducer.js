@@ -1,3 +1,5 @@
+import {ProfileApi} from "../api/api"
+
 const UPDATE_POST_TEXT_AREA = "UPDATE-POST-TEXT-AREA";
 const ADD_POST = "ADD-POST";
 const SET_PROFILE = "SET_PROFILE";
@@ -61,7 +63,7 @@ const profileReducer = (state = initationState, action) => {
         id: 4,
         name: "My",
         age: 26,
-        message: state.textArea,
+        message: state.myprofile.textArea,
         likeCount: 0,
         ava: "https://2krota.ru/wp-content/uploads/2019/02/0_i-1-1024x1547.jpg"
       };
@@ -69,7 +71,7 @@ const profileReducer = (state = initationState, action) => {
         ...state,
         myprofile: {
           ...state.myprofile,
-          posts: [...stateCopy.posts, postComponent],
+          posts: [...state.myprofile.posts, postComponent],
           textArea: ""
         }
       };
@@ -91,4 +93,12 @@ export const setProfile = profile => ({
   type: SET_PROFILE,
   profile: profile
 });
+
+export let getUserProfile = userId => dispatch =>
+{
+  ProfileApi.getUserProfile(userId)
+  .then(result => {
+  dispatch(setProfile(result.data));
+});}
+
 export default profileReducer;

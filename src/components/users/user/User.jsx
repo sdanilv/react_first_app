@@ -3,22 +3,18 @@ import style from "./User.module.css";
 import { NavLink } from "react-router-dom";
 
 import ButtonLoader from "../../../common/ButtonLoader";
+import Ava from "../../../common/Ava";
 const User = props => {
-  // debugger;
-  let unsubscribe = () => {
-    // debugger;
-    props.unsubs();
-  };
-  let subscribe = () => {
-    props.subs();
-  };
 
   return (
     // key={u.userId}
     <div className={style.user}>
       <div>
         <NavLink to={`profile/${props.userId}`}>
-          <img className={style.avaImg} src={props.avaImg} alt='userAva' />
+
+          <div className={style.avaImg}>
+            <Ava avaImg={props.avaImg} />
+          </div>
         </NavLink>
       </div>
       {props.blockedSubButtons.some(u => u === props.userId) ? (
@@ -26,11 +22,13 @@ const User = props => {
       ) : (
         <div>
           {props.subscribed ? (
-            <button className={style.subs} onClick={unsubscribe}>
+            <button className={style.subs} 
+            onClick={()=>props.unsubs(props.userId)}>
               Subs
             </button>
           ) : (
-            <button className={style.unsubs} onClick={subscribe}>
+            <button className={style.unsubs} 
+            onClick={()=>props.subs(props.userId)}>
               Unsubs
             </button>
           )}

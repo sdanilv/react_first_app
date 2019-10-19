@@ -1,7 +1,9 @@
 import React from "react";
 import style from "./Header.module.css";
+import Ava from "../../common/Ava";
 
 const Header = props => {
+  // debugger;
   return (
     <div className={style.header}>
       <img
@@ -14,8 +16,11 @@ const Header = props => {
           <button> SigIn</button>
           <button>Register</button>
         </>
-      ) : (
-        ""
+      ) : (<>
+        <div className={style.ava}>
+          <Ava avaImg={props.avaImg}/>
+        </div>
+        <div className={style.login}>{props.login}</div></>
       )}
     </div>
   );

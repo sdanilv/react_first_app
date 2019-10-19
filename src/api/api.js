@@ -22,6 +22,11 @@ export const UsersApi = {
 
 export const AuthApi = {
   signIn: () => {
-    return template.get(`auth/me`);
+    return template.get(`auth/me`).then(response=> {return response.data});
   }
 };
+export const ProfileApi = {
+  
+  getUserProfile: (userId) => {
+    return template.get(`profile/${userId}`)
+}}

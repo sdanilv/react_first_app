@@ -4,6 +4,7 @@ import Post from "./Post/Post";
 import TextArea from "./TextArea/TextArea";
 
 const MyPosts = props => {
+  
   let postElements = props.posts.map((p, index) => (
     <Post
       key={index}
@@ -19,8 +20,8 @@ const MyPosts = props => {
     <div className={style.posts}>
       <TextArea
         textArea={props.textArea}
-        areaKeyEvent={props.areaKeyEvent}
-        clickSubmitEvent={props.clickSubmitEvent}
+        areaKeyEvent={props.UpdatePostTextAreaAction}
+        clickSubmitEvent={props.AddPostAction}
       />
       <div>{postElements}</div>
     </div>

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import style from "./Top.module.css";
+import Ava from "../../../common/Ava";
 
 const Top = props => {
   // debugger;
@@ -12,8 +13,8 @@ const Top = props => {
         alt='content'
       />
       <div className={style.avaImg}>
-        {" "}
-        <img className={style.avaImg} src={props.profile.photos.small} />
+        {/* <img className={style.avaImg} src={props.profile.photos.small} /> */}
+        <Ava  avaImg={props.profile.photos.small}/>
       </div>
       <div className={style.fullName}> {props.profile.fullName}</div>
       <div className={style.aboutMe}>{props.profile.aboutMe}</div>
@@ -30,8 +31,9 @@ const Top = props => {
         </>
       ) : (
         <div></div>
-      )}
+      )
       }
+      
     </div>
   );
 };

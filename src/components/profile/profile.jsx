@@ -9,7 +9,7 @@ const Profile = props => {
   return (
     <div className={style.profile}>
       <Top profile={props.profile ? props.profile : props.myprofile} />
-      <MyPostsContainer/>
+      <MyPostsContainer />
 
     </div>
   );

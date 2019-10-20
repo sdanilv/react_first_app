@@ -1,32 +1,49 @@
 import axios from "axios";
+import MyaAva from "../img/MyAva.jpg"
 
-const template = axios.create({
+const axiosInstance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   withCredentials: true,
-  headers: { "API-KEY": "ade57208-42e1-4033-bb19-07633193cdde" }
+  headers: {
+    "API-KEY": "ade57208-42e1-4033-bb19-07633193cdde",
+    // "SameSite": "Strict"
+  }
 });
 
 export const UsersApi = {
   getUsers: (page, count) => {
-    return template.get(`users?count=${count}&page=${page}`).then(result => {
+    return axiosInstance.get(`users?count=${count}&page=${page}`).then(result => {
       return result.data;
     });
   },
   follow: userId => {
-    return template.post(`follow/${userId}`);
+    return axiosInstance.post(`follow/${userId}`);
   },
   unfollow: userId => {
-    return template.delete(`follow/${userId}`);
+    return axiosInstance.delete(`follow/${userId}`);
   }
 };
 
 export const AuthApi = {
   signIn: () => {
-    return template.get(`auth/me`).then(response=> {return response.data});
+    return axiosInstance.get(`auth/me`).then(response => {
+      return response.data
+    });
   }
 };
 export const ProfileApi = {
-  
+
   getUserProfile: (userId) => {
-    return template.get(`profile/${userId}`)
-}}
+    return axiosInstance.get(`profile/${userId}`)
+  },
+  // uploadPhoto: () => {
+
+  //   let formData = new FormData();
+  //   formData.append("image", MyaAva);
+  //   axiosInstance.post(`profile/photo`, formData, {
+  //     headers: {
+  //       "Content-Type": "multipart/form -data"
+  //     }
+  //   }).then(res => console.log(res))
+  // }
+}

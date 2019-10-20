@@ -1,6 +1,6 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import Profile from "./Profile";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { setProfile, getUserProfile } from "../../redux/profileReducer";
 import { withAuthRedirect } from "../../hoc/AuthRedirect";
@@ -8,11 +8,10 @@ import { withPageLoader } from "../../hoc/PageLoaderRedirect";
 import { loading } from "../../redux/commonReducer";
 import { compose } from "redux";
 
-
 class ProfileComponent extends React.Component {
   componentDidMount() {
     // debugger;
-  this.props.getUserProfile(this.props.match.params.userId)
+    this.props.getUserProfile(this.props.match.params.userId)
   }
   render() {
     return (
@@ -27,10 +26,10 @@ let mapStateToProps = state => ({
 });
 
 
-export default compose (withPageLoader,
+export default compose(withPageLoader,
   withAuthRedirect,
   withRouter,
   connect(
-  mapStateToProps,
-  {setProfile, getUserProfile,   loading})
+    mapStateToProps,
+    { setProfile, getUserProfile, loading })
 )(ProfileComponent);

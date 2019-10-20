@@ -29,7 +29,7 @@ const Users = props => {
     if ((p >= 1 && p <= 5) || p === arrayOfPages.length) {
       return button(p);
     }
-    if (p === arrayOfPages.length - 1) return <button>...</button>;
+    if (p === arrayOfPages.length - 1) return <button key={p}>...</button>;
     return "";
   });
   // debugger;

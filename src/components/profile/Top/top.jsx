@@ -2,6 +2,7 @@
 import React from "react";
 import style from "./Top.module.css";
 import Ava from "../../../common/Ava";
+import Status from "./Status/Status";
 
 const Top = props => {
   // debugger;
@@ -13,11 +14,12 @@ const Top = props => {
         alt='content'
       />
       <div className={style.avaImg}>
-        {/* <img className={style.avaImg} src={props.profile.photos.small} /> */}
         <Ava  avaImg={props.profile.photos.small}/>
       </div>
       <div className={style.fullName}> {props.profile.fullName}</div>
-      <div className={style.aboutMe}>{props.profile.aboutMe}</div>
+      
+      {/* <div className={style.aboutMe}>{props.profile.aboutMe}</div> */}
+      <div className={style.aboutMe}> <Status status = {props.profile.aboutMe}/></div>
       {props.profile.lookingForAJob ? (
         <>
           <img

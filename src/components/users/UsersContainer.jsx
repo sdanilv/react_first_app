@@ -11,7 +11,7 @@ import {
   removeFromBlockButtons
 } from "../../redux/usersReduser";
 import { withAuthRedirect } from "../../hoc/AuthRedirect";
-
+import { compose } from "redux";
 
 
 class UsersContainer extends React.Component {
@@ -64,7 +64,7 @@ let mapStateProper = state => {
   };
 };
 
-export default connect(
+export default compose(withAuthRedirect, connect(
   mapStateProper,
   {
     subscribe,
@@ -74,4 +74,4 @@ export default connect(
     removeFromBlockButtons,
     getUsers
   }
-)(withAuthRedirect(UsersContainer));
+)) (UsersContainer);

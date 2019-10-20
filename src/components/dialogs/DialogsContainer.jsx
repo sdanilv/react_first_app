@@ -8,6 +8,7 @@ import {
 import { connect } from "react-redux";
 import Dialogs from "./Dialogs";
 import { withAuthRedirect } from "../../hoc/AuthRedirect";
+import { compose } from "redux";
 
 let mapStateToProps = state => ({
   textArea: state.DialogsPage.textArea,
@@ -29,8 +30,8 @@ let mapDispatchToProps = dispatch => ({
 });
 
 
-let TextAreaContainer = connect(
+
+export default compose (withAuthRedirect, connect(
   mapStateToProps,
   mapDispatchToProps
-)(withAuthRedirect(Dialogs));
-export default TextAreaContainer;
+))(Dialogs)

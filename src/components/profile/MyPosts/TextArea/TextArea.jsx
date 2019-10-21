@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./textarea.module.css";
+import style from "./TextArea.module.css";
 
 const TextArea = props => {
 

@@ -8,9 +8,12 @@ const Profile = props => {
   // debugger;
   return (
     <div className={style.profile}>
-      <Top profile={props.profile ? props.profile : props.myprofile} />
+      <Top
+        profile={props.profile ? props.profile : props.myprofile}
+        setMyStatus={props.setMyStatus}
+        status={props.status}
+      />
       <MyPostsContainer />
-
     </div>
   );
 };

@@ -14,16 +14,22 @@ const Top = props => {
         alt='content'
       />
       <div className={style.avaImg}>
-        <Ava  avaImg={props.profile.photos.small}/>
+        <Ava avaImg={props.profile.photos.small} />
       </div>
       <div className={style.fullName}> {props.profile.fullName}</div>
-      
-      {/* <div className={style.aboutMe}>{props.profile.aboutMe}</div> */}
-      <div className={style.aboutMe}> <Status status = {props.profile.aboutMe}/></div>
+
+      <div className={style.aboutMe}>{props.profile.aboutMe}</div>
+      <div className={style.status}>
+        <Status
+          setMyStatus={props.setMyStatus}
+          status={props.status || "***"}
+        />
+        {/* <Status status={props.status} /> */}
+      </div>
       {props.profile.lookingForAJob ? (
         <>
           <img
-            className={style.lookingForAJob}
+            className={style.lookingForAJobImg}
             src='https://image.flaticon.com/icons/svg/65/65053.svg'
             alt='findJob'
           />
@@ -33,9 +39,7 @@ const Top = props => {
         </>
       ) : (
         <div></div>
-      )
-      }
-      
+      )}
     </div>
   );
 };

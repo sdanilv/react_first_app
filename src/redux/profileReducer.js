@@ -1,19 +1,21 @@
-import {ProfileApi} from "../api/api"
+import { ProfileApi } from "../api/api";
+import MyAva from "../img/MyAva.jpg";
 
 const UPDATE_POST_TEXT_AREA = "UPDATE-POST-TEXT-AREA";
 const ADD_POST = "ADD-POST";
 const SET_PROFILE = "SET_PROFILE";
+const SET_STATUS = "SET_STATUS";
 
 const initationState = {
   myprofile: {
-    aboutMe: "EEEhaaa",
+    aboutMe: "About me. I`m I",
     lookingForAJob: true,
-    lookingForAJobDescription: "need a good job",
-    fullName: "Danil S",
+    lookingForAJobDescription: "Need a good job",
+    fullName: "Danil Sidyakin",
     userId: 0,
     photos: {
-      small: "https://2krota.ru/wp-content/uploads/2019/02/0_i-1-1024x1547.jpg",
-      large: "https://2krota.ru/wp-content/uploads/2019/02/0_i-1-1024x1547.jpg"
+      small: MyAva,
+      large: MyAva
     },
     posts: [
       {
@@ -43,7 +45,8 @@ const initationState = {
     ],
     textArea: ""
   },
-  profile: null
+  profile: null,
+  status: null
 };
 
 const profileReducer = (state = initationState, action) => {
@@ -77,6 +80,8 @@ const profileReducer = (state = initationState, action) => {
       };
     case SET_PROFILE:
       return { ...state, profile: action.profile };
+    case SET_STATUS:
+      return { ...state, status: action.status };
     default:
       return stateCopy;
   }
@@ -89,16 +94,29 @@ export const UpdatePostTextAreaAction = enterText => ({
 export const AddPostAction = () => ({
   type: ADD_POST
 });
-export const setProfile = profile => ({
+const setProfile = profile => ({
   type: SET_PROFILE,
   profile: profile
 });
+const setStatus = status => ({
+  type: SET_STATUS,
+  status
+});
 
-export let getUserProfile = userId => dispatch =>
-{
-  ProfileApi.getUserProfile(userId)
-  .then(result => {
-  dispatch(setProfile(result.data));
-});}
+export let getUserProfile = userId => dispatch => {
+  ProfileApi.getUserProfile(userId).then(result => {
+    dispatch(setProfile(result.data));
+  });
+};
+export let getUserStatus = userId => dispatch => {
+  ProfileApi.getUserStatus(userId).then(result => {
+    dispatch(setStatus(result.data));
+  });
+};
+export let setMyStatus = status => dispatch => {
+  ProfileApi.setMyStatus(status).then(result => {
+    dispatch(setProfile(result.data));
+  });
+};
 
 export default profileReducer;

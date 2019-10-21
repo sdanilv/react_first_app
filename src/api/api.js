@@ -42,7 +42,7 @@ export const ProfileApi = {
   },
 
   setMyStatus: status => {
-    return axiosInstance.put(`profile/`, { status: status });
+    return axiosInstance.put(`profile/status/`, { status: status });
   }
   // uploadPhoto: () => {
 

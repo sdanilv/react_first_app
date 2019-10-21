@@ -30,20 +30,20 @@ const authReduce = (state = initiationState, action) => {
   }
 };
 
-export let auth = data => ({
+export let auth = (data) => ({
   type: AUTHORIZATION,
   data
 });
-export let signOut = data => ({
+export let signOut = (data) => ({
   type: SIGN_OUT,
   data
 });
 
-export const signIn =()=> dispatch => 
-AuthApi.signIn().then(response => {
-  if (response.resultCode === 0) {
-    dispatch(auth(response.data));
-  }
-});
+export const signIn = () => (dispatch) =>
+  AuthApi.signIn().then((response) => {
+    if (response.resultCode === 0) {
+      dispatch(auth(response.data));
+    }
+  });
 
 export default authReduce;

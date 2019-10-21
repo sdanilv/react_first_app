@@ -6,8 +6,7 @@ class Status extends React.Component {
     status: this.props.status
   };
 
-  editModeToggle = toggle => {
-    // debugger;
+  editModeToggle(toggle) {
     if (toggle)
       this.setState({
         editMode: true
@@ -18,9 +17,16 @@ class Status extends React.Component {
       });
       this.props.setMyStatus(this.state.status);
     }
-  };
+  }
 
-  onStatusUpdate = e => {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log(prevProps, prevState, this.props);
+    console.log(this.props);
+    if (prevProps.status !== this.props.status)
+      this.setState({ status: this.props.status });
+  }
+
+  onStatusUpdate = (e) => {
     this.setState({
       status: e.target.value
     });
@@ -29,7 +35,7 @@ class Status extends React.Component {
     if (this.state.editMode)
       return (
         <input
-          onChange={this.onStatusUpdate}
+          onChange={(e) => this.onStatusUpdate(e)}
           autoFocus={true}
           onBlur={() => this.editModeToggle(false)}
           type='text'
@@ -37,8 +43,8 @@ class Status extends React.Component {
         />
       );
     return (
-      <span onDoubleClick={() => this.editModeToggle(true)}>
-        {this.props.status}{" "}
+      <span onDoubleClick={(e) => this.editModeToggle(true)}>
+        {this.props.status}
       </span>
     );
   }

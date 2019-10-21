@@ -6,8 +6,9 @@ import DialogsContainer from "./components/dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
 import ProfileComponent from "./components/profile/ProfileComponent";
 import HeaderContainer from "./components/header/HeaderContainer";
+import Auth from "./components/auth/Auth";
 
-const App = props => {
+const App = (props) => {
   // debugger;
   return (
     <BrowserRouter>
@@ -30,6 +31,7 @@ const App = props => {
             path='/dialogs'
             render={() => <DialogsContainer />}
           />
+          <Route key='auth' path='/login' render={() => <Auth />} />
         </div>
       </div>
     </BrowserRouter>

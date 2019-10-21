@@ -2,18 +2,24 @@ import React from "react";
 import Profile from "./Profile";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { getUserProfile, setMyStatus } from "../../redux/profileReducer";
-import { withAuthRedirect } from "../../hoc/AuthRedirect";
-import { withPageLoader } from "../../hoc/PageLoaderRedirect";
+import {
+  getUserProfile,
+  setMyStatus,
+  getUserStatus
+} from "../../redux/profileReducer";
+// import { withAuthRedirect } from "../../hoc/AuthRedirect";
+// import { withPageLoader } from "../../hoc/PageLoaderRedirect";
 import { loading } from "../../redux/commonReducer";
 import { compose } from "redux";
 
 class ProfileComponent extends React.Component {
   componentDidMount() {
     // debugger;
-    this.props.getUserProfile(this.props.match.params.userId || 4923);
-    this.props.getUserStatus(this.props.match.params.userId || 4923);
+    let userId = this.props.match.params.userId || this.props.myId;
+    this.props.getUserStatus(userId);
+    this.props.getUserProfile(userId);
   }
+
   render() {
     return (
       <Profile
@@ -26,18 +32,19 @@ class ProfileComponent extends React.Component {
   }
 }
 
-let mapStateToProps = state => ({
+let mapStateToProps = (state) => ({
   profile: state.ProfilePage.profile,
   myprofile: state.ProfilePage.myprofile,
-  status: state.ProfilePage.status
+  status: state.ProfilePage.status,
+  myId: state.Auth.id
 });
 
 export default compose(
-  withPageLoader,
-  withAuthRedirect,
-  withRouter,
   connect(
     mapStateToProps,
-    { getUserProfile, setMyStatus, loading }
-  )
+    { getUserProfile, setMyStatus, getUserStatus, loading }
+  ),
+  // withPageLoader,
+  // withAuthRedirect,
+  withRouter
 )(ProfileComponent);

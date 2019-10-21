@@ -4,7 +4,7 @@ import style from "./Top.module.css";
 import Ava from "../../../common/Ava";
 import Status from "./Status/Status";
 
-const Top = props => {
+const Top = (props) => {
   // debugger;
   return (
     <div className={style.header}>
@@ -24,6 +24,7 @@ const Top = props => {
           setMyStatus={props.setMyStatus}
           status={props.status || "***"}
         />
+
         {/* <Status status={props.status} /> */}
       </div>
       {props.profile.lookingForAJob ? (

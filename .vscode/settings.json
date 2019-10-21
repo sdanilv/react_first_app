@@ -17,7 +17,7 @@
     "src/logo.svg": true,
     "src/App.test.js": true,
     "src\\redux/states.js": true,
-    ".vs": false
+    ".vs": true
   },
   "explorerExclude.backup": null
 }

@@ -1,20 +1,17 @@
-import React from 'react';
-import {connect} from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import PageLoader from '../common/PageLoader/PageLoader';
+import PageLoader from "../common/PageLoader/PageLoader";
 
-const mapStateToProps = (state)=>({
-loaded: state.Common.loaded
+const mapStateToProps = state => ({
+  loaded: false
 });
 
+export const withPageLoader = Component => {
+  const AuthRedirect = props => {
+    if (props.loaded) return <PageLoader />;
+    return <Component {...props} />;
+  };
 
-
-export const withPageLoader = (Component)=>{
- const AuthRedirect = (props)=>{
-   if(props.loaded) return <PageLoader />
-  return <Component {...props}/>
-}
-
-return connect(mapStateToProps)(AuthRedirect)
-}
-
+  return connect(mapStateToProps)(AuthRedirect);
+};

@@ -40,7 +40,7 @@
 }
 .lookingForAJobDescription {
   grid-row: 5;
-  grid-column: 5/7;
+  grid-column: 4/7;
   text-justify: auto;
   padding-top: 5px;
   margin: 0 0 0 auto;

@@ -4,11 +4,11 @@ import style from "./Profile.module.css";
 import Top from "./Top/Top.jsx";
 import MyPostsContainer from "./MyPosts/MyPostsContainer.jsx";
 
-const Profile = (props) => {
+const Profile = props => {
   return (
     <div className={style.profile}>
       <Top
-        profile={props.profile ? props.profile : props.myprofile}
+        profile={props.profile}
         setMyStatus={props.setMyStatus}
         status={props.status}
       />

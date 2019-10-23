@@ -1,7 +1,8 @@
 // import React from "react";
 import {
   AddChatAction,
-  UpdateChatTextAreaAction
+  UpdateChatTextAreaAction,
+  LoadChat
 } from "../../redux/dialogsReducer";
 // import TextArea from "./TextArea";
 // import StoreContext from "../../../StoreContext";
@@ -26,12 +27,14 @@ let mapDispatchToProps = dispatch => ({
     // debugger;
     const action = UpdateChatTextAreaAction(text);
     dispatch(action);
-  }
+  },
+  loadChat: chats => dispatch(LoadChat(chats))
 });
 
-
-
-export default compose (withAuthRedirect, connect(
-  mapStateToProps,
-  mapDispatchToProps
-))(Dialogs)
+export default compose(
+  withAuthRedirect,
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )
+)(Dialogs);

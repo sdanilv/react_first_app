@@ -5,7 +5,7 @@ let initiationState = {
   loaded: false
 };
 
-let commonReduser = (state = initiationState, action) => {
+let commonReducer = (state = initiationState, action) => {
   // debugger;
   switch (action.type) {
 case SET_TOGGLE_LAODER:
@@ -27,4 +27,4 @@ export let loading = toggle =>({
 //   dispatch(loading(false));
 //   }
 
-export default commonReduser;
+export default commonReducer;

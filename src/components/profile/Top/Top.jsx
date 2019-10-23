@@ -4,8 +4,7 @@ import style from "./Top.module.css";
 import Ava from "../../../common/Ava";
 import Status from "./Status/Status";
 
-const Top = (props) => {
-  // debugger;
+const Top = props => {
   return (
     <div className={style.header}>
       <img

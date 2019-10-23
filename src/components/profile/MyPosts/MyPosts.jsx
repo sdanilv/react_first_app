@@ -4,7 +4,6 @@ import Post from "./Post/Post";
 import TextArea from "./TextArea/TextArea";
 
 const MyPosts = props => {
-  
   let postElements = props.posts.map((p, index) => (
     <Post
       key={index}

@@ -1,5 +1,7 @@
 const UPDATE_CHAT_TEXT_AREA = "UPDATE-CHAT-TEXT-AREA";
 const ADD_CHAT_MESSAGE = "ADD-CHAT-MESSAGE";
+const LOAD_ALL_CHAT_MESSAGE = "LOAD_ALL_CHAT_MESSAGE";
+
 const initiationState = {
   lastMessages: [
     {
@@ -9,25 +11,25 @@ const initiationState = {
       img: "https://s3.amazonaws.com/uifaces/faces/twitter/aiiaiiaii/128.jpg"
     },
     {
-      id:2,
+      id: 2,
       name: "Avis",
       lastMessage: "96548",
       img: "https://s3.amazonaws.com/uifaces/faces/twitter/aiiaiiaii/128.jpg"
     },
     {
-      id:3,
+      id: 3,
       name: "Madie",
       lastMessage: "Somalia instruction set Interactions",
       img: "https://s3.amazonaws.com/uifaces/faces/twitter/kiwiupover/128.jpg"
     },
     {
-      id:4,
+      id: 4,
       name: "Nathen",
       lastMessage: "Marketing",
       img: "https://s3.amazonaws.com/uifaces/faces/twitter/aiiaiiaii/128.jpg"
     },
     {
-      id:5,
+      id: 5,
       name: "Orville",
       lastMessage: "compelling engage emulation connecting Aruban Guilder",
       img: "https://s3.amazonaws.com/uifaces/faces/twitter/gt/128.jpg"
@@ -63,6 +65,8 @@ const dialogsReducer = (state = initiationState, action) => {
         messages: state.textArea
       };
       return { ...state, chats: [...state.chats, chatComponent], textArea: "" };
+    case LOAD_ALL_CHAT_MESSAGE:
+      return { ...state, chats: action.chats };
     default:
       return state;
   }
@@ -74,6 +78,10 @@ export const UpdateChatTextAreaAction = enterText => ({
 });
 export const AddChatAction = () => ({
   type: ADD_CHAT_MESSAGE
+});
+export const LoadChat = chats => ({
+  type: LOAD_ALL_CHAT_MESSAGE,
+  chats
 });
 
 export default dialogsReducer;

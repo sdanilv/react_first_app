@@ -26,9 +26,14 @@ export const UsersApi = {
 };
 
 export const AuthApi = {
-  signIn: () => {
+  getMe: () => {
     return axiosInstance.get(`auth/me`).then(response => {
       return response.data;
+    });
+  },
+  signIn: request => {
+    return axiosInstance.post(`auth/login`, { ...request }).then(response => {
+      return response.data.resultCode;
     });
   }
 };

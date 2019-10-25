@@ -24,9 +24,9 @@ class ProfileComponent extends React.Component {
   }
 
   componentDidUpdate(lastProps) {
-    if (!this.props.match.params.userId) {
-      this.updateProfilePage(4923);
-    }
+    // if (!this.props.match.params.userId) {
+    //   this.updateProfilePage(4923);
+    // }
   }
 
   render() {

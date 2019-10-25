@@ -19,14 +19,12 @@ class Status extends React.Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(prevProps, prevState, this.props);
-    console.log(this.props);
+  componentDidUpdate(prevProps) {
     if (prevProps.status !== this.props.status)
       this.setState({ status: this.props.status });
   }
 
-  onStatusUpdate = (e) => {
+  onStatusUpdate = e => {
     this.setState({
       status: e.target.value
     });
@@ -35,7 +33,7 @@ class Status extends React.Component {
     if (this.state.editMode)
       return (
         <input
-          onChange={(e) => this.onStatusUpdate(e)}
+          onChange={e => this.onStatusUpdate(e)}
           autoFocus={true}
           onBlur={() => this.editModeToggle(false)}
           type='text'
@@ -43,7 +41,7 @@ class Status extends React.Component {
         />
       );
     return (
-      <span onDoubleClick={(e) => this.editModeToggle(true)}>
+      <span onDoubleClick={e => this.editModeToggle(true)}>
         {this.props.status}
       </span>
     );

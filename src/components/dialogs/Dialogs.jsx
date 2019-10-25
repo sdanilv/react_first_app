@@ -23,16 +23,17 @@ const Dialogs = props => {
   let chatsElement = props.chats.map((c, index) => (
     <Chat key={index} chat={c.messages} />
   ));
+
+  const chatSubmit = formData => {
+    let id = props.chats.length;
+    props.AddMessageToChat(id, formData.message);
+  };
   return (
     <div>
       <h1>My dialogs</h1>
       <div className={style.dialogs}>
         {dialogsElements}
-        <TextArea
-          clickEvent={props.clickEvent}
-          areaKeyEvent={props.areaKeyEvent}
-          textArea={props.textArea}
-        />
+        <TextArea onSubmit={chatSubmit} />
         {props.chats ? chatsElement : null}
       </div>
     </div>

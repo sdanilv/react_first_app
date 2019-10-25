@@ -1,4 +1,3 @@
-const UPDATE_CHAT_TEXT_AREA = "UPDATE-CHAT-TEXT-AREA";
 const ADD_CHAT_MESSAGE = "ADD-CHAT-MESSAGE";
 const LOAD_ALL_CHAT_MESSAGE = "LOAD_ALL_CHAT_MESSAGE";
 
@@ -52,19 +51,16 @@ const initiationState = {
       id: 3,
       messages: ["Utah", "Fargus", "96548"]
     }
-  ],
-  textArea: ""
+  ]
 };
 const dialogsReducer = (state = initiationState, action) => {
   switch (action.type) {
-    case UPDATE_CHAT_TEXT_AREA:
-      return { ...state, textArea: action.text };
     case ADD_CHAT_MESSAGE:
       let chatComponent = {
-        id: 5,
-        messages: state.textArea
+        id: action.id,
+        messages: action.message
       };
-      return { ...state, chats: [...state.chats, chatComponent], textArea: "" };
+      return { ...state, chats: [...state.chats, chatComponent] };
     case LOAD_ALL_CHAT_MESSAGE:
       return { ...state, chats: action.chats };
     default:
@@ -72,12 +68,10 @@ const dialogsReducer = (state = initiationState, action) => {
   }
 };
 
-export const UpdateChatTextAreaAction = enterText => ({
-  type: UPDATE_CHAT_TEXT_AREA,
-  text: enterText
-});
-export const AddChatAction = () => ({
-  type: ADD_CHAT_MESSAGE
+export const AddMessageToChat = (id, message) => ({
+  type: ADD_CHAT_MESSAGE,
+  message,
+  id
 });
 export const LoadChat = chats => ({
   type: LOAD_ALL_CHAT_MESSAGE,

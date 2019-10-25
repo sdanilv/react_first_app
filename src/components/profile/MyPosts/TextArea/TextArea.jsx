@@ -1,27 +1,16 @@
 import React from "react";
 import style from "./TextArea.module.css";
-import { Field } from "redux-form";
+import { Field, reduxForm } from "redux-form";
 
 const TextArea = props => {
-  let clickEvent = () => {
-    // debugger;
-    props.clickSubmitEvent();
-  };
-
-  let areaKeyEvent = e => {
-    // debugger;
-    let textAreaBody = e.target.value;
-    props.areaKeyEvent(textAreaBody);
-  };
-
   return (
-    <div className={style.textarea}>
-      <form onSubmit={props.ha}>
-        <textarea value={props.textArea} onChange={areaKeyEvent} />
-        <button onClick={clickEvent}>Submit</button>
-      </form>
-    </div>
+    <form onSubmit={props.handleSubmit}>
+      <div className={style.textarea}>
+        <Field component='textarea' name='post' />
+        <button>Submit</button>
+      </div>
+    </form>
   );
 };
 
-export default TextArea;
+export default reduxForm({ form: "post" })(TextArea);

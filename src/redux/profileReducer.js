@@ -63,10 +63,10 @@ const profileReducer = (state = initationState, action) => {
       };
     case ADD_POST:
       let postComponent = {
-        id: 4,
+        id: action.id,
         name: "My",
         age: 26,
-        message: state.myprofile.textArea,
+        message: action.post,
         likeCount: 0,
         ava: "https://2krota.ru/wp-content/uploads/2019/02/0_i-1-1024x1547.jpg"
       };
@@ -97,8 +97,10 @@ export const UpdatePostTextAreaAction = enterText => ({
   type: UPDATE_POST_TEXT_AREA,
   text: enterText
 });
-export const AddPostAction = () => ({
-  type: ADD_POST
+export const AddPost = (id, post) => ({
+  type: ADD_POST,
+  post,
+  id
 });
 const setProfile = profile => ({
   type: SET_PROFILE,

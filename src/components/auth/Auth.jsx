@@ -3,7 +3,6 @@ import { reduxForm, Field } from "redux-form";
 import { signIn } from "../../redux/authReduce";
 
 const AuthForm = props => {
-  console.log(props);
   const { handleSubmit } = props;
   return (
     <form action='auth' method='post' onSubmit={handleSubmit}>

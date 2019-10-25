@@ -1,6 +1,6 @@
 // import React from "react";
 import {
-  AddPostAction,
+  AddPost,
   UpdatePostTextAreaAction
 } from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
@@ -28,7 +28,7 @@ let mapStateToProps = state => {
 
 let PostContainer = connect(
   mapStateToProps,
-  {UpdatePostTextAreaAction, AddPostAction}
+  { UpdatePostTextAreaAction, AddPost }
 )(MyPosts);
 // debugger;
 export default PostContainer;

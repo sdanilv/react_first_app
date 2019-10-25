@@ -14,14 +14,13 @@ const MyPosts = props => {
       ava={p.ava}
     />
   ));
-
+  let onSubmitPost = formData => {
+    let id = props.posts.length;
+    props.AddPost(id, formData.post);
+  };
   return (
     <div className={style.posts}>
-      <TextArea
-        textArea={props.textArea}
-        areaKeyEvent={props.UpdatePostTextAreaAction}
-        clickSubmitEvent={props.AddPostAction}
-      />
+      <TextArea onSubmit={onSubmitPost} />
       <div>{postElements}</div>
     </div>
   );

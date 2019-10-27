@@ -13,40 +13,42 @@ export const UsersApi = {
   getUsers: (page, count) => {
     return axiosInstance
       .get(`users?count=${count}&page=${page}`)
-      .then(result => {
+      .then((result) => {
         return result.data;
       });
   },
-  follow: userId => {
+  follow: (userId) => {
     return axiosInstance.post(`follow/${userId}`);
   },
-  unfollow: userId => {
+  unfollow: (userId) => {
     return axiosInstance.delete(`follow/${userId}`);
   }
 };
 
 export const AuthApi = {
-  getMe: () => {
-    return axiosInstance.get(`auth/me`).then(response => {
-      return response.data;
-    });
+  getMe: async () => {
+    const response = await axiosInstance.get(`auth/me`);
+    return response.data;
   },
-  signIn: request => {
-    return axiosInstance.post(`auth/login`, { ...request }).then(response => {
-      return response.data.resultCode;
-    });
+  signIn: async (request) => {
+    const response = await axiosInstance.post(`auth/login`, { ...request });
+    return response.data.resultCode;
+  },
+  logout: async () => {
+    const response = await axiosInstance.delete(`auth/login`);
+    return response.data.resultCode;
   }
 };
 export const ProfileApi = {
-  getUserProfile: userId => {
+  getUserProfile: (userId) => {
     return axiosInstance.get(`profile/${userId}`);
   },
 
-  getUserStatus: userId => {
+  getUserStatus: (userId) => {
     return axiosInstance.get(`profile/status/${userId}`);
   },
 
-  setMyStatus: status => {
+  setMyStatus: (status) => {
     return axiosInstance.put(`profile/status/`, { status: status });
   }
   // uploadPhoto: () => {

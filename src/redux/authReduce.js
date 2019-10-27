@@ -30,29 +30,34 @@ const authReduce = (state = initiationState, action) => {
   }
 };
 
-export let auth = data => ({
+export let auth = (data) => ({
   type: AUTHORIZATION,
   data
 });
-export let signOut = data => ({
-  type: SIGN_OUT,
-  data
+
+export let signOut = () => ({
+  type: SIGN_OUT
 });
 
-export const getMe = () => dispatch =>
-  AuthApi.getMe().then(response => {
+export const getMe = () => (dispatch) =>
+  AuthApi.getMe().then((response) => {
     if (response.resultCode === 0) {
       dispatch(auth(response.data));
     }
   });
 
-export const signIn = formData => {
+export const signIn = (formData) => (dispatch) => {
   const request = {
     ...formData,
     captcha: true
   };
-  AuthApi.signIn(request).then(resultCode => {
-    if (resultCode === 0) console.log("All Ok");
+  AuthApi.signIn(request).then((resultCode) => {
+    if (resultCode === 0) dispatch(getMe());
+  });
+};
+export const logout = () => (dispatch) => {
+  AuthApi.logout().then((resultCode) => {
+    if (resultCode === 0) dispatch(signOut());
   });
 };
 

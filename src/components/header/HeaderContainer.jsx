@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import { connect } from "react-redux";
-import { auth, getMe } from "../../redux/authReduce";
+import { auth, getMe, logout } from "../../redux/authReduce";
 
 class HeaderContainer extends React.Component {
   componentDidMount() {
@@ -12,7 +12,7 @@ class HeaderContainer extends React.Component {
   }
 }
 
-let mapStateToProps = state => ({
+let mapStateToProps = (state) => ({
   isSignIn: state.Auth.isSignIn,
   login: state.Auth.login,
   avaImg: state.ProfilePage.myprofile.photos.small
@@ -20,5 +20,5 @@ let mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { auth, getMe }
+  { auth, getMe, logout }
 )(HeaderContainer);

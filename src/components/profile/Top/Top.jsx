@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
 import style from "./Top.module.css";
-import Ava from "../../../common/Ava";
+import Ava from "../../../common/Ava/Ava";
 import Status from "./Status/Status";
 
 const Top = props => {

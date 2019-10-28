@@ -2,16 +2,14 @@ import React from "react";
 import style from "./User.module.css";
 import { NavLink } from "react-router-dom";
 
-import ButtonLoader from "../../../common/ButtonLoader";
-import Ava from "../../../common/Ava";
+import ButtonLoader from "../../../common/ButtonLoader/ButtonLoader";
+import Ava from "../../../common/Ava/Ava";
 const User = props => {
-
   return (
     // key={u.userId}
     <div className={style.user}>
       <div>
         <NavLink to={`profile/${props.userId}`}>
-
           <div className={style.avaImg}>
             <Ava avaImg={props.avaImg} />
           </div>
@@ -22,13 +20,15 @@ const User = props => {
       ) : (
         <div>
           {props.subscribed ? (
-            <button className={style.subs} 
-            onClick={()=>props.unsubs(props.userId)}>
+            <button
+              className={style.subs}
+              onClick={() => props.unsubs(props.userId)}>
               Subs
             </button>
           ) : (
-            <button className={style.unsubs} 
-            onClick={()=>props.subs(props.userId)}>
+            <button
+              className={style.unsubs}
+              onClick={() => props.subs(props.userId)}>
               Unsubs
             </button>
           )}

@@ -1,9 +1,9 @@
 import React from "react";
 import style from "./Header.module.css";
-import Ava from "../../common/Ava";
+import Ava from "../../common/Ava/Ava";
 import { NavLink } from "react-router-dom";
 
-const Header = (props) => {
+const Header = props => {
   let onLogout = () => {
     props.logout();
   };

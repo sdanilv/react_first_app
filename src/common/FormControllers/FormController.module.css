@@ -1,0 +1,12 @@
+.form_error {
+  border: red solid 1px !important;
+}
+
+.form_error:focus {
+  border: red solid 2px !important;
+  outline: none !important;
+}
+
+.error {
+  color: red;
+}

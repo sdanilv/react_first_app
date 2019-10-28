@@ -19,6 +19,7 @@
   grid-area: content;
 }
 .sidebar {
+  position: fixed;
   grid-area: sidebar;
   background-color: white;
 }

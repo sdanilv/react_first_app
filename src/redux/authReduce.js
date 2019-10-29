@@ -1,4 +1,5 @@
 import { AuthApi } from "../api/api";
+import { stopSubmit } from "redux-form";
 
 const AUTHORIZATION = "AUTHORIZATION";
 const SIGN_OUT = "SIGN_OUT";
@@ -30,7 +31,7 @@ const authReduce = (state = initiationState, action) => {
   }
 };
 
-export let auth = (data) => ({
+export let auth = data => ({
   type: AUTHORIZATION,
   data
 });
@@ -39,24 +40,26 @@ export let signOut = () => ({
   type: SIGN_OUT
 });
 
-export const getMe = () => (dispatch) =>
-  AuthApi.getMe().then((response) => {
+export const getMe = () => dispatch =>
+  AuthApi.getMe().then(response => {
     if (response.resultCode === 0) {
       dispatch(auth(response.data));
     }
   });
 
-export const signIn = (formData) => (dispatch) => {
+export const signIn = formData => dispatch => {
   const request = {
     ...formData,
     captcha: true
   };
-  AuthApi.signIn(request).then((resultCode) => {
-    if (resultCode === 0) dispatch(getMe());
+  AuthApi.signIn(request).then(data => {
+    if (data.resultCode === 0) {
+      dispatch(getMe());
+    } else dispatch(stopSubmit("auth", { _error: data.messages }));
   });
 };
-export const logout = () => (dispatch) => {
-  AuthApi.logout().then((resultCode) => {
+export const logout = () => dispatch => {
+  AuthApi.logout().then(resultCode => {
     if (resultCode === 0) dispatch(signOut());
   });
 };

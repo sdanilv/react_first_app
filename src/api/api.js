@@ -13,14 +13,14 @@ export const UsersApi = {
   getUsers: (page, count) => {
     return axiosInstance
       .get(`users?count=${count}&page=${page}`)
-      .then((result) => {
+      .then(result => {
         return result.data;
       });
   },
-  follow: (userId) => {
+  follow: userId => {
     return axiosInstance.post(`follow/${userId}`);
   },
-  unfollow: (userId) => {
+  unfollow: userId => {
     return axiosInstance.delete(`follow/${userId}`);
   }
 };
@@ -30,9 +30,9 @@ export const AuthApi = {
     const response = await axiosInstance.get(`auth/me`);
     return response.data;
   },
-  signIn: async (request) => {
+  signIn: async request => {
     const response = await axiosInstance.post(`auth/login`, { ...request });
-    return response.data.resultCode;
+    return response.data;
   },
   logout: async () => {
     const response = await axiosInstance.delete(`auth/login`);
@@ -40,15 +40,15 @@ export const AuthApi = {
   }
 };
 export const ProfileApi = {
-  getUserProfile: (userId) => {
+  getUserProfile: userId => {
     return axiosInstance.get(`profile/${userId}`);
   },
 
-  getUserStatus: (userId) => {
+  getUserStatus: userId => {
     return axiosInstance.get(`profile/status/${userId}`);
   },
 
-  setMyStatus: (status) => {
+  setMyStatus: status => {
     return axiosInstance.put(`profile/status/`, { status: status });
   }
   // uploadPhoto: () => {

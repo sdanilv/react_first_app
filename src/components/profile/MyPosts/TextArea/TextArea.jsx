@@ -9,6 +9,7 @@ const TextArea = props => {
     <form onSubmit={props.handleSubmit}>
       <div className={style.textarea}>
         <Field
+          typr='textarea'
           component={MyTextArea}
           name='post'
           validate={[required, maxSize18]}

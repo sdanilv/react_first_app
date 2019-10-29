@@ -11,6 +11,7 @@ const TextArea = props => {
         {/* <textarea value={props.textArea} ref={areaRef} onKeyDown={areaKeyEvent}/> */}
         {/* <textarea value={props.textArea} onChange={areaKeyEvent} /> */}
         <Field
+          type='textarea'
           component={MyTextArea}
           name='message'
           validate={[required, maxSize15]}

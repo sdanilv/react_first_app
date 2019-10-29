@@ -1,32 +1,40 @@
 import React from "react";
+import style from "../../common/FormControllers/FormController.module.css";
 import { reduxForm, Field } from "redux-form";
 import { signIn } from "../../redux/authReduce";
 import { connect } from "react-redux";
+import { MyInput } from "../../common/FormControllers/FormController";
+import { maxSize, required } from "../../utilits/validators/validate";
 
-const AuthForm = (props) => {
+const maxSize20 = maxSize(20);
+const AuthForm = props => {
   const { handleSubmit } = props;
   return (
     <form action='auth' method='post' onSubmit={handleSubmit}>
       <div>
         <Field
           name='email'
-          component='input'
+          component={MyInput}
           type='email'
-          placeholder='email@mail.com'
+          label='email@mail.com'
+          validate={[maxSize20, required]}
         />
       </div>
       <div>
         <Field
           name='password'
-          component='input'
+          component={MyInput}
           type='password'
-          placeholder='Password'
+          label='Password'
+          validate={[maxSize20, required]}
         />
       </div>
       <div>
         <Field name='rememberMe' component='input' type='checkbox' />
         Remember Me
       </div>
+      <div className={style.error}>{props.error}</div>
+
       <div>
         <button>Submit</button>
       </div>
@@ -34,8 +42,8 @@ const AuthForm = (props) => {
   );
 };
 
-const Auth = (props) => {
-  const onSubmit = (formData) => {
+const Auth = props => {
+  const onSubmit = formData => {
     props.signIn(formData);
   };
 
@@ -47,7 +55,7 @@ const Auth = (props) => {
   );
 };
 const AuthReduxForm = reduxForm({ form: "auth" })(AuthForm);
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isSigned: state.Auth.isSignIn
 });
 export default connect(

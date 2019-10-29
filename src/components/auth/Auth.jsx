@@ -5,10 +5,13 @@ import { signIn } from "../../redux/authReduce";
 import { connect } from "react-redux";
 import { MyInput } from "../../common/FormControllers/FormController";
 import { maxSize, required } from "../../utilits/validators/validate";
+import { Redirect, withRouter } from "react-router-dom";
+import { compose } from "redux";
 
 const maxSize20 = maxSize(20);
-const AuthForm = props => {
+const AuthForm = (props) => {
   const { handleSubmit } = props;
+
   return (
     <form action='auth' method='post' onSubmit={handleSubmit}>
       <div>
@@ -34,7 +37,6 @@ const AuthForm = props => {
         Remember Me
       </div>
       <div className={style.error}>{props.error}</div>
-
       <div>
         <button>Submit</button>
       </div>
@@ -42,11 +44,15 @@ const AuthForm = props => {
   );
 };
 
-const Auth = props => {
-  const onSubmit = formData => {
+const Auth = (props) => {
+  const onSubmit = (formData) => {
     props.signIn(formData);
   };
 
+  if (props.isSigned) {
+    return <Redirect to='/profile' />;
+    // props.history.goBack();
+  }
   return (
     <center>
       <h2>Authorization</h2>
@@ -54,11 +60,16 @@ const Auth = props => {
     </center>
   );
 };
+
 const AuthReduxForm = reduxForm({ form: "auth" })(AuthForm);
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isSigned: state.Auth.isSignIn
 });
-export default connect(
-  mapStateToProps,
-  { signIn }
+
+export default compose(
+  withRouter,
+  connect(
+    mapStateToProps,
+    { signIn }
+  )
 )(Auth);

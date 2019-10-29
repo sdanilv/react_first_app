@@ -93,7 +93,7 @@ const profileReducer = (state = initationState, action) => {
   }
 };
 
-export const UpdatePostTextAreaAction = enterText => ({
+export const UpdatePostTextAreaAction = (enterText) => ({
   type: UPDATE_POST_TEXT_AREA,
   text: enterText
 });
@@ -102,27 +102,27 @@ export const AddPost = (id, post) => ({
   post,
   id
 });
-const setProfile = profile => ({
+export const setProfile = (profile) => ({
   type: SET_PROFILE,
   profile: profile
 });
-const setStatus = status => ({
+const setStatus = (status) => ({
   type: SET_STATUS,
   status
 });
 
-export let getUserProfile = userId => dispatch => {
-  ProfileApi.getUserProfile(userId).then(result => {
+export let getUserProfile = (userId) => (dispatch) => {
+  ProfileApi.getUserProfile(userId).then((result) => {
     dispatch(setProfile(result.data));
   });
 };
-export let getUserStatus = userId => dispatch => {
-  ProfileApi.getUserStatus(userId).then(result => {
+export let getUserStatus = (userId) => (dispatch) => {
+  ProfileApi.getUserStatus(userId).then((result) => {
     dispatch(setStatus(result.data));
   });
 };
-export let setMyStatus = status => dispatch => {
-  ProfileApi.setMyStatus(status).then(result => {
+export let setMyStatus = (status) => (dispatch) => {
+  ProfileApi.setMyStatus(status).then((result) => {
     dispatch(setStatus(status));
   });
 };

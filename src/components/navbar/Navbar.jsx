@@ -1,15 +1,16 @@
 import React from "react";
 import style from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
 
 let links = [
-  {
-    id: 1,
-    adress: "/profile",
-    img:
-      "https://cdn2.iconfinder.com/data/icons/business-management-52/96/Artboard_20-512.png",
-    text: "Profile"
-  },
+  // {
+  //   id: 1,
+  //   adress: "/profile",
+  //   img:
+  //     "https://cdn2.iconfinder.com/data/icons/business-management-52/96/Artboard_20-512.png",
+  //   text: "Profile"
+  // },
   {
     id: 2,
     adress: "/dialogs",
@@ -54,12 +55,24 @@ let linksMap = links.map((l, index) => (
   </div>
 ));
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
     <div className={style.sidebar}>
+      <div>
+        <NavLink
+          to={`/profile/${props.myId ? props.myId : ""}`}
+          activeClassName={style.active}>
+          <img
+            src='https://cdn2.iconfinder.com/data/icons/business-management-52/96/Artboard_20-512.png'
+            alt='navbarIcon'
+          />
+          &nbsp;Profile
+        </NavLink>
+      </div>
       <nav>{linksMap}</nav>
     </div>
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => ({ myId: state.Auth.id });
+export default connect(mapStateToProps)(Navbar);

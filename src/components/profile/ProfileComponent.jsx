@@ -1,6 +1,6 @@
 import React from "react";
 import Profile from "./Profile";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   getUserProfile,
@@ -18,18 +18,23 @@ class ProfileComponent extends React.Component {
     this.props.getUserStatus(userId);
     this.props.getUserProfile(userId);
   }
+  paramsUserId() {
+    return this.props.match.params.userId;
+  }
 
+  userId = this.paramsUserId() || this.props.myId;
   componentDidMount() {
-    this.updateProfilePage(this.props.match.params.userId || 4923);
+    this.updateProfilePage(this.userId);
   }
 
   componentDidUpdate(lastProps) {
-    // if (!this.props.match.params.userId) {
-    //   this.updateProfilePage(4923);
-    // }
+    if (this.paramsUserId() !== lastProps.match.params.userId) {
+      this.updateProfilePage(this.paramsUserId());
+    }
   }
 
   render() {
+    if (!this.userId) return <Redirect to='/users' />;
     if (!this.props.profile) return <PageLoader />;
     return (
       <Profile
@@ -42,7 +47,7 @@ class ProfileComponent extends React.Component {
   }
 }
 
-let mapStateToProps = state => ({
+let mapStateToProps = (state) => ({
   profile: state.ProfilePage.profile,
   myprofile: state.ProfilePage.myprofile,
   status: state.ProfilePage.status,

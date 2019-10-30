@@ -1,11 +1,7 @@
 import React from "react";
 import style from "./FormController.module.css";
 
-export const MyTextArea = ({
-  input,
-  label,
-  meta: { touched, error, warning }
-}) => {
+export const MyTextArea = ({ input, label, meta: { touched, error } }) => {
   return (
     <>
       <textarea
@@ -18,12 +14,7 @@ export const MyTextArea = ({
   );
 };
 
-export const MyInput = ({
-  input,
-  label,
-  type,
-  meta: { touched, error, warning }
-}) => {
+export const MyInput = ({ input, label, type, meta: { touched, error } }) => {
   return (
     <>
       <input

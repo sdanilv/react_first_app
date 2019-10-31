@@ -8,7 +8,6 @@ import TextArea from "./TextArea/TextArea";
 // const LOCAL_STORAGE_KEY = "app.storage";
 
 const Dialogs = props => {
-  // debugger;
   // useEffect(() => {
   //   const chats = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
   //   props.loadChat(chats);
@@ -28,6 +27,7 @@ const Dialogs = props => {
   const chatSubmit = formData => {
     let id = props.chats.length;
     props.AddMessageToChat(id, formData.message);
+    props.destroy("dialogs");
   };
 
   return (

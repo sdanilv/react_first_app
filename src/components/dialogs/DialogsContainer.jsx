@@ -7,6 +7,7 @@ import Dialogs from "./Dialogs";
 import { withAuthRedirect } from "../../hoc/AuthRedirect";
 import { compose } from "redux";
 import { getChats, getLastMessages } from "../../redux/dialogsSelector";
+import { destroy } from "redux-form";
 
 let mapStateToProps = state => ({
   lastMessages: getLastMessages(state),
@@ -17,6 +18,6 @@ export default compose(
   withAuthRedirect,
   connect(
     mapStateToProps,
-    { LoadChat, AddMessageToChat }
+    { LoadChat, AddMessageToChat, destroy }
   )
 )(Dialogs);

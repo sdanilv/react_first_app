@@ -17,6 +17,7 @@ const MyPosts = props => {
   let onSubmitPost = formData => {
     let id = props.posts.length;
     props.AddPost(id, formData.post);
+    props.destroy("post");
   };
   return (
     <div className={style.posts}>

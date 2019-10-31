@@ -1,6 +1,6 @@
 .pagination button {
   border: 0 solid;
-  background: white;
+  background: rgba(0, 0, 0, 0);
 }
 
 .selectedPage {

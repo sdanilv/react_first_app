@@ -5,30 +5,17 @@ import {
 } from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
+import { destroy } from "redux-form";
 
 let mapStateToProps = state => {
-  // debugger;
   return {
     textArea: state.ProfilePage.myprofile.textArea,
     posts: state.ProfilePage.myprofile.posts
   };
 };
 
-// let mapDispatchToProps = dispatch => {
-//   return {
-//     areaKeyEvent: textAreaBody => {
-//       const action = UpdatePostTextAreaAction(textAreaBody);
-//       dispatch(action);
-//     },
-//     clickSubmitEvent: () => {
-//       dispatch(AddPostAction());
-//     }
-//   };
-// };
-
 let PostContainer = connect(
   mapStateToProps,
-  { UpdatePostTextAreaAction, AddPost }
+  { UpdatePostTextAreaAction, AddPost, destroy }
 )(MyPosts);
-// debugger;
 export default PostContainer;

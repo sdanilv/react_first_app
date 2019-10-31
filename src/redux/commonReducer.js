@@ -1,4 +1,3 @@
-
 const SET_TOGGLE_LAODER = "SET_TOGGLE_LAODER";
 
 let initiationState = {
@@ -6,19 +5,18 @@ let initiationState = {
 };
 
 let commonReducer = (state = initiationState, action) => {
-  // debugger;
   switch (action.type) {
-case SET_TOGGLE_LAODER:
-  return{...state, loaded:action.toggle
+    case SET_TOGGLE_LAODER:
+      return { ...state, loaded: action.toggle };
+    default:
+      return state;
   }
-  default: return state;
-}
-}
+};
 
-export let loading = toggle =>({
+export let loading = toggle => ({
   type: SET_TOGGLE_LAODER,
   toggle
-})
+});
 
 // export let  pageLoaderWraper = func =>dispatch=>{
 //   debugger;

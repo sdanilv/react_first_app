@@ -19,8 +19,7 @@ class UsersContainer extends React.Component {
     this.props.setProfile(null);
   }
 
-  onPageClick = (page) => {
-    // debugger;
+  onPageClick = page => {
     this.props.setCurrentPage(page);
     this.props.getUsers(page, this.props.countUsersInPage);
   };
@@ -51,7 +50,7 @@ class UsersContainer extends React.Component {
   }
 }
 
-let mapStateProper = (state) => {
+let mapStateProper = state => {
   return {
     users: state.Users.users,
     allUsersCount: state.Users.allUsersCount,

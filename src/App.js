@@ -17,7 +17,7 @@ class App extends React.Component {
   componentDidMount() {
     this.props.getMe().then(this.props.unlockPage);
   }
-  // debugger;
+
   render() {
     if (this.props.isLocked) return <PageLoader />;
     return (
@@ -49,7 +49,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isLocked: state.App.isLock,
   myId: state.Auth.id
 });

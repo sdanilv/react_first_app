@@ -8,8 +8,6 @@ const TextArea = props => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div className={style.textarea}>
-        {/* <textarea value={props.textArea} ref={areaRef} onKeyDown={areaKeyEvent}/> */}
-        {/* <textarea value={props.textArea} onChange={areaKeyEvent} /> */}
         <Field
           type='textarea'
           component={MyTextArea}
@@ -22,19 +20,5 @@ const TextArea = props => {
   );
 };
 
-// const MyTextAreaComponent = ({
-//   input,
-//   label,
-//   type,
-//   meta: { touched, error, warning }
-// }) => {
-//   return (
-//     <>
-//       <textarea {...input} placeholder={label} type={type} />
-
-//       {touched && <label className={style.error}>error</label>}
-//     </>
-//   );
-// };
 
 export default reduxForm({ form: "dialogs" })(TextArea);

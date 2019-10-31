@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Profile from "./Profile";
 import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -13,43 +13,32 @@ import { loading } from "../../redux/commonReducer";
 import { compose } from "redux";
 import PageLoader from "../../common/PageLoader/PageLoader";
 
-class ProfileComponent extends React.Component {
-  updateProfilePage(userId) {
-    this.props.getUserStatus(userId);
-    this.props.getUserProfile(userId);
-  }
-  paramsUserId() {
-    return this.props.match.params.userId;
-  }
+const ProfileComponent = props => {
+  const updateProfilePage = userId => {
+    props.getUserStatus(userId);
+    props.getUserProfile(userId);
+  };
+  const paramsUserId = props.match.params.userId;
 
-  userId = this.paramsUserId() || this.props.myId;
-  componentDidMount() {
-    this.updateProfilePage(this.userId);
-  }
+  const userId = paramsUserId || props.myId;
+  useEffect(() => updateProfilePage(userId), []);
 
-  componentDidUpdate(lastProps) {
-    if (this.paramsUserId() !== lastProps.match.params.userId) {
-      this.updateProfilePage(this.paramsUserId());
-    }
-  }
+  useEffect(() => updateProfilePage(paramsUserId), [paramsUserId]);
 
-  render() {
-    if (!this.userId) return <Redirect to='/users' />;
-    if (!this.props.profile) return <PageLoader />;
-    return (
-      <Profile
-        status={this.props.status}
-        profile={this.props.profile}
-        // myprofile={this.props.myprofile}
-        setMyStatus={this.props.setMyStatus}
-      />
-    );
-  }
-}
-
-let mapStateToProps = (state) => ({
+  if (!userId) return <Redirect to='/users' />;
+  if (!props.profile) return <PageLoader />;
+  return (
+    <Profile
+      status={props.status}
+      profile={props.profile}
+      // myprofile={props.myprofile}
+      setMyStatus={props.setMyStatus}
+    />
+  );
+};
+let mapStateToProps = state => ({
   profile: state.ProfilePage.profile,
-  myprofile: state.ProfilePage.myprofile,
+  // myprofile: state.ProfilePage.myprofile,
   status: state.ProfilePage.status,
   myId: state.Auth.id
 });

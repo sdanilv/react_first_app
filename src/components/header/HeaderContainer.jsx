@@ -9,7 +9,7 @@ class HeaderContainer extends React.Component {
   }
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = state => ({
   isSignIn: state.Auth.isSignIn,
   login: state.Auth.login,
   avaImg: state.ProfilePage.myprofile.photos.small

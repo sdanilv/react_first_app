@@ -13,17 +13,18 @@ import { loading } from "../../redux/commonReducer";
 import { compose } from "redux";
 import PageLoader from "../../common/PageLoader/PageLoader";
 
+const updateProfilePage = (userId, props) => {
+  props.getUserStatus(userId);
+  props.getUserProfile(userId);
+};
+
 const ProfileComponent = props => {
-  const updateProfilePage = userId => {
-    props.getUserStatus(userId);
-    props.getUserProfile(userId);
-  };
   const paramsUserId = props.match.params.userId;
 
   const userId = paramsUserId || props.myId;
-  useEffect(() => updateProfilePage(userId), []);
+  useEffect(() => updateProfilePage(userId, props), []);
 
-  useEffect(() => updateProfilePage(paramsUserId), [paramsUserId]);
+  useEffect(() => updateProfilePage(paramsUserId, props), [paramsUserId]);
 
   if (!userId) return <Redirect to='/users' />;
   if (!props.profile) return <PageLoader />;

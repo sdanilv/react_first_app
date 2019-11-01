@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./App.module.css";
 import Navbar from "./components/navbar/Navbar";
-import { Route, BrowserRouter, withRouter } from "react-router-dom";
+import { Route, BrowserRouter, Redirect } from "react-router-dom";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
 import ProfileComponent from "./components/profile/ProfileComponent";
@@ -41,6 +41,13 @@ class App extends React.Component {
               path='/dialogs'
               render={() => <DialogsContainer />}
             />
+            <Route
+              key='root'
+              exact
+              path='/'
+              render={() => <Redirect to='/users' />}
+            />
+
             <Route key='auth' path='/login' render={() => <Auth />} />
           </div>
         </div>

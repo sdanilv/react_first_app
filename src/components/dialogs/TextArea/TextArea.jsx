@@ -4,7 +4,7 @@ import { reduxForm, Field } from "redux-form";
 import { maxSize, required } from "../../../utilits/validators/validate";
 import { MyTextArea } from "./../../../common/FormControllers/FormController";
 const maxSize15 = maxSize(15);
-const TextArea = props => {
+const TextArea = React.memo(props => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div className={style.textarea}>
@@ -18,7 +18,6 @@ const TextArea = props => {
       </div>
     </form>
   );
-};
-
+});
 
 export default reduxForm({ form: "dialogs" })(TextArea);

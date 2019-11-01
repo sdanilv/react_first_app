@@ -2,12 +2,13 @@ import React /* {, useEffect }*/ from "react";
 
 import style from "./Dialogs.module.css";
 import Chat from "./Chat/Chat";
-import Dialog from "./dialog/Dialog";
+// import Dialog from "./dialog/Dialog";
 import TextArea from "./TextArea/TextArea";
 
 // const LOCAL_STORAGE_KEY = "app.storage";
 
 const Dialogs = props => {
+  // console.log("Dialog");
   // useEffect(() => {
   //   const chats = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
   //   props.loadChat(chats);

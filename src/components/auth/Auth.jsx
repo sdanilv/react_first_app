@@ -9,7 +9,7 @@ import { Redirect, withRouter } from "react-router-dom";
 import { compose } from "redux";
 
 const maxSize20 = maxSize(20);
-const AuthForm = (props) => {
+const AuthForm = props => {
   const { handleSubmit } = props;
 
   return (
@@ -44,8 +44,8 @@ const AuthForm = (props) => {
   );
 };
 
-const Auth = (props) => {
-  const onSubmit = (formData) => {
+const Auth = props => {
+  const onSubmit = formData => {
     props.signIn(formData);
   };
 
@@ -62,7 +62,7 @@ const Auth = (props) => {
 };
 
 const AuthReduxForm = reduxForm({ form: "auth" })(AuthForm);
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isSigned: state.Auth.isSignIn
 });
 

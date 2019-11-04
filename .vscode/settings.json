@@ -15,7 +15,7 @@
     "serviceWorker.js": true,
     "src/serviceWorker.js": true,
     "src/logo.svg": true,
-    "src/App.test.js": true,
+    "src/App.test.js": false,
     "src\\redux/states.js": true,
     ".vs": true
   },

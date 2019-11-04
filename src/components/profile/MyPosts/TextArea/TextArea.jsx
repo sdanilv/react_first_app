@@ -4,12 +4,11 @@ import { Field, reduxForm } from "redux-form";
 import { MyTextArea } from "../../../../common/FormControllers/FormController";
 import { maxSize, required } from "../../../../utilits/validators/validate";
 const maxSize18 = maxSize(18);
-const TextArea = props => {
+const TextArea = React.memo(props => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div className={style.textarea}>
         <Field
-          typr='textarea'
           component={MyTextArea}
           name='post'
           validate={[required, maxSize18]}
@@ -18,6 +17,6 @@ const TextArea = props => {
       </div>
     </form>
   );
-};
+});
 
 export default reduxForm({ form: "post" })(TextArea);

@@ -2,10 +2,7 @@ import React from "react";
 import User from "./user/User";
 import style from "./Users.module.css";
 
-
-
 const Users = props => {
-  // debugger;
   let currentPage = props.currentPage;
   let numbersPage = Math.ceil(props.allUsersCount / props.countUsersInPage);
   let arrayOfPages = [];
@@ -32,7 +29,7 @@ const Users = props => {
     if (p === arrayOfPages.length - 1) return <button key={p}>...</button>;
     return "";
   });
-  // debugger;
+
   let users = props.users.map(u => (
     <User
       key={u.id}
@@ -41,14 +38,13 @@ const Users = props => {
       subscribed={u.followed}
       name={u.name}
       status={u.status}
-      subs={ props.subs}
+      subs={props.subs}
       unsubs={props.unsubs}
       blockedSubButtons={props.blockedSubButtons}
     />
   ));
 
   return (
-    
     <div>
       <div className={style.pagination}>{pages}</div>
       <div className={style.u}>{users}</div>

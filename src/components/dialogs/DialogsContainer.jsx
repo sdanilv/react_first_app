@@ -6,17 +6,18 @@ import { connect } from "react-redux";
 import Dialogs from "./Dialogs";
 import { withAuthRedirect } from "../../hoc/AuthRedirect";
 import { compose } from "redux";
+import { getChats, getLastMessages } from "../../redux/dialogsSelector";
+import { destroy } from "redux-form";
 
 let mapStateToProps = state => ({
-  textArea: state.DialogsPage.textArea,
-  lastMessages: state.DialogsPage.lastMessages,
-  chats: state.DialogsPage.chats
+  lastMessages: getLastMessages(state),
+  chats: getChats(state)
 });
 
 export default compose(
   withAuthRedirect,
   connect(
     mapStateToProps,
-    { LoadChat, AddMessageToChat }
+    { LoadChat, AddMessageToChat, destroy }
   )
 )(Dialogs);

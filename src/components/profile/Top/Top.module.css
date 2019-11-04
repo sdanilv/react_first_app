@@ -6,8 +6,9 @@
 }
 
 .avaImg {
-  width: 90%;
-  height: 90%;
+  --size: 15vw;
+  width: var(--size);
+  height: var(--size);
   padding: 5px;
   /* grid-area: a; */
   grid-column: 1/2;
@@ -19,6 +20,7 @@
 @media all and (max-width: 800px) {
   .avaImg {
     grid-column: 1/3;
+    --size: 18vw;
   }
 }
 .fullName {

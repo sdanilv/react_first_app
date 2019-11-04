@@ -20,7 +20,6 @@ let initiationState = {
 };
 
 let usersReduser = (state = initiationState, action) => {
-  // debugger;
   switch (action.type) {
     case SUBSCRIBE_USER:
       return {
@@ -58,9 +57,8 @@ let usersReduser = (state = initiationState, action) => {
           button => button !== action.blockedButton
         )
       };
-      case SET_TOGGLE_LAODER:
-        return{...state, loaded:action.toggle
-        }
+    case SET_TOGGLE_LAODER:
+      return { ...state, loaded: action.toggle };
     default:
       return state;
   }
@@ -98,10 +96,10 @@ export let removeFromBlockButtons = button => ({
   type: REMOVE_FROM_BLOCK_BUTTONS,
   blockedButton: button
 });
-export let loading = toggle =>({
+export let loading = toggle => ({
   type: SET_TOGGLE_LAODER,
   toggle
-})
+});
 
 export let getUsers = (currentPage, countUsersInPage) => dispatch => {
   dispatch(loading(true));
@@ -112,7 +110,7 @@ export let getUsers = (currentPage, countUsersInPage) => dispatch => {
   });
 };
 
-export let subscribe = userId =>dispatch=> {
+export let subscribe = userId => dispatch => {
   dispatch(addInBlockButtons(userId));
   UsersApi.follow(userId).then(response => {
     dispatch(removeFromBlockButtons(userId));
@@ -120,12 +118,12 @@ export let subscribe = userId =>dispatch=> {
   });
 };
 
-export let unsubscribe = userId => dispatch=>{
+export let unsubscribe = userId => dispatch => {
   dispatch(addInBlockButtons(userId));
   UsersApi.unfollow(userId).then(response => {
     dispatch(removeFromBlockButtons(userId));
     if (response.data.resultCode === 0) return dispatch(unsubsAC(userId));
-    // debugger;
-  });};
+  });
+};
 
 export default usersReduser;

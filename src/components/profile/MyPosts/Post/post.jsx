@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./Post.module.css";
 
-const Post = props => {
+const Post = React.memo(props => {
   return (
     <div className={style.post}>
       <div className={style.title}>
@@ -19,5 +19,5 @@ const Post = props => {
       </div>
     </div>
   );
-};
+});
 export default Post;

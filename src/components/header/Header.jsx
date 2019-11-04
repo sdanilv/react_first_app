@@ -7,7 +7,6 @@ const Header = props => {
   let onLogout = () => {
     props.logout();
   };
-  // debugger;
   return (
     <div className={style.header}>
       <img

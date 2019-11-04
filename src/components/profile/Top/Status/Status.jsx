@@ -1,51 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-class Status extends React.Component {
-  state = {
-    editMode: false,
-    status: this.props.status
-  };
+const Status = props => {
+  let [editMode, setEditMode] = useState(false);
+  let [status, setStatus] = useState(props.status);
 
-  editModeToggle(toggle) {
-    if (toggle)
-      this.setState({
-        editMode: true
-      });
+  const editModeToggle = toggle => {
+    if (toggle) setEditMode(toggle);
     else {
-      this.setState({
-        editMode: false
-      });
-      this.props.setMyStatus(this.state.status);
+      setEditMode(toggle);
+      props.setMyStatus(status);
     }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.status !== this.props.status)
-      this.setState({ status: this.props.status });
-  }
-
-  onStatusUpdate = e => {
-    this.setState({
-      status: e.target.value
-    });
   };
-  render() {
-    if (this.state.editMode)
-      return (
-        <input
-          onChange={e => this.onStatusUpdate(e)}
-          autoFocus={true}
-          onBlur={() => this.editModeToggle(false)}
-          type='text'
-          value={this.state.status}
-        />
-      );
+
+  useEffect(() => {
+    setStatus(props.status);
+  }, [props.status]);
+
+  const onStatusUpdate = e => {
+    setStatus(e.target.value);
+  };
+
+  if (editMode)
     return (
-      <span onDoubleClick={e => this.editModeToggle(true)}>
-        {this.props.status}
-      </span>
+      <input
+        onChange={e => onStatusUpdate(e)}
+        autoFocus={true}
+        onBlur={() => editModeToggle(false)}
+        type='text'
+        value={status}
+      />
     );
-  }
-}
+  return <span onDoubleClick={e => editModeToggle(true)}>{status}</span>;
+};
 
 export default Status;

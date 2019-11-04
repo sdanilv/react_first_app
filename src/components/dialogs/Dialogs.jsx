@@ -2,7 +2,7 @@ import React /* {, useEffect }*/ from "react";
 
 import style from "./Dialogs.module.css";
 import Chat from "./Chat/Chat";
-// import Dialog from "./dialog/Dialog";
+import Dialog from "./dialog/Dialog";
 import TextArea from "./TextArea/TextArea";
 
 // const LOCAL_STORAGE_KEY = "app.storage";
@@ -17,10 +17,9 @@ const Dialogs = props => {
   //   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(props.chats));
   // }, [props.chats]);
 
-  let dialogsElements = props.lastMessages;
-  //   .map((d, index) => (
-  //   <Dialog key={index} name={d.name} lastMessage={d.lastMessage} ava={d.img} />
-  // ));
+  let dialogsElements = props.lastMessages.map((d, index) => (
+    <Dialog key={index} name={d.name} lastMessage={d.lastMessage} ava={d.img} />
+  ));
   let chatsElement = props.chats.map((c, index) => (
     <Chat key={index} chat={c.messages} />
   ));

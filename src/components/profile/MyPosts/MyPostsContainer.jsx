@@ -1,8 +1,5 @@
 // import React from "react";
-import {
-  AddPost,
-  UpdatePostTextAreaAction
-} from "../../../redux/profileReducer";
+import { AddPost } from "../../../redux/profileReducer/profileReducer";
 import MyPosts from "./MyPosts";
 import { connect } from "react-redux";
 import { destroy } from "redux-form";
@@ -16,6 +13,6 @@ let mapStateToProps = state => {
 
 let PostContainer = connect(
   mapStateToProps,
-  { UpdatePostTextAreaAction, AddPost, destroy }
+  { AddPost, destroy }
 )(MyPosts);
 export default PostContainer;

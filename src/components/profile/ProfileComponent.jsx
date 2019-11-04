@@ -6,10 +6,10 @@ import {
   getUserProfile,
   setMyStatus,
   getUserStatus
-} from "../../redux/profileReducer";
+} from "../../redux/profileReducer/profileReducer";
 // import { withAuthRedirect } from "../../hoc/AuthRedirect";
 // import { withPageLoader } from "../../hoc/PageLoaderRedirect";
-import { loading } from "../../redux/commonReducer";
+import { loading } from "../../redux/commonReducer/commonReducer";
 import { compose } from "redux";
 import PageLoader from "../../common/PageLoader/PageLoader";
 

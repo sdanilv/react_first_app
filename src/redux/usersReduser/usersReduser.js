@@ -1,4 +1,4 @@
-import { UsersApi } from "../api/api";
+import { UsersApi } from "../../api/api";
 // import React from "react";
 const SUBSCRIBE_USER = "SUBSCRIBE-USER";
 const UNSUBSCRIBE_USER = "UNSUBSCRIBE-USER";

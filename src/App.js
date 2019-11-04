@@ -9,8 +9,8 @@ import HeaderContainer from "./components/header/HeaderContainer";
 import Auth from "./components/auth/Auth";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { getMe } from "./redux/authReduce";
-import { unlockPage } from "./redux/appReducer";
+import { getMe } from "./redux/authReduce/authReduce";
+import { unlockPage } from "./redux/appReducer/appReducer";
 import PageLoader from "./common/PageLoader/PageLoader";
 
 class App extends React.Component {

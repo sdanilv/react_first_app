@@ -9,8 +9,8 @@ import {
   addInBlockButtons,
   getUsers,
   removeFromBlockButtons
-} from "../../redux/usersReduser";
-import { setProfile } from "../../redux/profileReducer";
+} from "../../redux/usersReduser/usersReduser";
+import { setProfile } from "../../redux/profileReducer/profileReducer";
 import { compose } from "redux";
 
 class UsersContainer extends React.Component {

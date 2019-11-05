@@ -1,35 +1,9 @@
 import React from "react";
 import User from "./user/User";
 import style from "./Users.module.css";
+import Pagination from "../../common/Pagination/Pagination";
 
 const Users = props => {
-  let currentPage = props.currentPage;
-  let numbersPage = Math.ceil(props.allUsersCount / props.countUsersInPage);
-  let arrayOfPages = [];
-
-  for (let i = 1; i < numbersPage; i++) {
-    arrayOfPages.push(i);
-  }
-
-  let button = p => {
-    return (
-      <button
-        className={currentPage === p ? style.selectedPage : null}
-        key={p}
-        onClick={e => props.onPageClick(p)}>
-        {p}
-      </button>
-    );
-  };
-
-  let pages = arrayOfPages.map(p => {
-    if ((p >= 1 && p <= 5) || p === arrayOfPages.length) {
-      return button(p);
-    }
-    if (p === arrayOfPages.length - 1) return <button key={p}>...</button>;
-    return "";
-  });
-
   let users = props.users.map(u => (
     <User
       key={u.id}
@@ -46,7 +20,11 @@ const Users = props => {
 
   return (
     <div>
-      <div className={style.pagination}>{pages}</div>
+      <Pagination
+        currentPage={props.currentPage}
+        numbersPage={Math.ceil(props.allUsersCount / props.countUsersInPage)}
+        onPageClick={props.onPageClick}
+      />
       <div className={style.u}>{users}</div>
     </div>
   );

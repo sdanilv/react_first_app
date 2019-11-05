@@ -39,10 +39,6 @@ class UsersContainer extends React.Component {
             subs={this.props.subscribe}
             unsubs={this.props.unsubscribe}
             blockedSubButtons={this.props.blockedSubButtons}
-            // setUsers={this.props.setUsers}
-            // setCurrentPage={this.props.setCurrentPage}
-            // setAllUsersCount={this.props.setAllUsersCount}
-            // setCountUsersInPage={this.props.setCountUsersInPage}
           />
         )}
       </>

@@ -8,7 +8,7 @@ const CHANGE_ALL_USERS_COUNT = "CHANGE_ALL_USERS_COUNT";
 const CHANGE_PAGE_USERS_COUNT = "CHANGE_PAGE_USERS_COUNT";
 const ADD_IN_BLOCK_BUTTONS = "ADD_IN_BLOCK_BUTTONS";
 const REMOVE_FROM_BLOCK_BUTTONS = "REMOVE_IN_BLOCK_BUTTONS";
-const SET_TOGGLE_LAODER = "SET_TOGGLE_LAODER";
+const SET_TOGGLE_LOADER = "SET_TOGGLE_LOADER";
 
 let initiationState = {
   users: [],
@@ -19,7 +19,7 @@ let initiationState = {
   loaded: false
 };
 
-let usersReduser = (state = initiationState, action) => {
+let usersReducer = (state = initiationState, action) => {
   switch (action.type) {
     case SUBSCRIBE_USER:
       return {
@@ -57,7 +57,7 @@ let usersReduser = (state = initiationState, action) => {
           button => button !== action.blockedButton
         )
       };
-    case SET_TOGGLE_LAODER:
+    case SET_TOGGLE_LOADER:
       return { ...state, loaded: action.toggle };
     default:
       return state;
@@ -97,7 +97,7 @@ export let removeFromBlockButtons = button => ({
   blockedButton: button
 });
 export let loading = toggle => ({
-  type: SET_TOGGLE_LAODER,
+  type: SET_TOGGLE_LOADER,
   toggle
 });
 
@@ -126,4 +126,4 @@ export let unsubscribe = userId => dispatch => {
   });
 };
 
-export default usersReduser;
+export default usersReducer;

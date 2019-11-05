@@ -9,7 +9,7 @@ import {
   addInBlockButtons,
   getUsers,
   removeFromBlockButtons
-} from "../../redux/usersReduser/usersReduser";
+} from "../../redux/usersReducer/usersReducer";
 import { setProfile } from "../../redux/profileReducer/profileReducer";
 import { compose } from "redux";
 

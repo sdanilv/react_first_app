@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import profileReducer from "./profileReducer/profileReducer";
 import navbarReducer from "./navbarReducer/navbarReducer";
 import dialogsReducer from "./dialogsReducer/dialogsReducer";
-import usersReduser from "./usersReduser/usersReduser";
+import usersReducer from "./usersReducer/usersReducer";
 import authReduce from "./authReduce/authReduce";
 import commonReducer from "./commonReducer/commonReducer";
 import appReduce from "./appReducer/appReducer";
@@ -13,7 +13,7 @@ let reducers = combineReducers({
   DialogsPage: dialogsReducer,
   ProfilePage: profileReducer,
   Navbar: navbarReducer,
-  Users: usersReduser,
+  Users: usersReducer,
   Auth: authReduce,
   Common: commonReducer,
   form: formReducer,

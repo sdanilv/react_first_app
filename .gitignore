@@ -29,7 +29,6 @@ yarn-error.log*
 
 .vscode
 
-
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/my-app.iml
 /.idea/misc.xml

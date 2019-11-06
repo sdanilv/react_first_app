@@ -30,7 +30,7 @@ const Status = props => {
         value={status}
       />
     );
-  return <span onDoubleClick={e => editModeToggle(true)}>{status}</span>;
+  return <span onDoubleClick={() => editModeToggle(true)}>{status}</span>;
 };
 
 export default Status;

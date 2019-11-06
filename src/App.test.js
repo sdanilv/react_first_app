@@ -1,16 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import {render, unmountComponentAtNode} from "react-dom";
 import App from "./App";
 import store from "./redux/storeRedux";
 import { Provider } from "react-redux";
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(
+  render(
     <Provider store={store}>
       <App />
     </Provider>,
     div
   );
-  ReactDOM.unmountComponentAtNode(div);
+  unmountComponentAtNode(div);
 });

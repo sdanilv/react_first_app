@@ -1,17 +1,17 @@
 import React from "react";
 import style from "./App.module.css";
 import Navbar from "./components/navbar/Navbar";
-import { Route, BrowserRouter, Redirect } from "react-router-dom";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
 import ProfileComponent from "./components/profile/ProfileComponent";
 import HeaderContainer from "./components/header/HeaderContainer";
 import Auth from "./components/auth/Auth";
+import PageLoader from "./common/PageLoader/PageLoader";
+import { Route, BrowserRouter, Redirect } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { getMe } from "./redux/authReduce/authReduce";
 import { unlockPage } from "./redux/appReducer/appReducer";
-import PageLoader from "./common/PageLoader/PageLoader";
 
 class App extends React.Component {
   componentDidMount() {

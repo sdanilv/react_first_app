@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import { getMe } from "./redux/authReduce/authReduce";
 import { unlockPage } from "./redux/appReducer/appReducer";
 import PageLoader from "./common/PageLoader/PageLoader";
-import MySuspense from "./hoc/MySuspense";
+import withSuspense from "./hoc/withSuspense";
 
 const DialogsContainer = React.lazy(()=>import("./components/dialogs/DialogsContainer"));
 const Auth = React.lazy(()=>import("./components/auth/Auth"));
@@ -43,7 +43,7 @@ class App extends React.Component {
             <Route
               key='dialogs'
               path='/dialogs'
-              render={() => MySuspense(DialogsContainer )}
+              render={withSuspense(DialogsContainer)  }
             />
             <Route
               key='root'
@@ -52,7 +52,10 @@ class App extends React.Component {
               render={() => <Redirect to='/users' />}
             />
 
-            <Route key='auth' path='/login' render={() => MySuspense(Auth)} />
+            {/*<Route key='auth' path='/login' render={()=>{*/}
+            {/*  return <Suspense fallback={<PageLoader />}>*/}
+            {/*  <Auth/></Suspense>}} />*/}
+            <Route key='auth' path='/login' render={withSuspense(Auth)} />
           </div>
         </div>
       </BrowserRouter>

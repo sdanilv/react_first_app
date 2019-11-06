@@ -1,50 +1,80 @@
-import {act, create} from "react-test-renderer"
+// import {act, create} from "react-test-renderer"
+// import ReactDOM from 'react-dom';
+// import toJson from 'enzyme-to-json';
 import Status from "./Status";
 import React from "react";
-import ReactDOM from 'react-dom';
-import Enzyme, { shallow, render, mount } from 'enzyme';
-import toJson from 'enzyme-to-json';
+import {mount, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-Enzyme.configure({ adapter: new Adapter() })
+configure({adapter: new Adapter()});
 
-describe(`status span test`, ()=>{
-  test(`if edit mode false, should see span`,()=>{
-    const component = create(<Status status="Hello world" />);
-    const root = component.root;
-    const span = root.findByType("span");
-    const innerHTML = span.children;
-    expect(innerHTML.length).toBe(1);
-  });
+describe(`Status component`, () => {
+    let wrapper;
+    let span;
+    let setMyStatus;
+    beforeEach(() => {
+        setMyStatus = jest.fn((status) => {
+            return status
+        });
+        wrapper = mount(<Status status="Hello world" setMyStatus={setMyStatus}/>);
+        span = wrapper.find("span");
+    });
 
-  test(`span should contain "Hello world"`,()=>{
-    const component = create(<Status status="Hello world" />);
-    const root = component.root;
-    const span = root.findByType("span");
-    const innerHTML = span.children;
-    expect(innerHTML[0]).toBe("Hello world");
-  });
+    describe(`status span test`, () => {
+        test(`if edit mode false, should see span`, () => {
+            expect(span).not.toBeNull();
+        });
+        test(`span should contain "Hello world"`, () => {
+            expect(span.text()).toBe("Hello world");
+        });
+    });
+
+    describe(`after double click for span`, () => {
+        let input;
+        beforeEach(() => {
+            span.simulate("doubleClick");
+            input = wrapper.find("input")
+        });
+        test(`should be input`, () => {
+
+            expect(input.length).not.toBeNull();
+        });
+        test(`input should have value "Hello world"`, () => {
+            expect(input.props().value).toBe("Hello world");
+        });
+
+        describe(`after blur`, () => {
+            beforeEach(() => {
+                input.simulate("blur");
+            });
+
+            test(` input mus be null`, () => {
+                input = wrapper.find("input");
+                expect(input.length).toBe(0)
+            });
+
+            test(`should calling setMyStatus one times`, () => {
+                expect(setMyStatus.mock.calls.length).toBe(1)
+            });
+
+            test(`setMyStatus should return "Hello world"`, () => {
+                expect(setMyStatus.mock.results[0].value).toBe("Hello world")
+            });
+        });
+
+        describe(`after change input`, () => {
+          beforeEach(()=>{
+            input.simulate("change", { target: { value: "Change" }});
+            input = wrapper.find("input");
+          });
+            test(`value of input should be change`, () => {
+              expect(input.props().value).toBe("Change");
+            });
+            test(`after blur setState should return changed status`, ()=>{
+              input.simulate("blur");
+              expect(setMyStatus.mock.results[0].value).toBe("Change");
+            })
+        });
+
+    });
 });
-
-describe(`status span test`, ()=>{
-  test(`if editmode come true, should be input`, ()=>{
-    const component = create(<Status status="Hello world" />);
-    const root = component.root;
-    const instance = component.getInstance();
-    const span = root.findByType("span");
-    act(()=>    span.props.onDoubleClick());
-    const input = root.findByType("input");
-    expect(input.props.value).toBe("Hello world");
-  });
-
-  test(`if editmode come true, should be input`, ()=>{
-    const mockCallback = jest.fn();
-    const component = create(<Status status="Hello world" setMyStatus={mockCallback} />);
-    const instance = component.getInstance();
-    const root = component.root;
-    root.editModeToggle(false);
-
-    expect(mockCallback.mock.calls).toBe("1");
-  });
-
-})

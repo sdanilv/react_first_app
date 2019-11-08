@@ -9,6 +9,7 @@ const CHANGE_PAGE_USERS_COUNT = "CHANGE_PAGE_USERS_COUNT";
 const ADD_IN_BLOCK_BUTTONS = "ADD_IN_BLOCK_BUTTONS";
 const REMOVE_FROM_BLOCK_BUTTONS = "REMOVE_IN_BLOCK_BUTTONS";
 const SET_TOGGLE_LOADER = "SET_TOGGLE_LOADER";
+const SET_KIT = "SET_KIT";
 
 let initiationState = {
   users: [],
@@ -16,11 +17,14 @@ let initiationState = {
   countUsersInPage: 6,
   currentPage: 3,
   blockedSubButtons: [],
-  loaded: false
+  loaded: false,
+  kit:1
 };
 
 let usersReducer = (state = initiationState, action) => {
   switch (action.type) {
+    case SET_KIT:
+      return { ...state, kit : action.kit };
     case SUBSCRIBE_USER:
       return {
         ...state,
@@ -64,17 +68,21 @@ let usersReducer = (state = initiationState, action) => {
   }
 };
 
+export  const setKit = kit =>({
+  type: SET_KIT,
+  kit
+})
 export let subsAC = userId => ({
   type: SUBSCRIBE_USER,
-  userId: userId
+  userId
 });
 export let unsubsAC = userId => ({
   type: UNSUBSCRIBE_USER,
-  userId: userId
+  userId
 });
 export let setUsers = users => ({
   type: SET_USERS,
-  users: users
+  users
 });
 export let setCurrentPage = number => ({
   type: CHANGE_PAGE,

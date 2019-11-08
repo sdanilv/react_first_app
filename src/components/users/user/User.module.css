@@ -10,12 +10,4 @@
   height: 100px;
 }
 
-.user button {
-  border-radius: 3px;
-  border: 1px solid silver;
-  opacity: 0.5;
-}
 
-.user button:hover {
-  opacity: 1;
-}

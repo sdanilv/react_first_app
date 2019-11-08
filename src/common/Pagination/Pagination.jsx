@@ -5,16 +5,13 @@ const Pagination = memo(props => {
 
     const {kit, setKit, currentPage, numbersPage, onPageClick, countOfVisiblePages = 5} = props;
 
-    // let countOfVisiblePages = 5;
     const lastKit = Math.ceil(numbersPage / countOfVisiblePages);
     const start = (kit - 1) * countOfVisiblePages + 1;
     const end = kit * countOfVisiblePages;
-
     let arrayOfPages = [];
 
     for (let i = 1; i < numbersPage; i++) {
         arrayOfPages.push(i);
-
     }
 
     const button = p => {

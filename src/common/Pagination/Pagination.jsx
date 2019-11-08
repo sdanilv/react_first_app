@@ -33,7 +33,6 @@ const Pagination = memo(props => {
     };
 
     let pages = (start, end) => arrayOfPages.map(p => {
-
         if ((p >= start && p <= end) || p === arrayOfPages.length || p === 1) {
             return button(p);
         }

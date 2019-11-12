@@ -4,13 +4,6 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
 let links = [
-  // {
-  //   id: 1,
-  //   adress: "/profile",
-  //   img:
-  //     "https://cdn2.iconfinder.com/data/icons/business-management-52/96/Artboard_20-512.png",
-  //   text: "Profile"
-  // },
   {
     id: 2,
     adress: "/dialogs",

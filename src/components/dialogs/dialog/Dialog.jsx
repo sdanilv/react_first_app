@@ -1,13 +1,21 @@
 import React from "react";
-import style from "./Dialog.module.css";
-
+import {NavLink} from "react-router-dom"
+import style from "../Dialogs.module.css"
 const Dialog = props => {
-  return (
-    <div className={style.dialog}>
-      <img src={props.ava} alt='dialogAva' />
-      <div className={style.name}> {props.name}</div>
-      <div className={style.lastMesage}>{props.lastMessage}</div>
-    </div>
-  );
+
+    const chatSubmit = formData => {
+        props.destroy("dialogs");
+    };
+
+    return (
+        <NavLink to={`/dialogs/${props.id}`}>
+            <div className={style.dialog}>
+                <img src={props.ava} alt='dialogAva'/>
+                <div className={style.name}> {props.name}</div>
+                <div className={style.lastMessages}>{props.lastMessages}</div>
+                {/*<TextArea onSubmit={chatSubmit}/>*/}
+            </div>
+        </NavLink>
+    );
 };
 export default Dialog;

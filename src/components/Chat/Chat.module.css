@@ -1,3 +1,32 @@
-.chat{
+.chat {
     background-color: aliceblue;
+
+    padding: 5px;
+}
+.chat>div{
+    margin: 10px;
+}
+.chat>div:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+.header > img {
+    width: 10%;
+
+    float: left;
+}
+.header:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 3em;
+    float: left;
+    /*width: 90%;*/
+    padding-left: 100px;
 }

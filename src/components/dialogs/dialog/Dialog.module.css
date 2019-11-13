@@ -1,11 +1,14 @@
 .dialog {
   background: lightblue;
   display: grid;
+  padding: 10px;
+  border-radius: 5px;
   grid-template-areas:
     "i n"
     "i m";
   grid-template-columns: 1fr 10fr;
   grid-template-rows: 1fr 3fr;
+
 }
 .dialog img {
   width: 40px;
@@ -17,8 +20,16 @@
   font-weight: bold;
   font-size: 1.1em;
   grid-area: n;
+  text-decoration: none;
 }
 .lastMessages {
   font-size: 1em;
   grid-area: m;
+  text-decoration: none;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+
 }

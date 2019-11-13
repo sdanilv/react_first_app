@@ -12,6 +12,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { getMe } from "./redux/authReduce/authReduce";
 import { unlockPage } from "./redux/appReducer/appReducer";
+import Chat from "./components/Chat/ChatContainer";
 
 class App extends React.Component {
   componentDidMount() {
@@ -38,6 +39,7 @@ class App extends React.Component {
             />
             <Route
               key='dialogs'
+              exact
               path='/dialogs'
               render={() => <DialogsContainer />}
             />
@@ -46,6 +48,12 @@ class App extends React.Component {
               exact
               path='/'
               render={() => <Redirect to='/users' />}
+            />
+            <Route
+                key='chat'
+                exact
+                path='/dialogs/:userId'
+                render={() => <Chat />}
             />
 
             <Route key='auth' path='/login' render={() => <Auth />} />
@@ -61,7 +69,6 @@ const mapStateToProps = state => ({
   myId: state.Auth.id
 });
 export default compose(
-  // withRouter,
   connect(
     mapStateToProps,
     { getMe, unlockPage }

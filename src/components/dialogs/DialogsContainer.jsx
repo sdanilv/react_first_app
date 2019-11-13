@@ -3,11 +3,11 @@ import {connect} from "react-redux";
 import Dialogs from "./Dialogs";
 import {withAuthRedirect} from "../../hoc/AuthRedirect";
 import {compose} from "redux";
-import {getMessages} from "../../redux/dialogsReducer/dialogsSelector";
+import {getLastMessages} from "../../redux/dialogsReducer/dialogsSelector";
 import {destroy} from "redux-form";
 
 let mapStateToProps = state => ({
-    Messages: getMessages(state),
+    Messages: getLastMessages(state),
 });
 
 export default compose(

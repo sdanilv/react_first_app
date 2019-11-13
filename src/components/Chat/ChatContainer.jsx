@@ -1,10 +1,14 @@
-import React from "react";
-import style from "./Chat.module.css";
-import {co } from "redux"
+import {compose } from "redux"
 import {connect} from "react-redux";
 import Chat from "./Chat";
+import {destroy} from "redux-form";
+import {getMessages} from "../../redux/dialogsReducer/dialogsSelector";
+import {AddMessageToChat} from "../../redux/dialogsReducer/dialogsReducer";
+import {withRouter } from "react-router-dom"
+import {myId} from "../../redux/authReduce/authSelector";
 
 const mapsStateToProps = state =>({
-  Messages: state.DialogsPage.Messages
+  Messages: getMessages(state),
+  myId: myId(state),
 });
-export default connect(mapsStateToProps, )(Chat)
+export default compose(withRouter, connect(mapsStateToProps,  {AddMessageToChat, destroy}))(Chat)

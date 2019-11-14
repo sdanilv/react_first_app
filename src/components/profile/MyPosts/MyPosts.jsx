@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import TextArea from "./TextArea/TextArea";
+import TextForm from "../../../common/TextForm/TextForm";
 
 const MyPosts = props => {
   let postElements = props.posts
@@ -23,7 +23,7 @@ const MyPosts = props => {
   };
   return (
     <div className={style.posts}>
-      <TextArea onSubmit={onSubmitPost} />
+      <TextForm  form={"post"} onSubmit={onSubmitPost} />
       <div>{postElements}</div>
     </div>
   );

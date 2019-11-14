@@ -10,6 +10,7 @@ export const MyTextArea = ({ input, label, meta: { touched, error } }) => {
         className={touched ? error && style.form_error : ""}
       />
       {touched && <label className={style.error}>{error}</label>}
+
     </>
   );
 };

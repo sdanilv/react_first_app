@@ -1,10 +1,22 @@
-// import React from "react";
-// import { createSelector } from "reselect";
-// import Dialog from "../../components/dialogs/dialog/Dialog";
+import {createSelector} from "reselect";
 
-export const getLastMessages = state => {
-  return state.DialogsPage.lastMessages;
+// import React from "react";
+
+
+export const getMessages = state => {
+    return state.DialogsPage.Messages;
 };
-export const getChats = state => {
-  return state.DialogsPage.chats;
-};
+export const getLastMessages = createSelector([getMessages], mes => {
+    return mes.map(m => {
+        if(m.messages!==undefined)
+            return {
+                id: m.id,
+                name: m.name,
+                lastMessages: m.messages.slice(-1)[0].message,
+                ava: m.img
+            };
+        return null;
+        }
+    )
+});
+

@@ -1,54 +1,46 @@
 import React from "react";
 import User from "./user/User";
-import style from "./Users.module.css";
+// import style from "./Users.module.css";
+import Pagination from "../../common/Pagination/Pagination";
+import SubsButton from "./SubsButton/SubsButton";
 
 const Users = props => {
-  let currentPage = props.currentPage;
-  let numbersPage = Math.ceil(props.allUsersCount / props.countUsersInPage);
-  let arrayOfPages = [];
+    let numbersPage = Math.ceil(props.allUsersCount / props.countUsersInPage);
+   const onPageClick = page => {
+        props.setCurrentPage(page);
+        props.getUsers(page, props.countUsersInPage);
+    };
 
-  for (let i = 1; i < numbersPage; i++) {
-    arrayOfPages.push(i);
-  }
-
-  let button = p => {
-    return (
-      <button
-        className={currentPage === p ? style.selectedPage : null}
-        key={p}
-        onClick={e => props.onPageClick(p)}>
-        {p}
-      </button>
-    );
-  };
-
-  let pages = arrayOfPages.map(p => {
-    if ((p >= 1 && p <= 5) || p === arrayOfPages.length) {
-      return button(p);
-    }
-    if (p === arrayOfPages.length - 1) return <button key={p}>...</button>;
-    return "";
-  });
-
-  let users = props.users.map(u => (
-    <User
-      key={u.id}
-      userId={u.id}
-      avaImg={u.photos.small}
-      subscribed={u.followed}
-      name={u.name}
-      status={u.status}
-      subs={props.subs}
-      unsubs={props.unsubs}
-      blockedSubButtons={props.blockedSubButtons}
+    let users = props.users.map(u => (
+        <React.Fragment key={u.id}>
+        <User
+            userId={u.id}
+            avaImg={u.photos.small}
+            name={u.name}
+            status={u.status}
+        >
+        <SubsButton
+    userId = {u.id}
+    followed={u.followed}
+    blockedSubButtons={props.blockedSubButtons}
+    subscribe={props.subscribe}
+    unsubscribe={props.unsubscribe}
     />
-  ));
+        </User>
+        </React.Fragment>
+    ));
 
-  return (
-    <div>
-      <div className={style.pagination}>{pages}</div>
-      <div className={style.u}>{users}</div>
-    </div>
-  );
+    return (
+        <div>
+            <Pagination
+                currentPage={props.currentPage}
+                numbersPage={numbersPage}
+                onPageClick={onPageClick}
+                setKit={props.setKit}
+                kit={props.kit}
+            />
+            <div>{users}</div>
+        </div>
+    );
 };
 export default Users;

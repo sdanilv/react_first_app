@@ -2,20 +2,16 @@ import React from "react";
 import style from "./App.module.css";
 import Navbar from "./components/navbar/Navbar";
 import { Route, BrowserRouter, Redirect } from "react-router-dom";
-// import DialogsContainer from "./components/dialogs/DialogsContainer";
+import DialogsContainer from "./components/dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
 import ProfileComponent from "./components/profile/ProfileComponent";
 import HeaderContainer from "./components/header/HeaderContainer";
-// import Auth from "./components/auth/Auth";
+import Auth from "./components/auth/Auth";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { getMe } from "./redux/authReduce/authReduce";
 import { unlockPage } from "./redux/appReducer/appReducer";
 import PageLoader from "./common/PageLoader/PageLoader";
-import withSuspense from "./hoc/withSuspense";
-
-const DialogsContainer = React.lazy(()=>import("./components/dialogs/DialogsContainer"));
-const Auth = React.lazy(()=>import("./components/auth/Auth"));
 
 class App extends React.Component {
   componentDidMount() {
@@ -43,7 +39,7 @@ class App extends React.Component {
             <Route
               key='dialogs'
               path='/dialogs'
-              render={withSuspense(DialogsContainer)  }
+              render={() => <DialogsContainer />}
             />
             <Route
               key='root'
@@ -52,10 +48,7 @@ class App extends React.Component {
               render={() => <Redirect to='/users' />}
             />
 
-            {/*<Route key='auth' path='/login' render={()=>{*/}
-            {/*  return <Suspense fallback={<PageLoader />}>*/}
-            {/*  <Auth/></Suspense>}} />*/}
-            <Route key='auth' path='/login' render={withSuspense(Auth)} />
+            <Route key='auth' path='/login' render={() => <Auth />} />
           </div>
         </div>
       </BrowserRouter>

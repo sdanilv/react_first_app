@@ -1,67 +1,67 @@
-import { AuthApi } from "../../api/api";
-import { stopSubmit } from "redux-form";
+import {AuthApi} from "../../api/api";
+import {stopSubmit} from "redux-form";
 
 const AUTHORIZATION = "AUTHORIZATION";
 const SIGN_OUT = "SIGN_OUT";
 let initiationState = {
-  id: null,
-  email: null,
-  login: null,
-  isSignIn: false
+    id: null,
+    email: null,
+    login: null,
+    isSignIn: false
 };
 
 const authReduce = (state = initiationState, action) => {
-  switch (action.type) {
-    case AUTHORIZATION:
-      return {
-        ...state,
-        ...action.data,
-        isSignIn: true
-      };
-    case SIGN_OUT:
-      return {
-        ...state,
-        id: null,
-        email: null,
-        login: null,
-        isSignIn: false
-      };
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case AUTHORIZATION:
+            return {
+                ...state,
+                ...action.data,
+                isSignIn: true
+            };
+        case SIGN_OUT:
+            return {
+                ...state,
+                id: null,
+                email: null,
+                login: null,
+                isSignIn: false
+            };
+        default:
+            return state;
+    }
 };
 
 export let auth = data => ({
-  type: AUTHORIZATION,
-  data
+    type: AUTHORIZATION,
+    data
 });
 
 export let signOut = () => ({
-  type: SIGN_OUT
+    type: SIGN_OUT
 });
 
-export const getMe = () => dispatch =>
-  AuthApi.getMe().then(response => {
+export const getMe = () => async dispatch => {
+    const response = await AuthApi.getMe();
     if (response.resultCode === 0) {
-      dispatch(auth(response.data));
+        dispatch(auth(response.data));
     }
-  });
-
-export const signIn = formData => dispatch => {
-  const request = {
-    ...formData
-    // captcha: true
-  };
-  return AuthApi.signIn(request).then(data => {
-    if (data.resultCode === 0) {
-      dispatch(getMe());
-    } else dispatch(stopSubmit("auth", { _error: data.messages }));
-  });
 };
-export const logout = () => dispatch => {
-  AuthApi.logout().then(resultCode => {
+
+
+export const signIn = formData => async dispatch => {
+    const request = {
+        ...formData
+    };
+    const data = await AuthApi.signIn(request)
+    if (data.resultCode === 0) {
+        dispatch(getMe());
+    } else dispatch(stopSubmit("auth", {_error: data.messages}));
+    return data;
+};
+export const logout = () => async dispatch => {
+    const resultCode = await AuthApi.logout();
     if (resultCode === 0) dispatch(signOut());
-  });
+
 };
 
 export default authReduce;

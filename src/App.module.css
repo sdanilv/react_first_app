@@ -1,20 +1,12 @@
 .appGrid {
   display: grid;
-  /* margin: 0 auto; */
   grid-template-areas:
     "header header"
     "sidebar content";
 
-  grid-template-rows: 10vh auto;
+  grid-template-rows: 10vh minmax(50vh, auto);
   grid-template-columns: 18fr 80fr;
 }
-
-/* .content > div{ */
-/* grid-area: content; */
-/* background-color: green; */
-/* width:800px; */
-/* } */
-
 .content {
   grid-area: content;
 }
@@ -25,11 +17,12 @@
   top: 0;
   grid-area: header;
 }
+
 .sidebar {
-  grid-area: sidebar;
   position: sticky;
   position: -webkit-sticky;
   top: 10vh;
   left: 0;
   grid-area: header;
+  width: 10%;
 }

@@ -1,33 +1,27 @@
-import authReduce, { auth, signOut } from "./authReduce";
+import authReduce, {auth, signOut} from "./authReduce";
 
-let initiationState = {
-  id: 1,
-  email: null,
-  login: null,
-  isSignIn: false
-};
+describe(`authReduce`, () => {
+    it(`isSIgnIn should be true`, () => {
+      let initiationState = {
+        isSignIn: false
+      };
+        const newState = authReduce(initiationState, auth());
+        expect(newState.isSignIn).toBe(true);
+    });
 
-it(`isSIgnIn should be true`, () => {
-  const action = auth();
-  const newState = authReduce(initiationState, action);
-  expect(newState.isSignIn).toBe(true);
-});
+    it(`isSIgnIn should be false`, () => {
+        let initiationState = {
+            isSignIn: true
+        };
+        const newState = authReduce(initiationState, signOut());
+        expect(newState.isSignIn).toBe(false);
+    });
 
-it(`isSIgnIn should be false`, () => {
-  let initiationState = {
-    isSignIn: true
-  };
-  const newState = authReduce(initiationState, signOut());
-  expect(newState.isSignIn).toBe(false);
-});
-
-it(`login should be null`, () => {
-  let initiationState = {
-    id: 1,
-    email: "s@m.com",
-    login: "Da",
-    isSignIn: true
-  };
-  const newState = authReduce(initiationState, signOut());
-  expect(newState.login).toBe(null);
+    it(`login should be null`, () => {
+        let initiationState = {
+            login: "Da",
+        };
+        const newState = authReduce(initiationState, signOut());
+        expect(newState.login).toBeNull();
+    });
 });

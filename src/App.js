@@ -22,7 +22,7 @@ class App extends React.Component {
   render() {
     if (this.props.isLocked) return <PageLoader />;
     return (
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <div className={style.appGrid}>
           <div className={style.header}>
             <HeaderContainer />

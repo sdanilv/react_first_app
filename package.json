@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://thawing-fjord-73310.herokuapp.com",
+  "proxy": "https://social-network.samuraijs.com/api/1.0",
   "engines": {
     "npm": "5.7.1",
     "node": "10.16.3"

@@ -9,7 +9,7 @@ let {myId, Messages, destroy} = props;
     let userId = props.match.params.userId;
     const user = Messages.find(
         m => m.id.toString() === userId);
-    const dialogWithUser = user.messages.map(mess=> <Message {...mess} myId={myId} />);
+    const dialogWithUser = user.messages.map( (mess, index)=> <Message {...mess} myId={myId} key={index} />);
     const chatSubmit = formData => {
         destroy("dialogs");
         props.AddMessageToChat(userId, formData.dialogs, myId )

@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
     withCredentials: true,
     headers: {
         "API-KEY": "ade57208-42e1-4033-bb19-07633193cdde",
-        // "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "*",
         // "Access-Control-Allow-Credentials": "true",
         // "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
         // "Access-Control-Allow-Headers": "Origin, Content-Type, Accept"

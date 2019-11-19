@@ -2,7 +2,7 @@ import axios from "axios";
 // import MyaAva from "../img/MyAva.jpg"
 
 const axiosInstance = axios.create({
-    baseURL: "https://cors-anywhere.herokuapp.com/https://social-network.samuraijs.com/api/1.0/",
+    baseURL: "https://social-network.samuraijs.com/api/1.0/",
     withCredentials: true,
     headers: {
         "API-KEY": "b433c0ee-0352-49d1-8b3d-9ee339f6033b",

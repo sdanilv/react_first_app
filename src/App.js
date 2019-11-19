@@ -20,7 +20,7 @@ class App extends React.Component {
   }
 
   render() {
-    alert("1");
+    alert("2");
     if (this.props.isLocked) return <PageLoader />;
     return (
       <BrowserRouter basename={process.env.PUBLIC_URL}>

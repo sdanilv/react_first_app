@@ -1,10 +1,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
-import style from "./Top.module.css";
+import style from "./ProfileInfo.module.css";
 import Ava from "../../../common/Ava/Ava";
 import Status from "./Status/Status";
 
-const Top = props => {
+const ProfileInfo = props => {
+    const changePhoto = e => {
+        props.changePhoto(e.target.files[0], props.profile.userId)
+    };
   return (
     <div className={style.header}>
       <img
@@ -12,8 +15,9 @@ const Top = props => {
         src='https://www.w3schools.com/howto/img_snow_wide.jpg'
         alt='content'
       />
+        {props.isMe && <input type="file" onChange={changePhoto}/>}
       <div className={style.avaImg}>
-        <Ava avaImg={props.profile.photos.small} />
+        <Ava avaImg={props.profile.photos.large} />
       </div>
       <div className={style.fullName}> {props.profile.fullName}</div>
 
@@ -22,6 +26,7 @@ const Top = props => {
         <Status
           setMyStatus={props.setMyStatus}
           status={props.status || "***"}
+          isMe = {props.isMe}
         />
 
         {/* <Status status={props.status} /> */}
@@ -44,7 +49,7 @@ const Top = props => {
   );
 };
 
-export default Top;
+export default ProfileInfo;
 
 // {
 //   "aboutMe": "я круто чувак 1001%",

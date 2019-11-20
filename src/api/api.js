@@ -50,15 +50,15 @@ export const ProfileApi = {
 
     setMyStatus: status => {
         return axiosInstance.put(`profile/status/`, {status: status});
-    }
-    // uploadPhoto: () => {
+    },
+    uploadPhoto: (img) => {
 
-    //   let formData = new FormData();
-    //   formData.append("image", MyaAva);
-    //   axiosInstance.post(`profile/photo`, formData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form -data"
-    //     }
-    //   }).then(res => console.log(res))
-    // }
+      let formData = new FormData();
+      formData.append("image", img);
+      return axiosInstance.post(`profile/photo`, formData, {
+        headers: {
+          "Content-Type": "multipart/form -data"
+        }
+      })
+    }
 };

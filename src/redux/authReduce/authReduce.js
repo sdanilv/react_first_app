@@ -45,6 +45,7 @@ export const getMe = () => async dispatch => {
     if (response.resultCode === 0) {
         dispatch(auth(response.data));
     }
+    return response.data;
 };
 
 

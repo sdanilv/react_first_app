@@ -6,8 +6,8 @@ import { destroy } from "redux-form";
 
 let mapStateToProps = state => {
   return {
-    textArea: state.ProfilePage.myprofile.textArea,
-    posts: state.ProfilePage.myprofile.posts
+    textArea: state.ProfilePage.myOldProfile.textArea,
+    posts: state.ProfilePage.myOldProfile.posts
   };
 };
 

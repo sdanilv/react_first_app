@@ -15,8 +15,8 @@ const ProfileInfo = props => {
         src='https://www.w3schools.com/howto/img_snow_wide.jpg'
         alt='content'
       />
-        {props.isMe && <input type="file" onChange={changePhoto}/>}
       <div className={style.avaImg}>
+        {props.isMe && <input type="file" className={style.changePhotoButton} onChange={changePhoto}/>}
         <Ava avaImg={props.profile.photos.large} />
       </div>
       <div className={style.fullName}> {props.profile.fullName}</div>

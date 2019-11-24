@@ -20,7 +20,8 @@ class App extends React.Component {
         this.props.getMe()
             .then(data =>
                 this.props.setMyProfile(data.id)
-                .then(this.props.unlockPage));
+                .then(this.props.unlockPage())
+            );
     }
 
     render() {

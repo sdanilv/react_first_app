@@ -45,6 +45,7 @@ export const getMe = () => async dispatch => {
     if (response.resultCode === 0) {
         dispatch(auth(response.data));
     }
+    return response.data;
 };
 
 
@@ -52,7 +53,7 @@ export const signIn = formData => async dispatch => {
     const request = {
         ...formData
     };
-    const data = await AuthApi.signIn(request)
+    const data = await AuthApi.signIn(request);
     if (data.resultCode === 0) {
         dispatch(getMe());
     } else dispatch(stopSubmit("auth", {_error: data.messages}));

@@ -5,7 +5,7 @@ const Status = props => {
   let [status, setStatus] = useState(props.status);
 
   const editModeToggle = toggle => {
-    if (toggle) setEditMode(toggle);
+    if (props.isMe && toggle) setEditMode(toggle);
     else {
       setEditMode(toggle);
       props.setMyStatus(status);

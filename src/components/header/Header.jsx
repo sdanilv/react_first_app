@@ -27,8 +27,8 @@ const Header = props => {
           <div className={style.ava}>
             <Ava avaImg={props.avaImg} />
           </div>
-          <div className={style.login}>{props.login}</div>
             </NavLink>
+          <div className={style.login}>{props.login}</div>
           <NavLink to='/login'>
             <button onClick={onLogout}>Logout</button>
           </NavLink>

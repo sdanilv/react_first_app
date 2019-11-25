@@ -6,27 +6,27 @@ import SubsButton from "./SubsButton/SubsButton";
 
 const Users = props => {
     let numbersPage = Math.ceil(props.allUsersCount / props.countUsersInPage);
-   const onPageClick = page => {
+    const onPageClick = page => {
         props.setCurrentPage(page);
         props.getUsers(page, props.countUsersInPage);
     };
 
     let users = props.users.map(u => (
         <React.Fragment key={u.id}>
-        <User
-            userId={u.id}
-            avaImg={u.photos.small}
-            name={u.name}
-            status={u.status}
-        >
-        <SubsButton
-    userId = {u.id}
-    followed={u.followed}
-    blockedSubButtons={props.blockedSubButtons}
-    subscribe={props.subscribe}
-    unsubscribe={props.unsubscribe}
-    />
-        </User>
+            <User
+                userId={u.id}
+                avaImg={u.photos.small}
+                name={u.name}
+                status={u.status}
+            >
+                {props.isSignIn && <SubsButton
+                    userId={u.id}
+                    followed={u.followed}
+                    blockedSubButtons={props.blockedSubButtons}
+                    subscribe={props.subscribe}
+                    unsubscribe={props.unsubscribe}
+                />}
+            </User>
         </React.Fragment>
     ));
 

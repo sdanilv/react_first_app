@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 
-const Status = props => {
+const Status = ({myStatus, setMyStatus, isMe}) => {
   let [editMode, setEditMode] = useState(false);
-  let [status, setStatus] = useState(props.status);
+  let [status, setStatus] = useState(myStatus);
 
   const editModeToggle = toggle => {
-    if (props.isMe && toggle) setEditMode(toggle);
+    if ( toggle) setEditMode(toggle);
     else {
       setEditMode(toggle);
-      props.setMyStatus(status);
+      setMyStatus(status);
     }
   };
 
   useEffect(() => {
-    setStatus(props.status);
-  }, [props.status]);
+    setStatus(myStatus);
+  }, [myStatus]);
 
   const onStatusUpdate = e => {
     setStatus(e.target.value);
@@ -30,7 +30,7 @@ const Status = props => {
         value={status}
       />
     );
-  return <span onDoubleClick={() => editModeToggle(true)}>{status}</span>;
+  return <span onDoubleClick={() => isMe && editModeToggle(true)}>{status}</span>;
 };
 
 export default Status;

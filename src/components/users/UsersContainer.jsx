@@ -12,6 +12,7 @@ import {
 } from "../../redux/usersReducer/usersReducer";
 import {setProfile} from "../../redux/profileReducer/profileReducer";
 import {compose} from "redux";
+import {isSignIn} from "../../redux/authReduce/authSelector";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -19,33 +20,17 @@ class UsersContainer extends React.Component {
         this.props.setProfile(null);
     }
 
-
     render() {
-        return (
-            <>
-                {this.props.loaded ? (
-                    <PageLoader/>
-                ) : (
-                    <Users
-                        {...this.props}
-                        // allUsersCount={this.props.allUsersCount}
-                        // countUsersInPage={this.props.countUsersInPage}
-                        // currentPage={this.props.currentPage}
-                        // setCurrentPage={this.props.setCurrentPage}
-                        // users={this.props.users}
-                        // subs={this.props.subscribe}
-                        // unsubs={this.props.unsubscribe}
-                        // blockedSubButtons={this.props.blockedSubButtons}
-                    />
-                )}
-            </>
-        );
+        return (<>
+            {this.props.loaded ? <PageLoader/> :
+                <Users{...this.props} />}
+        </>);
     }
 }
 
 let mapStateProper = state => {
     return {
-        signIn: state.Auth.isSignIn,
+        isSignIn: isSignIn(state),
         users: state.Users.users,
         allUsersCount: state.Users.allUsersCount,
         countUsersInPage: state.Users.countUsersInPage,

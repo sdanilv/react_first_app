@@ -18,7 +18,7 @@
   /* margin-left: 5%; */
 }
 .changePhotoButton{
-  position: absolute;
+position: absolute;
   top: 5px;
   width: 95%;
   opacity: 0;
@@ -54,7 +54,7 @@
 .header {
   display: grid;
   grid-template-columns: repeat(6, 2fr) 30px;
-  grid-template-rows: minmax(100px, auto) repeat(4, 50px);
+  grid-template-rows: minmax(1px, auto) repeat(4, 50px);
 }
 
 .status {

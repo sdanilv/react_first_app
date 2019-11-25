@@ -2,6 +2,7 @@ import React from "react";
 import style from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+import {getMyId} from "../../redux/authReduce/authSelector";
 
 let links = [
   {
@@ -53,7 +54,7 @@ const Navbar = (props) => {
     <div className={style.sidebar}>
       <div>
         <NavLink
-          to={`/profile/${props.myId ? props.myId : ""}`}
+          to={`/profile/${props.myId || ""}`}
           activeClassName={style.active}>
           <img
             src='https://cdn2.iconfinder.com/data/icons/business-management-52/96/Artboard_20-512.png'
@@ -67,5 +68,5 @@ const Navbar = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({ myId: state.Auth.id });
+const mapStateToProps = (state) => ({ myId: getMyId(state) });
 export default connect(mapStateToProps)(Navbar);

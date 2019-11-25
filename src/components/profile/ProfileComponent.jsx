@@ -28,7 +28,7 @@ const ProfileComponent = props => {
             status={props.status}
             profile={profile}
             setMyStatus={props.setMyStatus}
-            isMe = {paramsUserId===myId.toString()}
+            isMe = {myId?paramsUserId===myId.toString():false}
         />
     );
 };

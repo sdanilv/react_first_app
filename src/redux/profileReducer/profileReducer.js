@@ -107,7 +107,7 @@ export const setProfile = profile => ({
     type: SET_PROFILE,
     profile: profile
 });
-export const setMyProfileAC = profile => ({
+ const setMyProfileAC = profile => ({
     type: SET_MY_PROFILE,
     profile: profile
 });
@@ -116,6 +116,7 @@ export const setStatus = status => ({
     type: SET_STATUS,
     status
 });
+
 
 export let getUserProfile = userId => dispatch => {
     ProfileApi.getUserProfile(userId).then(result => {
@@ -133,7 +134,7 @@ export let getUserStatus = userId => dispatch => {
     });
 };
 export let setMyStatus = status => dispatch => {
-    ProfileApi.setMyStatus(status).then(result => {
+    ProfileApi.setMyStatus(status).then(() => {
         dispatch(setStatus(status));
     });
 };
@@ -141,7 +142,8 @@ export let setMyStatus = status => dispatch => {
 export const changePhoto = (img, userId) =>async  dispatch=> {
      ProfileApi.uploadPhoto(img).then(result =>{
   if(result.data.resultCode === 0 )
-    dispatch(getUserProfile(userId))});
+    {dispatch(getUserProfile(userId));
+    dispatch(setMyProfile(userId))}});
 };
 
 export default profileReducer;

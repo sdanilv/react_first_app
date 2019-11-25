@@ -23,11 +23,12 @@ const Header = props => {
         </>
       ) : (
         <>
+            <NavLink to={`/profile/${props.myId}`}>
           <div className={style.ava}>
             <Ava avaImg={props.avaImg} />
           </div>
           <div className={style.login}>{props.login}</div>
-
+            </NavLink>
           <NavLink to='/login'>
             <button onClick={onLogout}>Logout</button>
           </NavLink>

@@ -20,7 +20,8 @@ class App extends React.Component {
         this.props.getMe()
             .then(data =>
                 this.props.setMyProfile(data.id)
-                .then(this.props.unlockPage));
+                    .then(this.props.unlockPage())
+            );
     }
 
     render() {
@@ -35,7 +36,10 @@ class App extends React.Component {
                         <Navbar/>
                     </div>
                     <div className={style.content}>
-                        <Route key='user' path='/users' render={() => <UsersContainer/>}/>
+                        <Route
+                            key='user'
+                            path='/users'
+                            render={() => <UsersContainer/>}/>
                         <Route
                             key='profile'
                             path='/profile/:userId?'

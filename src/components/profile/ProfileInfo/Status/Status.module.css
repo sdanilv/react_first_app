@@ -1,0 +1,8 @@
+.status {
+    grid-row: 6;
+    grid-column: 3/7;
+}
+@media all and (max-width: 655px) {
+.status{
+    grid-column: 4/6;
+}}

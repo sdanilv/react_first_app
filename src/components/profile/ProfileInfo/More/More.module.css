@@ -1,0 +1,21 @@
+.more{
+    float:bottom;
+    grid-row: 5;
+    grid-column: 1/6;
+}
+
+
+.aboutMe {
+
+}
+.lookingForAJobImg {
+    width: 30px;
+    height: 30px;
+
+    padding: 1px;
+}
+.lookingForAJobDescription {
+    text-justify: auto;
+    padding-top: 5px;
+    margin: 0 0 0 auto;
+}

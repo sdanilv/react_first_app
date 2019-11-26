@@ -1,0 +1,48 @@
+.more {
+    background: rgba(183, 188, 188, 0.24);
+    float: left;
+    width: 80%;
+    margin: 20px 80px 20px 20px;
+}
+
+.moreSpan {
+    background: rgba(25, 121, 103, 0.16);
+    padding: 5px;
+    border-radius: 1px;
+}
+
+.moreSpan {
+    opacity: 0.5;
+}
+
+.moreSpan:hover {
+    opacity: 1;
+}
+
+.contact {
+    float: left;
+    width: 100%;
+    padding: 5px;
+}
+.contact > a {
+    color: black;
+    text-decoration: none;
+}
+
+.aboutMe {
+padding: 5px;
+}
+
+.lookingForAJobImg {
+    width: 30px;
+    height: 30px;
+    float: left;
+    padding: 1px;
+}
+
+.lookingForAJobDescription {
+    float: left;
+    text-justify: auto;
+    padding-top: 5px;
+    margin: 0 0 0 auto;
+}

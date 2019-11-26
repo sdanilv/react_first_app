@@ -13,8 +13,7 @@ const MyPosts = props => {
         message={p.message}
         likeCount={p.likeCount}
         ava={p.ava}
-      />
-    ))
+      />))
     .reverse();
   let onSubmitPost = formData => {
     let id = props.posts.length;

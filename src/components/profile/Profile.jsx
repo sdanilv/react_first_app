@@ -6,12 +6,8 @@ import MyPostsContainer from "./MyPosts/MyPostsContainer.jsx";
 const Profile = (props) => {
     return (
         <div className={style.profile}>
-            <div className={style.ProfileInfo}>
-                <ProfileInfo
-                    {...props}
-                /></div>
-            <div className="MyPostsContainer"><MyPostsContainer/></div>
-
+            <ProfileInfo{...props}/>
+            <MyPostsContainer/>
         </div>
     );
 };

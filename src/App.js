@@ -18,10 +18,11 @@ import {setMyProfile} from "./redux/profileReducer/profileReducer";
 class App extends React.Component {
     componentDidMount() {
         this.props.getMe()
-            .then(data =>
+            .then((data)=>{
+                if(data.id){
                 this.props.setMyProfile(data.id)
-                    .then(this.props.unlockPage())
-            );
+                    .then(this.props.unlockPage());}
+            else this.props.unlockPage()})
     }
 
     render() {

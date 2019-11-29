@@ -1,11 +1,20 @@
 import style from "./More.module.css"
 import React, {useState} from "react";
+import EditableMore from "./EditableMore";
 
 const More = ({profile}) => {
     const [isMoreVisible, seeMore] = useState(false);
+    const [isEditMode, setEditMode] = useState(false);
     const moreClickEvent = () => {
         seeMore(!isMoreVisible);
     };
+    const editModeOn = ()=>{
+      setEditMode(true);
+    };
+    const saveProfile = ()=>{
+
+    };
+
     const contactsKeys = Object.keys(profile.contacts);
     const contacts = contactsKeys.map(key => {
         let link = profile.contacts[key];
@@ -16,7 +25,7 @@ const More = ({profile}) => {
 
     return (<div className={style.more}>
         <div className={style.moreSpan} onClick={moreClickEvent}> <span  > More...</span></div>
-        {isMoreVisible &&
+        {isMoreVisible && (isEditMode?<EditableMore initialValues={profile} onSubmit={saveProfile} profile={profile}/>:(
         <>
             <div className={style.aboutMe}><b>About Me:</b> {profile.aboutMe}</div>
             {profile.lookingForAJob && (
@@ -32,7 +41,10 @@ const More = ({profile}) => {
                 </div>
             )}
             <div>{contacts}</div>
-        </>}
+            <div  className={style.editButton}>
+                <button  onClick={editModeOn}>Edit </button></div>
+        </>))
+        }
     </div>)
 };
 export default More;

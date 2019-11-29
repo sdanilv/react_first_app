@@ -1,4 +1,3 @@
-
 export const getMySmallAvatar = (state )=>{
     if(!state.ProfilePage.myProfile) return null;
     return  state.ProfilePage.myProfile.photos.small};

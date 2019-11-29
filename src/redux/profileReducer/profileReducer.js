@@ -1,6 +1,6 @@
 import {ProfileApi} from "../../api/api";
 import MyAva from "../../img/MyAva.jpg";
-
+import {stopSubmit} from "redux-form";
 
 const UPDATE_POST_TEXT_AREA = "UPDATE-POST-TEXT-AREA";
 const ADD_POST = "ADD-POST";
@@ -107,7 +107,7 @@ export const setProfile = profile => ({
     type: SET_PROFILE,
     profile: profile
 });
- const setMyProfileAC = profile => ({
+const setMyProfileAC = profile => ({
     type: SET_MY_PROFILE,
     profile: profile
 });
@@ -139,11 +139,42 @@ export let setMyStatus = status => dispatch => {
     });
 };
 
-export const changePhoto = (img, userId) =>async  dispatch=> {
-     ProfileApi.uploadPhoto(img).then(result =>{
-  if(result.data.resultCode === 0 )
-    {dispatch(getUserProfile(userId));
-    dispatch(setMyProfile(userId))}});
+export const changePhoto = (img) => async (dispatch, getState) => {
+    ProfileApi.uploadPhoto(img).then(result => {
+        if (result.data.resultCode === 0) {
+            const userId = getState().ProfilePage.myProfile.userId;
+            dispatch(getUserProfile(userId));
+            dispatch(setMyProfile(userId))
+        }
+    });
 };
 
+export const changeMyProfileInfo = profile => async (dispatch, getState) => {
+    const userId = getState().ProfilePage.myProfile.userId;
+    return ProfileApi.setMyProfileInfo(profile).then(result => {
+        if (result.data.resultCode === 0) {
+            dispatch(getUserProfile(userId));
+            return true;
+        } else {
+            let messages = result.data.messages[0];
+            const indexOfBracers = messages.lastIndexOf("(");
+            let brokenField = messages.substring(indexOfBracers + 1, messages.length - 1);
+            const indexOfArray = brokenField.search("-");
+            messages = messages.substring(0, indexOfBracers - 1);
+            let error = {};
+            if (indexOfArray === -1) {
+                brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
+                error[brokenField] = messages;
+            } else {
+                brokenField = brokenField.slice(indexOfArray + 2);
+                brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
+                let contacts = {};
+                contacts[brokenField]=messages;
+                error["contacts"] = contacts;
+            }
+            dispatch(stopSubmit("editMore", error ));
+            return false;
+        }
+    });
+};
 export default profileReducer;

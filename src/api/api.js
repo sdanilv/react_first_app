@@ -37,7 +37,12 @@ export const AuthApi = {
     logout: async () => {
         const response = await axiosInstance.delete(`auth/login`);
         return response.data.resultCode;
+    },
+    getCaptcha: async () =>{
+        const response = await axiosInstance.get(`security/get-captcha-url`);
+        return response.data.url;
     }
+
 };
 export const ProfileApi = {
     getUserProfile: userId => {

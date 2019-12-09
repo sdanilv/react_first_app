@@ -56,6 +56,9 @@ export const ProfileApi = {
     setMyStatus: status => {
         return axiosInstance.put(`profile/status/`, {status: status});
     },
+    setMyProfileInfo: profile =>{
+        return axiosInstance.put(`profile`, {...profile})
+    },
     uploadPhoto: (img) => {
 
       let formData = new FormData();

@@ -3,7 +3,7 @@ import Profile from "./Profile";
 import {withRouter, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import {
-    getUserProfile, setMyStatus, getUserStatus, changePhoto
+    getUserProfile, setMyStatus, getUserStatus, changePhoto, changeMyProfileInfo
 } from "../../redux/profileReducer/profileReducer";
 import {loading} from "../../redux/commonReducer/commonReducer";
 import {compose} from "redux";
@@ -24,11 +24,12 @@ const ProfileComponent = props => {
     if (!profile) return <PageLoader/>;
     return (
         <Profile
-            changePhoto = {props.changePhoto}
+            changePhoto={props.changePhoto}
             status={props.status}
             profile={profile}
             setMyStatus={props.setMyStatus}
-            isMe = {myId?paramsUserId===myId.toString():false}
+            changeMyProfileInfo={props.changeMyProfileInfo}
+            isMe={myId ? paramsUserId === myId.toString() : false}
         />
     );
 };
@@ -43,9 +44,11 @@ let mapStateToProps = state => ({
 export default compose(
     connect(
         mapStateToProps,
-        {getUserProfile, setMyStatus, getUserStatus, loading, changePhoto}
+        {
+            getUserProfile, setMyStatus,
+            getUserStatus, loading,
+            changePhoto, changeMyProfileInfo
+        }
     ),
-    // withPageLoader,
-    // withAuthRedirect,
     withRouter
 )(ProfileComponent);

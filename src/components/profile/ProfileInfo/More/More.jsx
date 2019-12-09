@@ -1,7 +1,6 @@
 import style from "./More.module.css"
 import React, {useState} from "react";
 import EditableMore from "./EditableMore";
-import {changeMyProfileInfo} from "../../../../redux/profileReducer/profileReducer";
 
 const More = ({profile, isMe, saveAllMyProfileInfo}) => {
     const [isMoreVisible, seeMore] = useState(false);

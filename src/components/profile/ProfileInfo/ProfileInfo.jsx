@@ -3,7 +3,7 @@ import Ava from "../../../common/Ava/Ava";
 import Status from "./Status/Status";
 import More from "./More/More";
 import React from "react";
-import {} from "redux-form"
+
 
 const ProfileInfo = ({isMe, profile, setMyStatus, changeMyProfileInfo, status}) => {
     const {userId, photos, fullName, ...more} = profile;

@@ -46,12 +46,12 @@ export let auth = data => ({
 export let signOut = () => ({
     type: SIGN_OUT
 });
-const setCaptchaURL = captchaURL =>({
+const setCaptchaURL = captchaURL => ({
     type: SET_CAPTCHA,
-    captchaURL :captchaURL
+    captchaURL: captchaURL
 });
 
-const getCaptchaURL =()=> async dispatch => {
+const getCaptchaURL = () => async dispatch => {
     const captchaURL = await AuthApi.getCaptcha();
     if (captchaURL) {
         dispatch(setCaptchaURL(captchaURL));

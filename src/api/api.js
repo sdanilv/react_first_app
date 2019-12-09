@@ -38,7 +38,7 @@ export const AuthApi = {
         const response = await axiosInstance.delete(`auth/login`);
         return response.data.resultCode;
     },
-    getCaptcha: async () =>{
+    getCaptcha: async () => {
         const response = await axiosInstance.get(`security/get-captcha-url`);
         return response.data.url;
     }
@@ -56,17 +56,17 @@ export const ProfileApi = {
     setMyStatus: status => {
         return axiosInstance.put(`profile/status/`, {status: status});
     },
-    setMyProfileInfo: profile =>{
+    setMyProfileInfo: profile => {
         return axiosInstance.put(`profile`, {...profile})
     },
     uploadPhoto: (img) => {
 
-      let formData = new FormData();
-      formData.append("image", img);
-      return axiosInstance.post(`profile/photo`, formData, {
-        headers: {
-          "Content-Type": "multipart/form -data"
-        }
-      })
+        let formData = new FormData();
+        formData.append("image", img);
+        return axiosInstance.post(`profile/photo`, formData, {
+            headers: {
+                "Content-Type": "multipart/form -data"
+            }
+        })
     }
 };

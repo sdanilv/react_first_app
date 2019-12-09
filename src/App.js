@@ -3,11 +3,11 @@ import style from "./App.module.css";
 import Navbar from "./components/navbar/Navbar";
 import DialogsContainer from "./components/dialogs/DialogsContainer";
 import UsersContainer from "./components/users/UsersContainer";
-import ProfileComponent from "./components/profile/ProfileComponent" ;
+import ProfileComponent from "./components/profile/ProfileComponent";
 import HeaderContainer from "./components/header/HeaderContainer";
 import Auth from "./components/auth/Auth";
 import PageLoader from "./common/PageLoader/PageLoader";
-import {Route, BrowserRouter, Redirect} from "react-router-dom";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {getMe} from "./redux/authReduce/authReduce";
@@ -21,8 +21,10 @@ class App extends React.Component {
             .then((data) => {
                 if (data.id) {
                     this.props.setMyProfile()
-                        .then(mes =>{ this.props.unlockPage();
-                        console.log(mes);})
+                        .then(mes => {
+                            this.props.unlockPage();
+                            console.log(mes);
+                        })
                 } else this.props.unlockPage()
             })
     }

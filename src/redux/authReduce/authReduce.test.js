@@ -2,9 +2,9 @@ import authReduce, {auth, signOut} from "./authReduce";
 
 describe(`authReduce`, () => {
     it(`isSIgnIn should be true`, () => {
-      let initiationState = {
-        isSignIn: false
-      };
+        let initiationState = {
+            isSignIn: false
+        };
         const newState = authReduce(initiationState, auth());
         expect(newState.isSignIn).toBe(true);
     });

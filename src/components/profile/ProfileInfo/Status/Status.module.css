@@ -1,7 +1,9 @@
 .status {
     padding: 20px;
 }
+
 @media all and (max-width: 655px) {
-.status{
-    grid-column: 4/6;
-}}
+    .status {
+        grid-column: 4/6;
+    }
+}

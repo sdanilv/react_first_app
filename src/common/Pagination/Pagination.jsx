@@ -20,9 +20,12 @@ const Pagination = memo(props => {
                 className={currentPage === p ? style.selectedPage : null}
                 key={p}
                 onClick={() => {
-                    if(p===1) {setKit(1)}
-                    if(p===numbersPage - 1)
-                     { setKit (lastKit)}
+                    if (p === 1) {
+                        setKit(1)
+                    }
+                    if (p === numbersPage - 1) {
+                        setKit(lastKit)
+                    }
                     onPageClick(p);
                 }}>
                 {p}

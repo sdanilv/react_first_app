@@ -3,7 +3,7 @@
 // import toJson from 'enzyme-to-json';
 import Status from "./Status";
 import React from "react";
-import {mount, configure} from 'enzyme';
+import {configure, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({adapter: new Adapter()});
@@ -63,16 +63,16 @@ describe(`Status component`, () => {
         });
 
         describe(`after change input`, () => {
-          beforeEach(()=>{
-            input.simulate("change", { target: { value: "Change" }});
-            input = wrapper.find("input");
-          });
-            test(`value of input should be change`, () => {
-              expect(input.props().value).toBe("Change");
+            beforeEach(() => {
+                input.simulate("change", {target: {value: "Change"}});
+                input = wrapper.find("input");
             });
-            test(`after blur setState should return changed status`, ()=>{
-              input.simulate("blur");
-              expect(setMyStatus.mock.results[0].value).toBe("Change");
+            test(`value of input should be change`, () => {
+                expect(input.props().value).toBe("Change");
+            });
+            test(`after blur setState should return changed status`, () => {
+                input.simulate("blur");
+                expect(setMyStatus.mock.results[0].value).toBe("Change");
             })
         });
 

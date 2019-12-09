@@ -7,7 +7,6 @@ const EditableMore = props => {
     const {profile} = props;
     const contactsKeys = Object.keys(profile.contacts);
     const contacts = contactsKeys.map(key => {
-        let link = profile.contacts[key];
         return (<Fragment key={key}>
             <div className={style.contact}>{key} :
                 <Field name={"contacts." + key} placeholder={"http://" + key + ".com"} component={MyInput} type="text"/>

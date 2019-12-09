@@ -1,9 +1,9 @@
 .pagination button {
-  border: 0 solid;
-  background: rgba(0, 0, 0, 0);
+    border: 0 solid;
+    background: rgba(0, 0, 0, 0);
 }
 
 .selectedPage {
-  font-weight: bold;
-  font-size: 1.2em;
+    font-weight: bold;
+    font-size: 1.2em;
 }

@@ -1,28 +1,27 @@
 .appGrid {
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "sidebar content";
+    display: grid;
+    grid-template-areas: "header header" "sidebar content";
 
-  grid-template-rows: 10vh minmax(50vh, auto);
-  grid-template-columns: 18fr 80fr;
+    grid-template-rows: 10vh minmax(50vh, auto);
+    grid-template-columns: 18fr 80fr;
 }
+
 .content {
-  grid-area: content;
+    grid-area: content;
 }
 
 .header {
-  position: sticky;
-  position: -webkit-sticky;
-  top: 0;
-  grid-area: header;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    grid-area: header;
 }
 
 .sidebar {
-  position: sticky;
-  position: -webkit-sticky;
-  top: 10vh;
-  left: 0;
-  grid-area: header;
-  width: 10%;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 10vh;
+    left: 0;
+    grid-area: header;
+    width: 10%;
 }

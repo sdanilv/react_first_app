@@ -8,14 +8,14 @@ export const getMessages = state => {
 };
 export const getLastMessages = createSelector([getMessages], mes => {
     return mes.map(m => {
-        if(m.messages!==undefined)
-            return {
-                id: m.id,
-                name: m.name,
-                lastMessages: m.messages.slice(-1)[0].message,
-                ava: m.img
-            };
-        return null;
+            if (m.messages !== undefined)
+                return {
+                    id: m.id,
+                    name: m.name,
+                    lastMessages: m.messages.slice(-1)[0].message,
+                    ava: m.img
+                };
+            return null;
         }
     )
 });

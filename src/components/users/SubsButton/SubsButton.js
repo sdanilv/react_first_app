@@ -1,5 +1,5 @@
 import ButtonLoader from "../../../common/ButtonLoader/ButtonLoader";
-import  style from "./SubsButton.module.css"
+import style from "./SubsButton.module.css"
 import React from "react";
 
 
@@ -26,4 +26,5 @@ function SubsButton(props) {
         )}
     </>;
 }
+
 export default SubsButton;

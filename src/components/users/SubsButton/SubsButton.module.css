@@ -3,6 +3,7 @@
     border: 1px solid silver;
     opacity: 0.5;
 }
- .button:hover {
+
+.button:hover {
     opacity: 1;
 }

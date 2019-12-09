@@ -29,7 +29,7 @@ const EditableMore = props => {
             <div>{contacts}</div>
             <div className={style.error}>{props.error}</div>
             <div className={style.saveButton}>
-                <button type="submit" >
+                <button type="submit">
                     Save
                 </button>
             </div>

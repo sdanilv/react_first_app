@@ -3,10 +3,12 @@
 
     padding: 5px;
 }
-.chat>div{
+
+.chat > div {
     margin: 10px;
 }
-.chat>div:after {
+
+.chat > div:after {
     content: " ";
     display: table;
     clear: both;
@@ -17,6 +19,7 @@
 
     float: left;
 }
+
 .header:after {
     content: " ";
     display: table;

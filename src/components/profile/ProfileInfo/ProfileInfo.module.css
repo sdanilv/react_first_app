@@ -1,33 +1,38 @@
 .avaImg {
-  float: left;
-  position:relative;
-  --size: 100px;
-  width: var(--size);
-  height: var(--size);
-  padding: 5px;
+    float: left;
+    position: relative;
+    --size: 100px;
+    width: var(--size);
+    height: var(--size);
+    padding: 5px;
 }
-.changePhotoButton{
-position: absolute;
-  top: 5px;
-  width: 95%;
-  opacity: 0;
-  font-size: 0.9vw;
+
+.changePhotoButton {
+    position: absolute;
+    top: 5px;
+    width: 95%;
+    opacity: 0;
+    font-size: 0.9vw;
 }
-.changePhotoButton:hover{
-  opacity: 0.5;
+
+.changePhotoButton:hover {
+    opacity: 0.5;
 }
-.nameAndStatus{
-  float: left;
-  width: 78%;
-  height: var(--size);
+
+.nameAndStatus {
+    float: left;
+    width: 78%;
+    height: var(--size);
 }
 
 .fullName {
-padding: 20px;
-  font-size: 2em;
+    padding: 20px;
+    font-size: 2em;
 }
-.profileInfo{
-  width: 100%;
+
+.profileInfo {
+    width: 100%;
 }
+
 .header {
 }

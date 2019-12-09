@@ -1,9 +1,13 @@
 import React, {useEffect} from "react";
 import Profile from "./Profile";
-import {withRouter, Redirect} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {
-    getUserProfile, setMyStatus, getUserStatus, changePhoto, changeMyProfileInfo
+    changeMyProfileInfo,
+    changePhoto,
+    getUserProfile,
+    getUserStatus,
+    setMyStatus
 } from "../../redux/profileReducer/profileReducer";
 import {loading} from "../../redux/commonReducer/commonReducer";
 import {compose} from "redux";
@@ -13,11 +17,11 @@ const ProfileComponent = props => {
     const {getUserStatus, getUserProfile, profile, myProfile} = props;
     const paramsUserId = props.match.params.userId;
     // const userId = paramsUserId || myId;
-const isMyProfile = myProfile? paramsUserId === myProfile.userId : false;
+    const isMyProfile = myProfile ? paramsUserId === myProfile.userId : false;
 
     useEffect(() => {
-        if(!isMyProfile)
-        getUserProfile(paramsUserId);
+        if (!isMyProfile)
+            getUserProfile(paramsUserId);
         getUserStatus(paramsUserId);
     }, [paramsUserId, getUserProfile, getUserStatus, isMyProfile]);
 
@@ -27,7 +31,7 @@ const isMyProfile = myProfile? paramsUserId === myProfile.userId : false;
         <Profile
             changePhoto={props.changePhoto}
             status={props.status}
-            profile={isMyProfile?myProfile:profile}
+            profile={isMyProfile ? myProfile : profile}
             setMyStatus={props.setMyStatus}
             changeMyProfileInfo={props.changeMyProfileInfo}
             // isMe={myId ? paramsUserId === myId.toString() : false}

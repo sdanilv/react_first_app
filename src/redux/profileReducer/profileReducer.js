@@ -47,7 +47,7 @@ const initState = {
         ]
     },
     myProfile: null,
-    profile:null,
+    profile: null,
     status: null
 };
 
@@ -86,7 +86,7 @@ const profileReducer = (state = initState, action) => {
         case SET_MY_PROFILE:
             return {
                 ...state,
-                myProfile:{isMe: true, ...action.profile }
+                myProfile: {isMe: true, ...action.profile}
             };
         case SET_STATUS:
             return {
@@ -170,10 +170,10 @@ export const changeMyProfileInfo = profile => async (dispatch, getState) => {
                 brokenField = brokenField.slice(indexOfArray + 2);
                 brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
                 let contacts = {};
-                contacts[brokenField]=messages;
+                contacts[brokenField] = messages;
                 error["contacts"] = contacts;
             }
-            dispatch(stopSubmit("editMore", error ));
+            dispatch(stopSubmit("editMore", error));
             return false;
         }
     });

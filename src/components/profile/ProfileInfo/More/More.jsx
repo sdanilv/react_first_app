@@ -15,7 +15,9 @@ const More = ({profile, isMe, saveAllMyProfileInfo}) => {
         setEditMode(false);
     };
     const saveProfile = (moreProfileInfo) => {
-        saveAllMyProfileInfo(moreProfileInfo).then(isProfileChange=>{if(isProfileChange) editModeOff()})
+        saveAllMyProfileInfo(moreProfileInfo).then(isProfileChange => {
+            if (isProfileChange) editModeOff()
+        })
 
     };
 
@@ -30,7 +32,8 @@ const More = ({profile, isMe, saveAllMyProfileInfo}) => {
     return (<div className={style.more}>
         <div className={style.moreSpan} onClick={moreClickEvent}><span> More...</span></div>
         {isMoreVisible && (isEditMode ?
-            <EditableMore editModeOff={editModeOff} initialValues={profile} onSubmit={saveProfile} profile={profile}/> : (
+            <EditableMore editModeOff={editModeOff} initialValues={profile} onSubmit={saveProfile}
+                          profile={profile}/> : (
                 <>
                     <div className={style.aboutMe}><b>About Me:</b> {profile.aboutMe}</div>
                     {profile.lookingForAJob && (

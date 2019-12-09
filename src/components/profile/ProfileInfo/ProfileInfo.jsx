@@ -5,21 +5,23 @@ import More from "./More/More";
 import React from "react";
 
 
-const ProfileInfo = ({isMe, profile, setMyStatus, changeMyProfileInfo, status}) => {
-    const {userId, photos, fullName, ...more} = profile;
+const ProfileInfo = ({profile, setMyStatus, changeMyProfileInfo, status}) => {
+    const {userId, photos, fullName, isMe, ...more} = profile;
 
     const changePhoto = e => {
         changePhoto(e.target.files[0], userId)
     };
-    const saveAllMyProfileInfo = (moreProfileInfo) =>{
-  return changeMyProfileInfo({...moreProfileInfo, fullName}).then( isProfileChange=>  isProfileChange);
+    const saveAllMyProfileInfo = (moreProfileInfo) => {
+        return changeMyProfileInfo({...moreProfileInfo, fullName}).then(isProfileChange => isProfileChange);
     };
 
     return (
         <div className={style.header}>
             <div className={style.profileInfo}>
                 <div className={style.avaImg}>
-                    {isMe && <input type="file" className={style.changePhotoButton} onChange={changePhoto}/>}
+                    {profile.isMe && <input type="file"
+                                            className={style.changePhotoButton}
+                                            onChange={changePhoto}/>}
                     <Ava avaImg={photos.large}/>
                 </div>
                 <div className={style.nameAndStatus}>
@@ -31,7 +33,7 @@ const ProfileInfo = ({isMe, profile, setMyStatus, changeMyProfileInfo, status}) 
                     />
                 </div>
             </div>
-            <More profile={more} saveAllMyProfileInfo={saveAllMyProfileInfo} isMe={isMe} />
+            <More profile={more} saveAllMyProfileInfo={saveAllMyProfileInfo} isMe={isMe}/>
         </div>
     );
 };

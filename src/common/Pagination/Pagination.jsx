@@ -5,7 +5,7 @@ const Pagination = memo(props => {
 
     const {kit, setKit, currentPage, numbersPage, onPageClick, countOfVisiblePages = 5} = props;
 
-    const lastKit = Math.ceil(numbersPage / countOfVisiblePages);
+    const lastKit = Math.floor(numbersPage / countOfVisiblePages);
     const start = (kit - 1) * countOfVisiblePages + 1;
     const end = kit * countOfVisiblePages;
     let arrayOfPages = [];

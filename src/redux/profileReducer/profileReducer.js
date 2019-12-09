@@ -47,7 +47,7 @@ const initState = {
         ]
     },
     myProfile: null,
-    profile: null,
+    profile:null,
     status: null
 };
 
@@ -86,7 +86,7 @@ const profileReducer = (state = initState, action) => {
         case SET_MY_PROFILE:
             return {
                 ...state,
-                myProfile: action.profile
+                myProfile:{isMe: true, ...action.profile }
             };
         case SET_STATUS:
             return {
@@ -123,7 +123,8 @@ export let getUserProfile = userId => dispatch => {
         dispatch(setProfile(result.data));
     });
 };
-export let setMyProfile = userId => dispatch => {
+export let setMyProfile = () => (dispatch, getState) => {
+    const userId = getState().Auth.id;
     return ProfileApi.getUserProfile(userId).then(result => {
         dispatch(setMyProfileAC(result.data));
     });

@@ -1,13 +1,13 @@
 import React from "react";
-import style from "../../common/FormControllers/FormController.module.css";
+import style from "@/common/FormControllers/FormController.module.css";
 import {Field, reduxForm} from "redux-form";
-import {signIn} from "../../redux/authReduce/authReduce";
+import {signIn} from "@/redux/authReduce/authReduce.ts";
 import {connect} from "react-redux";
-import {MyInput} from "../../common/FormControllers/FormController";
-import {maxSize, required} from "../../utilits/validators/validate";
+import {MyInput} from "@/common/FormControllers/FormController";
+import {maxSize, required} from "@/utilits/validators/validate";
 import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
-import {getCaptchaURL, isSignIn} from "../../redux/authReduce/authSelector";
+import {getCaptchaURL, isSignIn} from "@/redux/authReduce/authSelector";
 
 const maxSize20 = maxSize(20);
 const AuthForm = props => {

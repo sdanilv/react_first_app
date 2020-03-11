@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {auth, getMe, logout} from "../../redux/authReduce/authReduce";
+import {auth, getMe, logout} from "../../redux/authReduce/authReduce.ts";
 import {getMySmallAvatar} from "../../redux/profileReducer/profileSelector"
 import {getMyId, getMyLogin, isSignIn} from "../../redux/authReduce/authSelector";
 

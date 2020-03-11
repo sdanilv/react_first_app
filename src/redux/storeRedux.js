@@ -3,9 +3,9 @@ import profileReducer from "./profileReducer/profileReducer";
 import navbarReducer from "./navbarReducer/navbarReducer";
 import dialogsReducer from "./dialogsReducer/dialogsReducer";
 import usersReducer from "./usersReducer/usersReducer";
-import authReduce from "./authReduce/authReduce";
+import authReduce from "./authReduce/authReduce.ts";
 import commonReducer from "./commonReducer/commonReducer";
-import appReduce from "./appReducer/appReducer";
+import appReduce from "./appReducer/appReducer.ts";
 import thunk from "redux-thunk";
 import {reducer as formReducer} from "redux-form";
 

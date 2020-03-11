@@ -1,32 +1,41 @@
 import {AuthApi} from "../../api/api";
 import {stopSubmit} from "redux-form";
 
-const AUTHORIZATION = "AUTHORIZATION";
-const SIGN_OUT = "SIGN_OUT";
-const SET_CAPTCHA = "AUTH_SET_CAPTCHA";
+// const AUTHORIZATION = "AUTHORIZATION";
+// const SIGN_OUT = "SIGN_OUT";
+// const SET_CAPTCHA = "AUTH_SET_CAPTCHA";
+
+enum actionTypes {
+    AUTHORIZATION = "AUTHORIZATION",
+     SIGN_OUT = "SIGN_OUT",
+    SET_CAPTCHA = "AUTH_SET_CAPTCHA"}
+
+
 let initiationState = {
-    id: null,
-    email: null,
-    login: null,
-    isSignIn: false,
-    captchaURL: null
+    id: null as string|null,
+    email: null  as string|null,
+    login: null  as string|null,
+    isSignIn: false  as boolean|null,
+    captchaURL: null  as string|null
 };
 
-const authReduce = (state = initiationState, action) => {
+type authStateType = typeof initiationState
+
+const authReduce = (state = initiationState, action) : authStateType => {
     switch (action.type) {
-        case AUTHORIZATION:
+        case actionTypes.AUTHORIZATION:
             return {
                 ...state,
                 ...action.data,
                 isSignIn: true
             };
-        case SET_CAPTCHA:
+        case actionTypes.SET_CAPTCHA:
             return {
                 ...state,
                 ...action.data,
                 captchaURL: action.captchaURL
             };
-        case SIGN_OUT:
+        case actionTypes.SIGN_OUT:
             return {
                 ...state,
                 id: null,
@@ -39,20 +48,23 @@ const authReduce = (state = initiationState, action) => {
     }
 };
 
-export let auth = data => ({
-    type: AUTHORIZATION,
+type authData = {id:string, email:string, login: string}
+export let auth = (data:authData):{type:actionTypes, data:authData} => ({
+    type: actionTypes.AUTHORIZATION,
     data
 });
-export let signOut = () => ({
-    type: SIGN_OUT
+export let signOut = ():{type:actionTypes} => ({
+    type: actionTypes.SIGN_OUT
 });
-const setCaptchaURL = captchaURL => ({
-    type: SET_CAPTCHA,
+
+type captchaURL = string | null
+const setCaptchaURL = (captchaURL:string):{type:actionTypes, captchaURL:captchaURL} => ({
+    type: actionTypes.SET_CAPTCHA,
     captchaURL: captchaURL
 });
 
-const getCaptchaURL = () => async dispatch => {
-    const captchaURL = await AuthApi.getCaptcha();
+const getCaptchaURL = ()=> async (dispatch)  => {
+    const captchaURL : captchaURL = await AuthApi.getCaptcha();
     if (captchaURL) {
         dispatch(setCaptchaURL(captchaURL));
     }

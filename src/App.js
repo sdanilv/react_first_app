@@ -10,8 +10,8 @@ import PageLoader from "./common/PageLoader/PageLoader";
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {getMe} from "./redux/authReduce/authReduce";
-import {unlockPage} from "./redux/appReducer/appReducer";
+import {getMe} from "./redux/authReduce/authReduce.ts";
+import {unlockPage} from "./redux/appReducer/appReducer.ts";
 import Chat from "./components/Chat/ChatContainer";
 import {setMyProfile} from "./redux/profileReducer/profileReducer";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./Chat.module.css";
+import style from "./Chat.css";
 import Message from "./Message/Message";
 import TextForm from "../../common/TextForm/TextForm";
 

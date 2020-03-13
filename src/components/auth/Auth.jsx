@@ -1,7 +1,7 @@
 import React from "react";
 import style from "@/common/FormControllers/FormController.module.css";
 import {Field, reduxForm} from "redux-form";
-import {signIn} from "@/redux/authReduce/authReduce.ts";
+import {signIn} from "@/redux/authReduce/authReduce";
 import {connect} from "react-redux";
 import {MyInput} from "@/common/FormControllers/FormController";
 import {maxSize, required} from "@/utilits/validators/validate";

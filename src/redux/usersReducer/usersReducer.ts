@@ -11,17 +11,36 @@ const REMOVE_FROM_BLOCK_BUTTONS = "REMOVE_IN_BLOCK_BUTTONS";
 const SET_TOGGLE_LOADER = "SET_TOGGLE_LOADER";
 const SET_KIT = "SET_KIT";
 
+type Action<K, T = void> = T extends void ? { type: K } : { type: K } & T
+type User = {
+    id: number,
+    avaImg: string,
+    name: string,
+    status: string
+}
+type ActionType =
+    | Action<typeof SET_KIT, { kit: number }>
+    | Action<typeof SUBSCRIBE_USER, { userId: number }>
+    | Action<typeof UNSUBSCRIBE_USER, { userId: number }>
+    | Action<typeof SET_USERS, { users: Array<User>}>
+    | Action<typeof CHANGE_PAGE, { numberPage: number }>
+    | Action<typeof CHANGE_ALL_USERS_COUNT, { allUsersCount: number }>
+    | Action<typeof CHANGE_PAGE_USERS_COUNT, { countUsersInPage: number }>
+    | Action<typeof ADD_IN_BLOCK_BUTTONS, { blockedButton: number }>
+    | Action<typeof REMOVE_FROM_BLOCK_BUTTONS, { blockedButton: number }>
+    | Action<typeof SET_TOGGLE_LOADER, { toggle: boolean }>
+
 let initiationState = {
-    users: [],
+    users: [] as Array<User>,
     allUsersCount: 0,
     countUsersInPage: 6,
     currentPage: 3,
-    blockedSubButtons: [],
+    blockedSubButtons: [] as Array<number>,
     loaded: false,
     kit: 1
 };
-
-let usersReducer = (state = initiationState, action) => {
+type StateType = typeof  initiationState;
+let usersReducer = (state = initiationState, action:ActionType) :StateType => {
     switch (action.type) {
         case SET_KIT:
             return {...state, kit: action.kit};
@@ -68,43 +87,43 @@ let usersReducer = (state = initiationState, action) => {
     }
 };
 
-export const setKit = kit => ({
+export const setKit = (kit: number):ActionType => ({
     type: SET_KIT,
     kit
 });
-export let subsAC = userId => ({
+export let subsAC = (userId:number):ActionType => ({
     type: SUBSCRIBE_USER,
     userId
 });
-export let unsubsAC = userId => ({
+export let unsubsAC = (userId:number):ActionType => ({
     type: UNSUBSCRIBE_USER,
     userId
 });
-export let setUsers = users => ({
+export let setUsers = (users:Array<User>):ActionType => ({
     type: SET_USERS,
     users
 });
-export let setCurrentPage = number => ({
+export let setCurrentPage = (number:number):ActionType => ({
     type: CHANGE_PAGE,
     numberPage: number
 });
-export let setAllUsersCount = count => ({
+export let setAllUsersCount = (count:number):ActionType => ({
     type: CHANGE_ALL_USERS_COUNT,
     allUsersCount: count
 });
-export let setCountUsersInPage = count => ({
+export let setCountUsersInPage = (count:number):ActionType => ({
     type: CHANGE_PAGE_USERS_COUNT,
     countUsersInPage: count
 });
-export let addInBlockButtons = button => ({
+export let addInBlockButtons = (button:number):ActionType => ({
     type: ADD_IN_BLOCK_BUTTONS,
     blockedButton: button
 });
-export let removeFromBlockButtons = button => ({
+export let removeFromBlockButtons = (button: number):ActionType => ({
     type: REMOVE_FROM_BLOCK_BUTTONS,
     blockedButton: button
 });
-export let loading = toggle => ({
+export let loading = (toggle:boolean):ActionType => ({
     type: SET_TOGGLE_LOADER,
     toggle
 });

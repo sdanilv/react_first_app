@@ -1,7 +1,13 @@
 const ADD_CHAT_MESSAGE = "ADD-CHAT-MESSAGE";
 const LOAD_ALL_CHAT_MESSAGE = "LOAD_ALL_CHAT_MESSAGE";
 
-const initiationState = {
+type Message = { message: string, userId: number }
+type User = { id: number, name: string, messages: Array<Message>, img: string }
+type Action<T, K = void> = K extends void ? { type: T } : { type: T } & K;
+type ActionType = Action<typeof ADD_CHAT_MESSAGE, { message: string, id: string, userId: number }> |
+    Action<typeof LOAD_ALL_CHAT_MESSAGE, { chats: Array<Message> }>
+type StateType = { Messages: Array<User> }
+const initiationState: StateType = {
     Messages: [
         {
             id: 1,
@@ -76,35 +82,34 @@ const initiationState = {
         }
     ],
 };
-const dialogsReducer = (state = initiationState, action) => {
+const dialogsReducer = (state = initiationState, action: ActionType): StateType => {
     switch (action.type) {
         case ADD_CHAT_MESSAGE:
-            let chatComponent = {
+            const chatComponent: Message = {
                 userId: action.userId,
                 message: action.message
             };
-            const user = state.Messages.find(m => {
-                return action.id === m.id.toString()
-            });
             return {
-                ...state, Messages: [...state.Messages,
-                    user.messages.push(chatComponent)]
-            };
-        // case LOAD_ALL_CHAT_MESSAGE:
-        //       return {...state, Messages:[ ...state.Messages,
-        //           state.Messages.find(m=>action.id===m.id).messages.push(chatComponent)]};
-        default:
-            return state;
-    }
+                ...state, Messages: state.Messages.map(user => {
+                    if (action.id === user.id.toString())
+                user.messages.push( chatComponent);
+                return user
+                })};
+    // case LOAD_ALL_CHAT_MESSAGE:
+    //       return {...state, Messages:[ ...state.Messages,
+    //           state.Messages.find(m=>action.id===m.id).messages.push(chatComponent)]};
+default:
+    return state;
+}
 };
 
-export const AddMessageToChat = (id, message, myId) => ({
+export const AddMessageToChat = (id:string, message: string, myId: number):ActionType => ({
     type: ADD_CHAT_MESSAGE,
     message,
     userId: myId, id
 });
 
-export const LoadChat = chats => ({
+export const LoadChat = (chats:Message[]):ActionType => ({
     type: LOAD_ALL_CHAT_MESSAGE,
     chats
 });

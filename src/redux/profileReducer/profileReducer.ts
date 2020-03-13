@@ -1,13 +1,24 @@
 import {ProfileApi} from "../../api/api";
-import MyAva from "../../img/MyAva.jpg";
+// @ts-ignore
+import * as MyAva from "../../img/MyAva.jpg";
 import {stopSubmit} from "redux-form";
 
-const UPDATE_POST_TEXT_AREA = "UPDATE-POST-TEXT-AREA";
 const ADD_POST = "ADD-POST";
 const SET_PROFILE = "SET_PROFILE";
 const SET_STATUS = "SET_STATUS";
 const SET_MY_PROFILE = "SET_MY_PROFILE";
 
+type Action<T, K = void> = K extends void ? { type: T } : { type: T } & K
+type ActionType =
+    Action<typeof ADD_POST, { id: number, post: string }>
+    | Action<typeof SET_PROFILE, { profile: Profile }>
+    | Action<typeof SET_STATUS, { status: string }>
+    | Action<typeof SET_MY_PROFILE, { profile: Profile }>
+type Profile = {
+    aboutMe: string, lookingForAJob: boolean,
+    lookingForAJobDescription: string, fullName: string, userId: number,
+    photos: { small: string, large: string }
+}
 const initState = {
     myOldProfile: {
         aboutMe: "About me. I`m I",
@@ -51,17 +62,9 @@ const initState = {
     status: null
 };
 
-const profileReducer = (state = initState, action) => {
+const profileReducer = (state = initState, action:ActionType) => {
 
     switch (action.type) {
-        case UPDATE_POST_TEXT_AREA:
-            return {
-                ...state,
-                myOldProfile: {
-                    ...state.myOldProfile,
-                    textArea: action.text
-                }
-            };
         case ADD_POST:
             let postComponent = {
                 id: action.id,
@@ -98,21 +101,21 @@ const profileReducer = (state = initState, action) => {
     }
 };
 
-export const AddPost = (id, post) => ({
+export const AddPost = (id: number, post: string): ActionType => ({
     type: ADD_POST,
     post,
     id
 });
-export const setProfile = profile => ({
+export const setProfile = (profile:Profile):ActionType => ({
     type: SET_PROFILE,
     profile: profile
 });
-const setMyProfileAC = profile => ({
+const setMyProfileAC = (profile:Profile):ActionType => ({
     type: SET_MY_PROFILE,
     profile: profile
 });
 
-export const setStatus = status => ({
+export const setStatus = (status:string):ActionType => ({
     type: SET_STATUS,
     status
 });
@@ -145,7 +148,7 @@ export const changePhoto = (img) => async (dispatch, getState) => {
         if (result.data.resultCode === 0) {
             const userId = getState().ProfilePage.myProfile.userId;
             dispatch(getUserProfile(userId));
-            dispatch(setMyProfile(userId))
+            dispatch(setMyProfile())
         }
     });
 };

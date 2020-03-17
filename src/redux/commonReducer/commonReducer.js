@@ -1,4 +1,4 @@
-const SET_TOGGLE_LAODER = "SET_TOGGLE_LAODER";
+const SET_TOGGLE_LOADER = "myApp/common/SET_TOGGLE_LOADER";
 
 let initiationState = {
   loaded: false
@@ -6,7 +6,7 @@ let initiationState = {
 
 let commonReducer = (state = initiationState, action) => {
   switch (action.type) {
-    case SET_TOGGLE_LAODER:
+    case SET_TOGGLE_LOADER:
       return { ...state, loaded: action.toggle };
     default:
       return state;
@@ -14,7 +14,7 @@ let commonReducer = (state = initiationState, action) => {
 };
 
 export let loading = toggle => ({
-  type: SET_TOGGLE_LAODER,
+  type: SET_TOGGLE_LOADER,
   toggle
 });
 

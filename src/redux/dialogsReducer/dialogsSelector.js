@@ -3,10 +3,10 @@ import {createSelector} from "reselect";
 // import React from "react";
 
 
-export const getMessages = state => {
+export const getDialogsMessages = state => {
     return state.DialogsPage.Messages;
 };
-export const getLastMessages = createSelector([getMessages], mes => {
+export const getLastMessages = createSelector([getDialogsMessages], mes => {
     return mes.map(m => {
         if(m.messages!==undefined)
             return {

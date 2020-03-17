@@ -8,6 +8,8 @@ import {
 import {loading} from "../../redux/commonReducer/commonReducer";
 import {compose} from "redux";
 import PageLoader from "../../common/PageLoader/PageLoader";
+import {getMyId} from "../../redux/authReduce/authSelector";
+import {getProfile, getProfileStatus} from "../../redux/profileReducer/profileSelector";
 
 //TODO change profile to my profile if paramsUserId null
 const ProfileComponent = props => {
@@ -35,9 +37,9 @@ const ProfileComponent = props => {
 };
 
 let mapStateToProps = state => ({
-    profile: state.ProfilePage.profile,
-    status: state.ProfilePage.status,
-    myId: state.Auth.id
+    profile: getProfile(state),
+    status: getProfileStatus(state),
+    myId: getMyId(state)
 
 });
 

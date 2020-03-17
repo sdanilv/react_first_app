@@ -1,5 +1,4 @@
 import axios from "axios";
-// import MyaAva from "../img/MyAva.jpg"
 
 const axiosInstance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.0/",

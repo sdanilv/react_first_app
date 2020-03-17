@@ -1,13 +1,29 @@
 import {ProfileApi} from "../../api/api";
 import MyAva from "../../img/MyAva.jpg";
 import {stopSubmit} from "redux-form";
+import { DispatchProp } from "react-redux";
 
-const UPDATE_POST_TEXT_AREA = "UPDATE-POST-TEXT-AREA";
-const ADD_POST = "ADD-POST";
-const SET_PROFILE = "SET_PROFILE";
-const SET_STATUS = "SET_STATUS";
-const SET_MY_PROFILE = "SET_MY_PROFILE";
 
+const ADD_POST = "myApp/profile/ADD-POST";
+const SET_PROFILE = "myApp/profile/SET_PROFILE";
+const SET_STATUS = "myApp/profile/SET_STATUS";
+const SET_MY_PROFILE = "myApp/profile/SET_MY_PROFILE";
+type Profile = {
+    aboutMe: string,
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string,
+        large: string
+    }
+}
+type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
+type ActionType = Action<typeof ADD_POST, { post: string, id: number }> |
+    Action<typeof SET_PROFILE, { profile: Profile }> |
+    Action<typeof SET_STATUS, { status: string }> |
+    Action<typeof SET_MY_PROFILE, { profile: Profile }> ;
 const initState = {
     myOldProfile: {
         aboutMe: "About me. I`m I",
@@ -46,22 +62,14 @@ const initState = {
             }
         ]
     },
-    myProfile: null,
-    profile: null,
-    status: null
+    myProfile  : null as Profile| null,
+    profile: null as Profile| null,
+    status: null as string|null
 };
 
-const profileReducer = (state = initState, action) => {
+const profileReducer = (state = initState, action:ActionType) => {
 
     switch (action.type) {
-        case UPDATE_POST_TEXT_AREA:
-            return {
-                ...state,
-                myOldProfile: {
-                    ...state.myOldProfile,
-                    textArea: action.text
-                }
-            };
         case ADD_POST:
             let postComponent = {
                 id: action.id,
@@ -98,48 +106,48 @@ const profileReducer = (state = initState, action) => {
     }
 };
 
-export const AddPost = (id, post) => ({
+export const AddPost = (id :number, post: string) => ({
     type: ADD_POST,
     post,
     id
 });
-export const setProfile = profile => ({
+export const setProfile =( profile: Profile) => ({
     type: SET_PROFILE,
     profile: profile
 });
-const setMyProfileAC = profile => ({
+const setMyProfileAC = ( profile: Profile) => ({
     type: SET_MY_PROFILE,
     profile: profile
 });
 
-export const setStatus = status => ({
+export const setStatus = (status:string) => ({
     type: SET_STATUS,
     status
 });
 
 
-export let getUserProfile = userId => dispatch => {
+export let getUserProfile = (userId:number) => (dispatch: Function) => {
     ProfileApi.getUserProfile(userId).then(result => {
         dispatch(setProfile(result.data));
     });
 };
-export let setMyProfile = userId => dispatch => {
+export let setMyProfile = (userId:number) => (dispatch: Function) => {
     return ProfileApi.getUserProfile(userId).then(result => {
         dispatch(setMyProfileAC(result.data));
     });
 };
-export let getUserStatus = userId => dispatch => {
+export let getUserStatus = (userId:number) => (dispatch: Function) => {
     ProfileApi.getUserStatus(userId).then(result => {
         dispatch(setStatus(result.data));
     });
 };
-export let setMyStatus = status => dispatch => {
+export let setMyStatus = (status:string) => (dispatch: Function) => {
     ProfileApi.setMyStatus(status).then(() => {
         dispatch(setStatus(status));
     });
 };
 
-export const changePhoto = (img) => async (dispatch, getState) => {
+export const changePhoto = (img:string) => async (dispatch: Function, getState: Function) => {
     ProfileApi.uploadPhoto(img).then(result => {
         if (result.data.resultCode === 0) {
             const userId = getState().ProfilePage.myProfile.userId;
@@ -149,30 +157,30 @@ export const changePhoto = (img) => async (dispatch, getState) => {
     });
 };
 
-export const changeMyProfileInfo = profile => async (dispatch, getState) => {
+export const changeMyProfileInfo = ( profile: Profile) => async(dispatch: Function, getState: Function) => {
     const userId = getState().ProfilePage.myProfile.userId;
     return ProfileApi.setMyProfileInfo(profile).then(result => {
         if (result.data.resultCode === 0) {
             dispatch(getUserProfile(userId));
             return true;
         } else {
-            let messages = result.data.messages[0];
-            const indexOfBracers = messages.lastIndexOf("(");
-            let brokenField = messages.substring(indexOfBracers + 1, messages.length - 1);
-            const indexOfArray = brokenField.search("-");
+            let messages: string = result.data.messages[0];
+            const indexOfBracers :number = messages.lastIndexOf("(");
+            let brokenField :string = messages.substring(indexOfBracers + 1, messages.length - 1);
+            const indexOfArray: number = brokenField.search("-");
             messages = messages.substring(0, indexOfBracers - 1);
-            let error = {};
+            let error: {[brokenField: string]: string| Object} = {};
             if (indexOfArray === -1) {
                 brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
                 error[brokenField] = messages;
             } else {
                 brokenField = brokenField.slice(indexOfArray + 2);
                 brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
-                let contacts = {};
-                contacts[brokenField]=messages;
+                let contacts: {[brokenField: string]: string} = {};
+                contacts[brokenField] = messages;
                 error["contacts"] = contacts;
             }
-            dispatch(stopSubmit("editMore", error ));
+            dispatch(stopSubmit("editMore", error));
             return false;
         }
     });

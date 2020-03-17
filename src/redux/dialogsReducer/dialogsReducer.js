@@ -1,5 +1,5 @@
-const ADD_CHAT_MESSAGE = "ADD-CHAT-MESSAGE";
-const LOAD_ALL_CHAT_MESSAGE = "LOAD_ALL_CHAT_MESSAGE";
+const ADD_CHAT_MESSAGE = "myApp/dialogs/ADD-CHAT-MESSAGE";
+const LOAD_ALL_CHAT_MESSAGE = "myApp/dialogs/LOAD_ALL_CHAT_MESSAGE";
 
 const initiationState = {
     Messages: [

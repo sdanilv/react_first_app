@@ -1,9 +1,9 @@
 import {AuthApi} from "../../api/api";
 import {stopSubmit} from "redux-form";
 
-const AUTHORIZATION = "AUTHORIZATION";
-const SIGN_OUT = "SIGN_OUT";
-const SET_CAPTCHA = "AUTH_SET_CAPTCHA";
+const AUTHORIZATION = "myApp/auth/AUTHORIZATION";
+const SIGN_OUT = "myApp/auth/SIGN_OUT";
+const SET_CAPTCHA = "myApp/auth/AUTH_SET_CAPTCHA";
 let initiationState = {
     id: null,
     email: null,

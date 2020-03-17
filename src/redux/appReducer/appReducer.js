@@ -1,4 +1,4 @@
-const UNLOCK_PAGE = "BLOCK_PAGE";
+const UNLOCK_PAGE = "myApp/app/BLOCK_PAGE";
 const intiationState = {
   isLock: true
 };

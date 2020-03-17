@@ -12,7 +12,7 @@ import {
 } from "../../redux/usersReducer/usersReducer";
 import {setProfile} from "../../redux/profileReducer/profileReducer";
 import {compose} from "redux";
-import {isSignIn} from "../../redux/authReduce/authSelector";
+import {getIsSignIn} from "../../redux/authReduce/authSelector";
 
 class UsersContainer extends React.Component {
     componentDidMount() {
@@ -30,7 +30,7 @@ class UsersContainer extends React.Component {
 
 let mapStateProper = state => {
     return {
-        isSignIn: isSignIn(state),
+        isSignIn: getIsSignIn(state),
         users: state.Users.users,
         allUsersCount: state.Users.allUsersCount,
         countUsersInPage: state.Users.countUsersInPage,

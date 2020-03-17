@@ -7,7 +7,7 @@ import {MyInput} from "../../common/FormControllers/FormController";
 import {maxSize, required} from "../../utilits/validators/validate";
 import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
-import {getCaptchaURL, isSignIn} from "../../redux/authReduce/authSelector";
+import {getCaptchaURL, getIsSignIn} from "../../redux/authReduce/authSelector";
 
 const maxSize20 = maxSize(20);
 const AuthForm = props => {
@@ -72,7 +72,7 @@ const Auth = props => {
 
 const AuthReduxForm = reduxForm({form: "auth"})(AuthForm);
 const mapStateToProps = state => ({
-    isSigned: isSignIn(state),
+    isSigned: getIsSignIn(state),
     captchaURL: getCaptchaURL(state)
 
 });

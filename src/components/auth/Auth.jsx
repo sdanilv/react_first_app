@@ -1,10 +1,10 @@
 import React from "react";
-import style from "../../common/FormControllers/FormController.module.css";
-import {reduxForm, Field} from "redux-form";
-import {signIn} from "../../redux/authReduce/authReduce";
+// import style from "@/common/FormControllers/FormController.module.css";
+import {Field, reduxForm} from "redux-form";
+import {signIn} from "@/redux/authReduce/authReduce";
 import {connect} from "react-redux";
-import {MyInput} from "../../common/FormControllers/FormController";
-import {maxSize, required} from "../../utilits/validators/validate";
+// import {MyInput} from "@/common/FormControllers/FormController";
+import {maxSize, required} from "@/utilits/validators/validate";
 import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {getCaptchaURL, getIsSignIn} from "../../redux/authReduce/authSelector";
@@ -15,24 +15,24 @@ const AuthForm = props => {
 
     return (
         <form action='auth' method='post' onSubmit={handleSubmit}>
-            <div>
-                <Field
-                    name='email'
-                    component={MyInput}
-                    type='email'
-                    label='email@mail.com'
-                    validate={[maxSize20, required]}
-                />
-            </div>
-            <div>
-                <Field
-                    name='password'
-                    component={MyInput}
-                    type='password'
-                    label='Password'
-                    validate={[maxSize20, required]}
-                />
-            </div>
+            {/*<div>*/}
+            {/*    <Field*/}
+            {/*        name='email'*/}
+            {/*        component={MyInput}*/}
+            {/*        type='email'*/}
+            {/*        label='email@mail.com'*/}
+            {/*        validate={[maxSize20, required]}*/}
+            {/*    />*/}
+            {/*</div>*/}
+            {/*<div>*/}
+            {/*    <Field*/}
+            {/*        name='password'*/}
+            {/*        component={MyInput}*/}
+            {/*        type='password'*/}
+            {/*        label='Password'*/}
+            {/*        validate={[maxSize20, required]}*/}
+            {/*    />*/}
+            {/*</div>*/}
             <div>
                 <Field name='rememberMe' component='input' type='checkbox'/>
                 Remember Me
@@ -40,12 +40,12 @@ const AuthForm = props => {
 
             {captchaURL && <>
                 <div>
-                    <img src={captchaURL} alt="captcha" className={style.captcha}/>
+                    {/*<img src={captchaURL} alt="captcha" className={style.captcha}/>*/}
                 </div>
                 <div>
                     <Field name='captcha' component='input' type='text'/></div>
             </>}
-            <div className={style.error}>{props.error}</div>
+            {/*<div className={style.error}>{props.error}</div>*/}
             <div>
                 <button>Submit</button>
             </div>

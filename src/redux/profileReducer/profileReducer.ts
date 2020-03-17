@@ -94,7 +94,7 @@ const profileReducer = (state = initState, action:ActionType) => {
         case SET_MY_PROFILE:
             return {
                 ...state,
-                myProfile: action.profile
+                myProfile: {isMe: true, ...action.profile}
             };
         case SET_STATUS:
             return {
@@ -106,21 +106,21 @@ const profileReducer = (state = initState, action:ActionType) => {
     }
 };
 
-export const AddPost = (id :number, post: string) => ({
+export const AddPost = (id: number, post: string): ActionType => ({
     type: ADD_POST,
     post,
     id
 });
-export const setProfile =( profile: Profile) => ({
+export const setProfile = (profile:Profile):ActionType => ({
     type: SET_PROFILE,
     profile: profile
 });
-const setMyProfileAC = ( profile: Profile) => ({
+const setMyProfileAC = (profile:Profile):ActionType => ({
     type: SET_MY_PROFILE,
     profile: profile
 });
 
-export const setStatus = (status:string) => ({
+export const setStatus = (status:string):ActionType => ({
     type: SET_STATUS,
     status
 });
@@ -131,7 +131,8 @@ export let getUserProfile = (userId:number) => (dispatch: Function) => {
         dispatch(setProfile(result.data));
     });
 };
-export let setMyProfile = (userId:number) => (dispatch: Function) => {
+export let setMyProfile = () => (dispatch: Function, getState: Function) => {
+    const userId = getState().Auth.id;
     return ProfileApi.getUserProfile(userId).then(result => {
         dispatch(setMyProfileAC(result.data));
     });
@@ -152,7 +153,7 @@ export const changePhoto = (img:string) => async (dispatch: Function, getState: 
         if (result.data.resultCode === 0) {
             const userId = getState().ProfilePage.myProfile.userId;
             dispatch(getUserProfile(userId));
-            dispatch(setMyProfile(userId))
+            dispatch(setMyProfile())
         }
     });
 };

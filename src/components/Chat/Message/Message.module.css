@@ -1,14 +1,15 @@
-.myMessage{
-    float:right;
+.myMessage {
+    float: right;
     margin-left: 30%;
     background: rgba(0, 106, 92, 0.1);
     border-radius: 5px;
-    padding:5px;
+    padding: 5px;
 
     /*width: 95%;*/
 }
-.friendMessage{
-    padding:5px;
+
+.friendMessage {
+    padding: 5px;
     float: left;
     background: rgba(106, 24, 59, 0.1);
     margin-right: 30%;

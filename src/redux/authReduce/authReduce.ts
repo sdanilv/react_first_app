@@ -1,18 +1,27 @@
 import {AuthApi} from "../../api/api";
 import {stopSubmit} from "redux-form";
 
-const AUTHORIZATION = "myApp/auth/AUTHORIZATION";
-const SIGN_OUT = "myApp/auth/SIGN_OUT";
-const SET_CAPTCHA = "myApp/auth/AUTH_SET_CAPTCHA";
+const AUTHORIZATION = "AUTHORIZATION"
+const SIGN_OUT = "SIGN_OUT"
+const SET_CAPTCHA = "AUTH_SET_CAPTCHA"
+
+type Action<T, K = {}> = { type: T } & K
+type dataType = {id: number, email:string, login: string}
+type ActionType = | Action<typeof AUTHORIZATION, {data:dataType}>
+    | Action<typeof SIGN_OUT>
+    | Action<typeof SET_CAPTCHA, { captchaURL:string }>
+
 let initiationState = {
-    id: null,
-    email: null,
-    login: null,
-    isSignIn: false,
-    captchaURL: null
+    id: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
+    isSignIn: false ,
+    captchaURL: null as string | null
 };
 
-const authReduce = (state = initiationState, action) => {
+type authStateType = typeof initiationState
+
+const authReduce = (state = initiationState, action:ActionType): authStateType => {
     switch (action.type) {
         case AUTHORIZATION:
             return {
@@ -23,7 +32,6 @@ const authReduce = (state = initiationState, action) => {
         case SET_CAPTCHA:
             return {
                 ...state,
-                ...action.data,
                 captchaURL: action.captchaURL
             };
         case SIGN_OUT:
@@ -39,27 +47,30 @@ const authReduce = (state = initiationState, action) => {
     }
 };
 
-export let auth = data => ({
+type authData = { id: number, email: string, login: string }
+export let auth = (data: authData): ActionType=> ({
     type: AUTHORIZATION,
     data
 });
-export let signOut = () => ({
+export let signOut = (): ActionType => ({
     type: SIGN_OUT
 });
-const setCaptchaURL = captchaURL =>({
+
+type captchaURL = string | null
+const setCaptchaURL = (captchaURL: string): ActionType => ({
     type: SET_CAPTCHA,
-    captchaURL :captchaURL
+    captchaURL: captchaURL
 });
 
-const getCaptchaURL =()=> async dispatch => {
-    const captchaURL = await AuthApi.getCaptcha();
+const getCaptchaURL = () => async (dispatch:Function) => {
+    const captchaURL: captchaURL = await AuthApi.getCaptcha();
     if (captchaURL) {
         dispatch(setCaptchaURL(captchaURL));
     }
     return captchaURL;
 };
 
-export const getMe = () => async dispatch => {
+export const getMe = () => async (dispatch:Function) => {
     const response = await AuthApi.getMe();
     if (response.resultCode === 0) {
         dispatch(auth(response.data));
@@ -68,7 +79,7 @@ export const getMe = () => async dispatch => {
 };
 
 
-export const signIn = formData => async dispatch => {
+export const signIn = (formData:dataType) => async (dispatch:Function) => {
     const request = {
         ...formData
     };
@@ -86,7 +97,7 @@ export const signIn = formData => async dispatch => {
             return data;
     }
 };
-export const logout = () => async dispatch => {
+export const logout = () => async (dispatch:Function) => {
     const resultCode = await AuthApi.logout();
     if (resultCode === 0) dispatch(signOut());
 };

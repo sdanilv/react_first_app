@@ -3,12 +3,13 @@ import Users from "./Users";
 import PageLoader from "../../common/PageLoader/PageLoader";
 import {connect} from "react-redux";
 import {
-    subscribe,
-    unsubscribe,
-    setCurrentPage,
     addInBlockButtons,
     getUsers,
-    removeFromBlockButtons, setKit
+    removeFromBlockButtons,
+    setCurrentPage,
+    setKit,
+    subscribe,
+    unsubscribe
 } from "../../redux/usersReducer/usersReducer";
 import {setProfile} from "../../redux/profileReducer/profileReducer";
 import {compose} from "redux";

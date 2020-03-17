@@ -1,10 +1,10 @@
 import usersReducer, {
-    setUsers,
-    setCurrentPage,
+    addInBlockButtons,
+    removeFromBlockButtons,
     setAllUsersCount,
     setCountUsersInPage,
-    addInBlockButtons,
-    removeFromBlockButtons
+    setCurrentPage,
+    setUsers
 } from "./usersReducer";
 
 let initiationState = {

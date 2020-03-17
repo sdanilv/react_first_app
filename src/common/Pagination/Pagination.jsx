@@ -5,7 +5,7 @@ const Pagination = memo(props => {
 
     const {kit, setKit, currentPage, numbersPage, onPageClick, countOfVisiblePages = 5} = props;
 
-    const lastKit = Math.ceil(numbersPage / countOfVisiblePages);
+    const lastKit = Math.floor(numbersPage / countOfVisiblePages);
     const start = (kit - 1) * countOfVisiblePages + 1;
     const end = kit * countOfVisiblePages;
     let arrayOfPages = [];
@@ -20,9 +20,12 @@ const Pagination = memo(props => {
                 className={currentPage === p ? style.selectedPage : null}
                 key={p}
                 onClick={() => {
-                    if(p===1) {setKit(1)}
-                    if(p===numbersPage - 1)
-                     { setKit (lastKit)}
+                    if (p === 1) {
+                        setKit(1)
+                    }
+                    if (p === numbersPage - 1) {
+                        setKit(lastKit)
+                    }
                     onPageClick(p);
                 }}>
                 {p}

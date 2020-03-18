@@ -19,7 +19,11 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "redux/*": ["redux/*"],
+      "src/*": ["*"]
+    }
   },
   "exclude": [
     "node_modules"
@@ -27,6 +31,6 @@
   "include": [
     "src",
     "./src/declaration.d.ts"
-  ],
-  "extends": "./tsconfig.paths.json"
+  ]
+//  "extends": "./tsconfig.paths.json"
 }

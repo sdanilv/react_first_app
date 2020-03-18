@@ -1,8 +1,6 @@
 import {ProfileApi} from "../../api/api";
 import MyAva from "../../img/MyAva.jpg";
 import {stopSubmit} from "redux-form";
-import { DispatchProp } from "react-redux";
-
 
 const ADD_POST = "myApp/profile/ADD-POST";
 const SET_PROFILE = "myApp/profile/SET_PROFILE";

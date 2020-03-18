@@ -1,7 +1,8 @@
 import React from "react";
 import style from "./Chat.css";
 import Message from "./Message/Message";
-import TextForm from "../../common/TextForm/TextForm";
+import TextForm from "src/common/TextForm/TextForm";
+
 
 
 const Chat = (props) => {

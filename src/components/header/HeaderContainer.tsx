@@ -1,9 +1,10 @@
 import React from "react";
 import Header from "./Header";
 import { connect } from "react-redux";
-import { auth, getMe, logout } from "../../redux/authReduce/authReduce";
-import {getMySmallAvatar} from "../../redux/profileReducer/profileSelector"
-import {getMyId, getMyLogin, getIsSignIn} from "../../redux/authReduce/authSelector";
+import { auth, getMe, logout } from "redux/authReduce/authReduce";
+import {getMySmallAvatar} from "redux/profileReducer/profileSelector"
+import {getMyId, getMyLogin, getIsSignIn} from "redux/authReduce/authSelector";
+import {GlobalState} from "src/redux/storeRedux";
 
 class HeaderContainer extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class HeaderContainer extends React.Component {
   }
 }
 
-let mapStateToProps = state => ({
+let mapStateToProps = (state: GlobalState) => ({
   isSignIn: getIsSignIn(state),
   login: getMyLogin(state),
   avaImg: getMySmallAvatar(state),

@@ -1,12 +1,12 @@
-import {ProfileApi} from "../../api/api";
-import MyAva from "../../img/MyAva.jpg";
+import {ProfileApi} from "src/api/api";
+import MyAva from "src/img/MyAva.jpg";
 import {stopSubmit} from "redux-form";
 
 const ADD_POST = "myApp/profile/ADD-POST";
 const SET_PROFILE = "myApp/profile/SET_PROFILE";
 const SET_STATUS = "myApp/profile/SET_STATUS";
 const SET_MY_PROFILE = "myApp/profile/SET_MY_PROFILE";
-type Profile = {
+export type ProfileType = {
     aboutMe: string,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
@@ -19,9 +19,9 @@ type Profile = {
 }
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
 type ActionType = Action<typeof ADD_POST, { post: string, id: number }> |
-    Action<typeof SET_PROFILE, { profile: Profile }> |
+    Action<typeof SET_PROFILE, { profile: ProfileType|null }> |
     Action<typeof SET_STATUS, { status: string }> |
-    Action<typeof SET_MY_PROFILE, { profile: Profile }> ;
+    Action<typeof SET_MY_PROFILE, { profile: ProfileType }> ;
 const initState = {
     myOldProfile: {
         aboutMe: "About me. I`m I",
@@ -60,8 +60,8 @@ const initState = {
             }
         ]
     },
-    myProfile  : null as Profile| null,
-    profile: null as Profile| null,
+    myProfile  : null as ProfileType| null,
+    profile: null as ProfileType| null,
     status: null as string|null
 };
 
@@ -109,11 +109,11 @@ export const AddPost = (id: number, post: string): ActionType => ({
     post,
     id
 });
-export const setProfile = (profile:Profile):ActionType => ({
+export const setProfile = (profile:ProfileType|null ):ActionType => ({
     type: SET_PROFILE,
     profile: profile
 });
-const setMyProfileAC = (profile:Profile):ActionType => ({
+const setMyProfileAC = (profile:ProfileType):ActionType => ({
     type: SET_MY_PROFILE,
     profile: profile
 });
@@ -124,7 +124,7 @@ export const setStatus = (status:string):ActionType => ({
 });
 
 
-export let getUserProfile = (userId:number) => (dispatch: Function) => {
+export let getUserProfile = (userId:string) => (dispatch: Function) => {
     ProfileApi.getUserProfile(userId).then(result => {
         dispatch(setProfile(result.data));
     });
@@ -135,7 +135,7 @@ export let setMyProfile = () => (dispatch: Function, getState: Function) => {
         dispatch(setMyProfileAC(result.data));
     });
 };
-export let getUserStatus = (userId:number) => (dispatch: Function) => {
+export let getUserStatus = (userId:string) => (dispatch: Function) => {
     ProfileApi.getUserStatus(userId).then(result => {
         dispatch(setStatus(result.data));
     });
@@ -156,7 +156,7 @@ export const changePhoto = (img:string) => async (dispatch: Function, getState: 
     });
 };
 
-export const changeMyProfileInfo = ( profile: Profile) => async(dispatch: Function, getState: Function) => {
+export const changeMyProfileInfo = ( profile: ProfileType) => async(dispatch: Function, getState: Function) => {
     const userId = getState().ProfilePage.myProfile.userId;
     return ProfileApi.setMyProfileInfo(profile).then(result => {
         if (result.data.resultCode === 0) {

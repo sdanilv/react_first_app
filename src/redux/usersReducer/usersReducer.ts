@@ -1,4 +1,4 @@
-import {UsersApi} from "../../api/api";
+import {UsersApi} from "src/api/api";
 // import React from "react";
 const SUBSCRIBE_USER = "SUBSCRIBE-USER";
 const UNSUBSCRIBE_USER = "UNSUBSCRIBE-USER";
@@ -12,7 +12,7 @@ const SET_TOGGLE_LOADER = "SET_TOGGLE_LOADER";
 const SET_KIT = "SET_KIT";
 
 type Action<K, T = void> = T extends void ? { type: K } : { type: K } & T
-type User = {
+export type UserType = {
     id: number,
     avaImg: string,
     name: string,
@@ -22,7 +22,7 @@ type ActionType =
     | Action<typeof SET_KIT, { kit: number }>
     | Action<typeof SUBSCRIBE_USER, { userId: number }>
     | Action<typeof UNSUBSCRIBE_USER, { userId: number }>
-    | Action<typeof SET_USERS, { users: Array<User>}>
+    | Action<typeof SET_USERS, { users: Array<UserType>}>
     | Action<typeof CHANGE_PAGE, { numberPage: number }>
     | Action<typeof CHANGE_ALL_USERS_COUNT, { allUsersCount: number }>
     | Action<typeof CHANGE_PAGE_USERS_COUNT, { countUsersInPage: number }>
@@ -31,7 +31,7 @@ type ActionType =
     | Action<typeof SET_TOGGLE_LOADER, { toggle: boolean }>
 
 let initiationState = {
-    users: [] as Array<User>,
+    users: [] as Array<UserType>,
     allUsersCount: 0,
     countUsersInPage: 6,
     currentPage: 3,
@@ -99,7 +99,7 @@ export let unsubsAC = (userId:number):ActionType => ({
     type: UNSUBSCRIBE_USER,
     userId
 });
-export let setUsers = (users:Array<User>):ActionType => ({
+export let setUsers = (users:Array<UserType>):ActionType => ({
     type: SET_USERS,
     users
 });

@@ -2,8 +2,9 @@ import style from "../../components/navbar/Navbar.module.css";
 import React from "react";
 import  {NavLink} from "react-router-dom"
 import {getMyId} from "../authReduce/authSelector";
+import {GlobalState} from "redux/storeRedux";
 
-export const getNavbarLinks = state => {
+export const getNavbarLinks = (state:GlobalState) => {
     const myId = getMyId(state);
     const profileLink = <div> <NavLink
         to={`/profile/${myId || ""}`}
@@ -14,7 +15,7 @@ export const getNavbarLinks = state => {
         />
         &nbsp;Profile
     </NavLink></div>;
-    let links = [profileLink];
+    let links:Array<any> = [profileLink];
      links.push(state.Navbar.links.map((l, index) => (
         <div key={index}>
             <NavLink to={l.adress} activeClassName={style.active}>

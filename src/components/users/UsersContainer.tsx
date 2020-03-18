@@ -1,6 +1,6 @@
 import React from "react";
 import Users from "./Users";
-import PageLoader from "../../common/PageLoader/PageLoader";
+import PageLoader from "src/common/PageLoader/PageLoader";
 import {connect} from "react-redux";
 import {
     addInBlockButtons,
@@ -10,12 +10,16 @@ import {
     setKit,
     subscribe,
     unsubscribe
-} from "../../redux/usersReducer/usersReducer";
-import {setProfile} from "../../redux/profileReducer/profileReducer";
+} from "src/redux/usersReducer/usersReducer";
+import {setProfile} from "src/redux/profileReducer/profileReducer";
 import {compose} from "redux";
-import {getIsSignIn} from "../../redux/authReduce/authSelector";
+import {getIsSignIn} from "src/redux/authReduce/authSelector";
+import {GlobalState} from "src/redux/storeRedux";
 
-class UsersContainer extends React.Component {
+type Props = { currentPage: number, countUsersInPage: number, loaded: boolean,
+    getUsers: typeof getUsers, setProfile: typeof setProfile }
+
+class UsersContainer extends React.Component <Props> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.countUsersInPage);
         this.props.setProfile(null);
@@ -29,7 +33,7 @@ class UsersContainer extends React.Component {
     }
 }
 
-let mapStateProper = state => {
+let mapStateProper = (state: GlobalState) => {
     return {
         isSignIn: getIsSignIn(state),
         users: state.Users.users,
@@ -42,7 +46,7 @@ let mapStateProper = state => {
     };
 };
 
-export default compose(
+export default compose<Props>(
     connect(
         mapStateProper,
         {

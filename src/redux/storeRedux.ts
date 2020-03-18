@@ -13,9 +13,7 @@ declare global {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
   }
 }
-type formReducerType = typeof formReducer
-export type StoreType = {DialogsPage:any, ProfilePage:any, Navbar:typeof navbarReducer,
-  Users:any,Auth: any, Common:any, form:formReducerType,  App: any}
+
 const reducers  = combineReducers({
   DialogsPage: dialogsReducer,
   ProfilePage: profileReducer,
@@ -25,7 +23,10 @@ const reducers  = combineReducers({
   Common: commonReducer,
   form: formReducer,
   App: appReduce
-} as  StoreType);
+} );
+
+export type  GlobalState = ReturnType<typeof reducers>  ;
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
 

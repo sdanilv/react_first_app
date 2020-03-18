@@ -1,18 +1,25 @@
 import React, {useEffect} from "react";
 import Profile from "./Profile";
-import {withRouter, Redirect} from "react-router-dom";
+import {withRouter, Redirect, RouteComponentProps} from "react-router-dom";
 import {connect} from "react-redux";
 import {
-    getUserProfile, setMyStatus, getUserStatus, changePhoto, changeMyProfileInfo
-} from "../../redux/profileReducer/profileReducer";
-import {loading} from "../../redux/commonReducer/commonReducer";
+    getUserProfile, setMyStatus, getUserStatus, changePhoto, changeMyProfileInfo, ProfileType
+} from "src/redux/profileReducer/profileReducer";
+import {loading} from "src/redux/commonReducer/commonReducer";
 import {compose} from "redux";
-import PageLoader from "../../common/PageLoader/PageLoader";
-import {getMyId} from "../../redux/authReduce/authSelector";
-import {getProfile, getProfileStatus} from "../../redux/profileReducer/profileSelector";
+import PageLoader from "src/common/PageLoader/PageLoader";
+import {getMyId} from "src/redux/authReduce/authSelector";
+import {getProfile, getProfileStatus} from "src/redux/profileReducer/profileSelector";
+import {GlobalState} from "src/redux/storeRedux";
 
 //TODO change profile to my profile if paramsUserId null
-const ProfileComponent = props => {
+
+type MatchProps = { userId: string | undefined }
+type Props = { getUserStatus: typeof getUserStatus, getUserProfile: typeof getUserProfile,
+    profile: ProfileType, myId: string }
+type ProfileProps = { changePhoto: typeof changePhoto, status: string,
+    setMyStatus: typeof setMyStatus, changeMyProfileInfo: typeof changeMyProfileInfo }
+const ProfileComponent = (props: Props &ProfileProps& RouteComponentProps<MatchProps>) => {
     const {getUserStatus, getUserProfile, profile, myId} = props;
     const paramsUserId = props.match.params.userId;
     const userId = paramsUserId || myId;
@@ -36,7 +43,7 @@ const ProfileComponent = props => {
     );
 };
 
-let mapStateToProps = state => ({
+let mapStateToProps = (state: GlobalState) => ({
     profile: getProfile(state),
     status: getProfileStatus(state),
     myId: getMyId(state)

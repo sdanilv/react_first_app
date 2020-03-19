@@ -4,9 +4,9 @@ import  {NavLink} from "react-router-dom"
 import {getMyId} from "../authReduce/authSelector";
 import {GlobalState} from "redux/storeRedux";
 
-export const getNavbarLinks = (state:GlobalState) => {
+export const getNavbarLinks = (state:GlobalState): Array<JSX.Element> => {
     const myId = getMyId(state);
-    const profileLink = <div> <NavLink
+    const profileLink  = <div> <NavLink
         to={`/profile/${myId || ""}`}
         activeClassName={style.active}>
         <img
@@ -15,14 +15,13 @@ export const getNavbarLinks = (state:GlobalState) => {
         />
         &nbsp;Profile
     </NavLink></div>;
-    let links:Array<any> = [profileLink];
-     links.push(state.Navbar.links.map((l, index) => (
+    return  [profileLink, ...state.Navbar.links.map((l, index) => (
         <div key={index}>
             <NavLink to={l.adress} activeClassName={style.active}>
                 <img src={l.img} alt='navbarIcon'/>
                 &nbsp;{l.text}
             </NavLink>
         </div>
-    )));
-    return links;
+    ))];
+
     };

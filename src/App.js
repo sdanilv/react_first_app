@@ -13,7 +13,6 @@ import {getMe} from "./redux/authReduce/authReduce";
 import {unlockPage} from "./redux/appReducer/appReducer";
 import Chat from "./components/Chat/ChatContainer";
 import {setMyProfile} from "./redux/profileReducer/profileReducer";
-import {StoreType} from "./redux/storeRedux"
 const style = require("./App.module.css");
 
 

@@ -13,7 +13,7 @@ import {
 } from "src/redux/usersReducer/usersReducer";
 import {setProfile} from "src/redux/profileReducer/profileReducer";
 import {compose} from "redux";
-import {getIsSignIn} from "src/redux/authReduce/authSelector";
+import {getIsSignIn} from "redux/authReduce/authSelector.ts";
 import {GlobalState} from "src/redux/storeRedux";
 
 type Props = { currentPage: number, countUsersInPage: number, loaded: boolean,

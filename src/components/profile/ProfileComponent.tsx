@@ -1,25 +1,35 @@
 import React, {useEffect} from "react";
 import Profile from "./Profile";
-import {withRouter, Redirect, RouteComponentProps} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import {
-    getUserProfile, setMyStatus, getUserStatus, changePhoto, changeMyProfileInfo, ProfileType
+    changeMyProfileInfo,
+    changePhoto,
+    getUserProfile,
+    getUserStatus,
+    ProfileType,
+    setMyStatus,
 } from "src/redux/profileReducer/profileReducer";
 import {loading} from "src/redux/commonReducer/commonReducer";
 import {compose} from "redux";
 import PageLoader from "src/common/PageLoader/PageLoader";
-import {getMyId} from "src/redux/authReduce/authSelector";
-import {getProfile, getProfileStatus} from "src/redux/profileReducer/profileSelector";
+import {getMyId} from "redux/authReduce/authSelector.ts";
+import {getProfile, getProfileStatus} from "redux/profileReducer/profileSelector.ts";
 import {GlobalState} from "src/redux/storeRedux";
 
 //TODO change profile to my profile if paramsUserId null
 
 type MatchProps = { userId: string | undefined }
-type Props = { getUserStatus: typeof getUserStatus, getUserProfile: typeof getUserProfile,
-    profile: ProfileType, myId: string }
-type ProfileProps = { changePhoto: typeof changePhoto, status: string,
-    setMyStatus: typeof setMyStatus, changeMyProfileInfo: typeof changeMyProfileInfo }
-const ProfileComponent = (props: Props &ProfileProps& RouteComponentProps<MatchProps>) => {
+type ComponentProps = {
+    getUserStatus: typeof getUserStatus, getUserProfile: typeof getUserProfile,
+    profile: ProfileType, myId: string
+}
+type ProfileProps = {
+    changePhoto: typeof changePhoto, status: string,
+    setMyStatus: typeof setMyStatus, changeMyProfileInfo: typeof changeMyProfileInfo
+}
+type Props = ComponentProps & ProfileProps & RouteComponentProps<MatchProps>
+const ProfileComponent: React.FC<Props> = (props) => {
     const {getUserStatus, getUserProfile, profile, myId} = props;
     const paramsUserId = props.match.params.userId;
     const userId = paramsUserId || myId;
@@ -50,7 +60,7 @@ let mapStateToProps = (state: GlobalState) => ({
 
 });
 
-export default compose(
+export default compose<Props>(
     connect(
         mapStateToProps,
         {

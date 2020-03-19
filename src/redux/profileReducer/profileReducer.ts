@@ -7,6 +7,7 @@ const SET_PROFILE = "myApp/profile/SET_PROFILE";
 const SET_STATUS = "myApp/profile/SET_STATUS";
 const SET_MY_PROFILE = "myApp/profile/SET_MY_PROFILE";
 export type ProfileType = {
+    isMe?:boolean,
     aboutMe: string,
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
@@ -22,6 +23,7 @@ type ActionType = Action<typeof ADD_POST, { post: string, id: number }> |
     Action<typeof SET_PROFILE, { profile: ProfileType|null }> |
     Action<typeof SET_STATUS, { status: string }> |
     Action<typeof SET_MY_PROFILE, { profile: ProfileType }> ;
+
 const initState = {
     myOldProfile: {
         aboutMe: "About me. I`m I",
@@ -64,8 +66,9 @@ const initState = {
     profile: null as ProfileType| null,
     status: null as string|null
 };
-
-const profileReducer = (state = initState, action:ActionType) => {
+type InitState = typeof initState
+export type MyOldProfilePostsType = typeof initState.myOldProfile.posts
+const profileReducer = (state = initState, action:ActionType):InitState => {
 
     switch (action.type) {
         case ADD_POST:

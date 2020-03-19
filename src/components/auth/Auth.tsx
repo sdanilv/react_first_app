@@ -1,17 +1,18 @@
 import React from "react";
 import * as style from "./Auth.module.css";
-import {Field, reduxForm} from "redux-form";
+import {Field, reduxForm, InjectedFormProps, } from "redux-form";
 import {signIn} from "redux/authReduce/authReduce";
 import {connect} from "react-redux";
 import {MyInput} from "src/common/FormControllers/FormController";
 import {maxSize, required} from "src/utilits/validators/validate";
 import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
-import {getCaptchaURL, getIsSignIn} from "src/redux/authReduce/authSelector";
+import {getCaptchaURL, getIsSignIn} from "redux/authReduce/authSelector";
 import {GlobalState} from "redux/storeRedux";
 
 const maxSize20 = maxSize(20);
-const AuthForm = (props:any) => {
+type Props = { captchaURL:string}
+const AuthForm : React.FC<InjectedFormProps<{}, Props>&Props>= (props) => {
     const {handleSubmit, captchaURL} = props;
 
     return (
@@ -53,8 +54,8 @@ const AuthForm = (props:any) => {
         </form>
     );
 };
-
-const Auth = (props:any) => {
+type AuthProps = {signIn: typeof signIn, isSigned: boolean, captchaURL:string}
+const Auth:React.FC<AuthProps> = (props) => {
     const onSubmit = (formData:any) => {
         props.signIn(formData);
     };
@@ -66,12 +67,12 @@ const Auth = (props:any) => {
     return (
 <div  className={style.form}>
             <h2>Authorization</h2>
-            <AuthReduxForm onSubmit={onSubmit}/>
+            <AuthReduxForm captchaURL={props.captchaURL} onSubmit={onSubmit}/>
  </div>
     );
 };
 
-const AuthReduxForm = reduxForm({form: "auth"})(AuthForm);
+const AuthReduxForm = reduxForm<{}, Props>({form: "auth"})(AuthForm);
 const mapStateToProps = (state: GlobalState) => ({
     isSigned: getIsSignIn(state),
     captchaURL: getCaptchaURL(state)

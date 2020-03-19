@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {getNavbarLinks} from "src/redux/navbarReducer/navbarSelectors";
 import {GlobalState} from "src/redux/storeRedux";
 
-const Navbar = ({links}:{links:Array<any>}) => {
+const Navbar:React.FC<{links:Array<JSX.Element>}> = ({links}) => {
     return (
         <div className={style.sidebar}>
             <nav>{links}</nav>

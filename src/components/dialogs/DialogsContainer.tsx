@@ -8,7 +8,7 @@ import {destroy} from "redux-form";
 import {GlobalState} from "src/redux/storeRedux";
 
 let mapStateToProps = (state: GlobalState) => ({
-    Messages: getLastMessages(state),
+    Messages: getLastMessages(state, {}),
 });
 
 export default compose(

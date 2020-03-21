@@ -16,10 +16,14 @@ export type ProfileType = {
         small: string,
         large: string
     }
+    contacts:
+        {
+            [key: string]: string
+        }
 }
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
 type ActionType = Action<typeof ADD_POST, { post: string, id: number }> |
-    Action<typeof SET_PROFILE, { profile: ProfileType|null }> |
+    Action<typeof SET_PROFILE, { profile: ProfileType | null }> |
     Action<typeof SET_STATUS, { status: string }> |
     Action<typeof SET_MY_PROFILE, { profile: ProfileType }> ;
 const initState = {
@@ -60,12 +64,12 @@ const initState = {
             }
         ]
     },
-    myProfile  : null as ProfileType| null,
-    profile: null as ProfileType| null,
-    status: null as string|null
+    myProfile: null as ProfileType | null,
+    profile: null as ProfileType | null,
+    status: null as string | null
 };
 
-const profileReducer = (state = initState, action:ActionType) => {
+const profileReducer = (state = initState, action: ActionType) => {
 
     switch (action.type) {
         case ADD_POST:
@@ -109,22 +113,22 @@ export const AddPost = (id: number, post: string): ActionType => ({
     post,
     id
 });
-export const setProfile = (profile:ProfileType|null ):ActionType => ({
+export const setProfile = (profile: ProfileType | null): ActionType => ({
     type: SET_PROFILE,
     profile: profile
 });
-const setMyProfileAC = (profile:ProfileType):ActionType => ({
+const setMyProfileAC = (profile: ProfileType): ActionType => ({
     type: SET_MY_PROFILE,
     profile: profile
 });
 
-export const setStatus = (status:string):ActionType => ({
+export const setStatus = (status: string): ActionType => ({
     type: SET_STATUS,
     status
 });
 
 
-export let getUserProfile = (userId:string) => (dispatch: Function) => {
+export let getUserProfile = (userId: string) => (dispatch: Function) => {
     ProfileApi.getUserProfile(userId).then(result => {
         dispatch(setProfile(result.data));
     });
@@ -135,18 +139,18 @@ export let setMyProfile = () => (dispatch: Function, getState: Function) => {
         dispatch(setMyProfileAC(result.data));
     });
 };
-export let getUserStatus = (userId:string) => (dispatch: Function) => {
+export let getUserStatus = (userId: string) => (dispatch: Function) => {
     ProfileApi.getUserStatus(userId).then(result => {
         dispatch(setStatus(result.data));
     });
 };
-export let setMyStatus = (status:string) => (dispatch: Function) => {
+export let setMyStatus = (status: string) => (dispatch: Function) => {
     ProfileApi.setMyStatus(status).then(() => {
         dispatch(setStatus(status));
     });
 };
 
-export const changePhoto = (img:string) => async (dispatch: Function, getState: Function) => {
+export const changePhoto = (img: File) => async (dispatch: Function, getState: Function) => {
     ProfileApi.uploadPhoto(img).then(result => {
         if (result.data.resultCode === 0) {
             const userId = getState().ProfilePage.myProfile.userId;
@@ -155,8 +159,14 @@ export const changePhoto = (img:string) => async (dispatch: Function, getState: 
         }
     });
 };
-
-export const changeMyProfileInfo = ( profile: ProfileType) => async(dispatch: Function, getState: Function) => {
+type ChangeMyProfileInfoType =
+    {
+        contacts:
+            {
+                [key: string]: string
+            }, lookingForAJob: boolean, lookingForAJobDescription: string, aboutMe: string, fullName: string
+    }
+export const changeMyProfileInfo = (profile: ChangeMyProfileInfoType) => async (dispatch: Function, getState: Function): Promise<boolean> => {
     const userId = getState().ProfilePage.myProfile.userId;
     return ProfileApi.setMyProfileInfo(profile).then(result => {
         if (result.data.resultCode === 0) {
@@ -164,18 +174,18 @@ export const changeMyProfileInfo = ( profile: ProfileType) => async(dispatch: Fu
             return true;
         } else {
             let messages: string = result.data.messages[0];
-            const indexOfBracers :number = messages.lastIndexOf("(");
-            let brokenField :string = messages.substring(indexOfBracers + 1, messages.length - 1);
+            const indexOfBracers: number = messages.lastIndexOf("(");
+            let brokenField: string = messages.substring(indexOfBracers + 1, messages.length - 1);
             const indexOfArray: number = brokenField.search("-");
             messages = messages.substring(0, indexOfBracers - 1);
-            let error: {[brokenField: string]: string| Object} = {};
+            let error: { [brokenField: string]: string | Object } = {};
             if (indexOfArray === -1) {
                 brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
                 error[brokenField] = messages;
             } else {
                 brokenField = brokenField.slice(indexOfArray + 2);
                 brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
-                let contacts: {[brokenField: string]: string} = {};
+                let contacts: { [brokenField: string]: string } = {};
                 contacts[brokenField] = messages;
                 error["contacts"] = contacts;
             }

@@ -1,9 +1,12 @@
 import style from "./More.module.css"
-import React, {Fragment} from "react";
-import {MyInput, MyTextArea} from "../../../../common/FormControllers/FormController";
-import {Field, reduxForm} from "redux-form"
+import React, {FC, Fragment} from "react";
+import {MyInput, MyTextArea} from "src/common/FormControllers/FormController";
+import {Field, reduxForm, InjectedFormProps} from "redux-form"
+import {OtherProfileInfoType} from "src/components/profile/ProfileInfo/ProfileInfo";
 
-const EditableMore = props => {
+type Props = { profile: OtherProfileInfoType, editModeOff: () => void }
+
+const EditableMore: FC<Props & InjectedFormProps<{}, Props>> = props => {
     const {profile} = props;
     const contactsKeys = Object.keys(profile.contacts);
     const contacts = contactsKeys.map(key => {
@@ -36,4 +39,4 @@ const EditableMore = props => {
         </form>
     )
 };
-export default reduxForm({form: "editMore"})(EditableMore);
+export default reduxForm<OtherProfileInfoType, Props>({form: "editMore"})(EditableMore);

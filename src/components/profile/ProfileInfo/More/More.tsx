@@ -1,8 +1,12 @@
 import style from "./More.module.css"
-import React, {useState} from "react";
+import React, {FC, useState} from "react";
 import EditableMore from "./EditableMore";
+import {OtherProfileInfoType} from "src/components/profile/ProfileInfo/ProfileInfo";
 
-const More = ({profile, isMe, saveAllMyProfileInfo}) => {
+
+type Props = { profile: OtherProfileInfoType, isMe: boolean,
+    saveAllMyProfileInfo: (callback: () => void) => (moreProfileInfo: OtherProfileInfoType) => Promise<void> }
+const More: FC<Props> = ({profile, isMe, saveAllMyProfileInfo}) => {
     const [isMoreVisible, seeMore] = useState(false);
     const [isEditMode, setEditMode] = useState(false);
     const moreClickEvent = () => {
@@ -11,19 +15,13 @@ const More = ({profile, isMe, saveAllMyProfileInfo}) => {
     const editModeOn = () => {
         setEditMode(true);
     };
-    const editModeOff = () => {
+    const editModeOff = (): void => {
         setEditMode(false);
-    };
-    const saveProfile = (moreProfileInfo) => {
-        saveAllMyProfileInfo(moreProfileInfo).then(isProfileChange => {
-            if (isProfileChange) editModeOff()
-        })
-
     };
 
     const contactsKeys = Object.keys(profile.contacts);
     const contacts = contactsKeys.map(key => {
-        let link = profile.contacts[key];
+        let link: string = profile.contacts[key];
         if (link)
             return <div className={style.contact}>{key} : <a href={link}>{link}</a></div>;
         return null
@@ -32,7 +30,7 @@ const More = ({profile, isMe, saveAllMyProfileInfo}) => {
     return (<div className={style.more}>
         <div className={style.moreSpan} onClick={moreClickEvent}><span> More...</span></div>
         {isMoreVisible && (isEditMode ?
-            <EditableMore editModeOff={editModeOff} initialValues={profile} onSubmit={saveProfile}
+            <EditableMore editModeOff={editModeOff} initialValues={profile} onSubmit={saveAllMyProfileInfo(editModeOff)}
                           profile={profile}/> : (
                 <>
                     <div className={style.aboutMe}><b>About Me:</b> {profile.aboutMe}</div>

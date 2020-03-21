@@ -15,12 +15,17 @@ import {GlobalState} from "src/redux/storeRedux";
 //TODO change profile to my profile if paramsUserId null
 
 type MatchProps = { userId: string | undefined }
-type Props = { getUserStatus: typeof getUserStatus, getUserProfile: typeof getUserProfile,
-    profile: ProfileType, myId: string }
-type ProfileProps = { changePhoto: typeof changePhoto, status: string,
-    setMyStatus: typeof setMyStatus, changeMyProfileInfo: typeof changeMyProfileInfo }
-const ProfileComponent = (props: Props &ProfileProps& RouteComponentProps<MatchProps>) => {
-    const {getUserStatus, getUserProfile, profile, myId} = props;
+type Props = {
+    getUserStatus: typeof getUserStatus, getUserProfile: typeof getUserProfile,
+    myId: string
+}
+export type ProfileProps = {
+    changePhoto: typeof changePhoto, status: string, profile: ProfileType
+    setMyStatus: typeof setMyStatus, changeMyProfileInfo: typeof changeMyProfileInfo
+}
+
+const ProfileComponent = (props: Props & ProfileProps & RouteComponentProps<MatchProps>) => {
+    const {getUserStatus, getUserProfile, profile, myId, status, changePhoto} = props;
     const paramsUserId = props.match.params.userId;
     const userId = paramsUserId || myId;
 
@@ -33,8 +38,8 @@ const ProfileComponent = (props: Props &ProfileProps& RouteComponentProps<MatchP
     if (!profile) return <PageLoader/>;
     return (
         <Profile
-            changePhoto={props.changePhoto}
-            status={props.status}
+            changePhoto={changePhoto}
+            status={status}
             profile={profile}
             setMyStatus={props.setMyStatus}
             changeMyProfileInfo={props.changeMyProfileInfo}

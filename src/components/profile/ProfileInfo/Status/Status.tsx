@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import style from "./Status.module.css"
 
-const Status = ({myStatus, setMyStatus, isMe}) => {
+type Props = { myStatus: string, isMe: boolean, setMyStatus: (newStatus: string) => void }
+const Status: FC<Props> = ({myStatus, setMyStatus, isMe}) => {
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(myStatus);
 
-    const editModeToggle = toggle => {
+    const editModeToggle = (toggle: boolean) => {
         if (toggle) setEditMode(toggle);
         else {
             setEditMode(toggle);
@@ -17,7 +18,7 @@ const Status = ({myStatus, setMyStatus, isMe}) => {
         setStatus(myStatus);
     }, [myStatus]);
 
-    const onStatusUpdate = e => {
+    const onStatusUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStatus(e.target.value);
     };
 

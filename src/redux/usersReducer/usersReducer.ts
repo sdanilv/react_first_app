@@ -14,9 +14,11 @@ const SET_KIT = "SET_KIT";
 type Action<K, T = void> = T extends void ? { type: K } : { type: K } & T
 export type UserType = {
     id: number,
-    avaImg: string,
+    // avaImg: {},
+    photos:{small:string, large:string}
     name: string,
     status: string
+    followed:boolean
 }
 type ActionType =
     | Action<typeof SET_KIT, { kit: number }>

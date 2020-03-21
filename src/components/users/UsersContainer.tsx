@@ -16,10 +16,9 @@ import {compose} from "redux";
 import {getIsSignIn} from "src/redux/authReduce/authSelector";
 import {GlobalState} from "src/redux/storeRedux";
 
-type Props = { currentPage: number, countUsersInPage: number, loaded: boolean,
-    getUsers: typeof getUsers, setProfile: typeof setProfile }
+export type UsersContainerProps =  MapStateProps&MapDispatchToProps
 
-class UsersContainer extends React.Component <Props> {
+class UsersContainer extends React.Component <UsersContainerProps> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.countUsersInPage);
         this.props.setProfile(null);
@@ -33,7 +32,7 @@ class UsersContainer extends React.Component <Props> {
     }
 }
 
-let mapStateProper = (state: GlobalState) => {
+const mapStateToProps = (state: GlobalState) => {
     return {
         isSignIn: getIsSignIn(state),
         users: state.Users.users,
@@ -45,19 +44,22 @@ let mapStateProper = (state: GlobalState) => {
         kit: state.Users.kit
     };
 };
+const mapDispatchToProps = {
+    subscribe,
+    unsubscribe,
+    setCurrentPage,
+    addInBlockButtons,
+    removeFromBlockButtons,
+    getUsers,
+    setProfile,
+    setKit
+};
+type MapStateProps = ReturnType<typeof mapStateToProps>
+type MapDispatchToProps = typeof mapDispatchToProps
 
-export default compose<Props>(
+export default compose<UsersContainerProps>(
     connect(
-        mapStateProper,
-        {
-            subscribe,
-            unsubscribe,
-            setCurrentPage,
-            addInBlockButtons,
-            removeFromBlockButtons,
-            getUsers,
-            setProfile,
-            setKit
-        }
+        mapStateToProps,
+        mapDispatchToProps
     )
 )(UsersContainer);

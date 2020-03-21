@@ -1,23 +1,25 @@
-import React, {memo} from "react";
+import React, {FC, memo} from "react";
 import style from "./Pagination.module.css";
 
-const Pagination = memo(props => {
+type Props = { kit: number, setKit: (kit: number) => void, currentPage: number, numbersPage: number,
+    onPageClick: (page: number) => void, countOfVisiblePages?: number }
+const Pagination: FC<Props> = memo(props => {
 
     const {kit, setKit, currentPage, numbersPage, onPageClick, countOfVisiblePages = 5} = props;
 
     const lastKit = Math.floor(numbersPage / countOfVisiblePages);
     const start = (kit - 1) * countOfVisiblePages + 1;
     const end = kit * countOfVisiblePages;
-    let arrayOfPages = [];
+    let arrayOfPages: Array<number> = [];
 
     for (let i = 1; i < numbersPage; i++) {
         arrayOfPages.push(i);
     }
 
-    const button = p => {
+    const button = (p:number) => {
         return (
             <button
-                className={currentPage === p ? style.selectedPage : null}
+                className={currentPage === p ? style.selectedPage : undefined}
                 key={p}
                 onClick={() => {
                     if (p === 1) {
@@ -33,7 +35,7 @@ const Pagination = memo(props => {
         );
     };
 
-    const pages = (start, end) => arrayOfPages.map(p => {
+    const pages = (start:number, end:number): Array<JSX.Element|""> => arrayOfPages.map(p => {
         if ((p >= start && p <= end) || p === arrayOfPages.length || p === 1) {
             return button(p);
         }

@@ -3,11 +3,23 @@
     border: 2px solid silver;
     padding: 5px;
     width: 80%;
+    display: flex;
+    border-radius: 10px;
+}
+
+.avaImg > img {
+    width: 100px;
+    height: 100px;
 }
 
 .avaImg {
-    width: 100px;
-    height: 100px;
+    float: left;
+    color: black
+}
+
+.description {
+    float: left;
+    margin: 10px
 }
 
 

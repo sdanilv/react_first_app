@@ -1,9 +1,10 @@
 import ButtonLoader from "../../../common/ButtonLoader/ButtonLoader";
 import style from "./SubsButton.module.css"
-import React from "react";
+import React, {FC} from "react";
 
-
-function SubsButton(props) {
+type Props = { userId: number, blockedSubButtons: Array<number>, followed: boolean,
+    unsubscribe: (userId: number) => void, subscribe: (userId: number) => void }
+const SubsButton: FC<Props> = (props) => {
     return <>
         {props.blockedSubButtons.some(u => u === props.userId) ? (
             <ButtonLoader/>
@@ -25,6 +26,6 @@ function SubsButton(props) {
             </div>
         )}
     </>;
-}
+};
 
 export default SubsButton;

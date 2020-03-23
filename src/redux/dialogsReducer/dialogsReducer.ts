@@ -1,12 +1,12 @@
 const ADD_CHAT_MESSAGE = "myApp/dialogs/ADD-CHAT-MESSAGE";
 const LOAD_ALL_CHAT_MESSAGE = "myApp/dialogs/LOAD_ALL_CHAT_MESSAGE";
 
-type Message = { message: string, userId: number }
-type User = { id: number, name: string, messages: Array<Message>, img: string }
+ type MessageType = { message: string, userId: number }
+export type DialogType = { id: number, name: string, messages: Array<MessageType>, img: string }
 type Action<T, K = void> = K extends void ? { type: T } : { type: T } & K;
 type ActionType = Action<typeof ADD_CHAT_MESSAGE, { message: string, id: string, userId: number }> |
-    Action<typeof LOAD_ALL_CHAT_MESSAGE, { chats: Array<Message> }>
-type StateType = { Messages: Array<User> }
+    Action<typeof LOAD_ALL_CHAT_MESSAGE, { chats: Array<MessageType> }>
+type StateType = { Messages: Array<DialogType> }
 const initiationState: StateType = {
     Messages: [
         {
@@ -85,7 +85,7 @@ const initiationState: StateType = {
 const dialogsReducer = (state = initiationState, action: ActionType): StateType => {
     switch (action.type) {
         case ADD_CHAT_MESSAGE:
-            const chatComponent: Message = {
+            const chatComponent: MessageType = {
                 userId: action.userId,
                 message: action.message
             };
@@ -109,7 +109,7 @@ export const AddMessageToChat = (id:string, message: string, myId: number):Actio
     userId: myId, id
 });
 
-export const LoadChat = (chats:Message[]):ActionType => ({
+export const LoadChat = (chats:MessageType[]):ActionType => ({
     type: LOAD_ALL_CHAT_MESSAGE,
     chats
 });

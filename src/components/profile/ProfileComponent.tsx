@@ -8,7 +8,7 @@ import {
 import {loading} from "src/redux/commonReducer/commonReducer";
 import {compose} from "redux";
 import PageLoader from "src/common/PageLoader/PageLoader";
-import {getMyId} from "src/redux/authReduce/authSelector";
+import {getMyId} from "redux/authReduce/authSelector";
 import {getProfile, getProfileStatus} from "src/redux/profileReducer/profileSelector";
 import {GlobalState} from "src/redux/storeRedux";
 

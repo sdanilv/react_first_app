@@ -7,7 +7,7 @@ import {MyInput} from "src/common/FormControllers/FormController";
 import {maxSize, required} from "src/utilits/validators/validate";
 import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
-import {getCaptchaURL, getIsSignIn} from "src/redux/authReduce/authSelector";
+import {getCaptchaURL, getIsSignIn} from "redux/authReduce/authSelector";
 import {GlobalState} from "redux/storeRedux";
 
 const maxSize20 = maxSize(20);

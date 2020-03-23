@@ -1,15 +1,17 @@
-import {AuthApi} from "../../api/api";
+import {AuthApi} from "src/api/api";
 import {stopSubmit} from "redux-form";
+import { ThunkAction } from "redux-thunk";
 
-const AUTHORIZATION = "AUTHORIZATION"
-const SIGN_OUT = "SIGN_OUT"
-const SET_CAPTCHA = "AUTH_SET_CAPTCHA"
+const AUTHORIZATION = "AUTHORIZATION";
+const SIGN_OUT = "SIGN_OUT";
+const SET_CAPTCHA = "AUTH_SET_CAPTCHA";
 
 type Action<T, K = {}> = { type: T } & K
 type dataType = {id: number, email:string, login: string}
 type ActionType = | Action<typeof AUTHORIZATION, {data:dataType}>
     | Action<typeof SIGN_OUT>
     | Action<typeof SET_CAPTCHA, { captchaURL:string }>
+// type ThunkResult<R> = ThunkAction<R, authStateType, undefined, ActionType>;
 
 let initiationState = {
     id: null as number | null,
@@ -71,7 +73,7 @@ const getCaptchaURL = () => async (dispatch:Function) => {
 };
 
 export const getMe = () => async (dispatch:Function) => {
-    const response = await AuthApi.getMe();
+    const response:{resultCode:number, data:any} = await AuthApi.getMe();
     if (response.resultCode === 0) {
         dispatch(auth(response.data));
     }

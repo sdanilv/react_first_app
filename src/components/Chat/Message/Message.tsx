@@ -1,7 +1,8 @@
 import React, {FC} from "react";
 import style from "./Message.module.css"
-type Props = {userId:number, myId:number, message:number}
-const Message:FC<Props> = props => {
+// type Props = {userId:string, myId:string, message:number}
+//TODO change any to type
+const Message:FC<any> = props => {
     const {userId, myId, message} = props;
     return (
         <div>

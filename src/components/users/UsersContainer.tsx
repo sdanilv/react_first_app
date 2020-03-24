@@ -13,11 +13,12 @@ import {
 } from "src/redux/usersReducer/usersReducer";
 import {setProfile} from "src/redux/profileReducer/profileReducer";
 import {compose} from "redux";
-import {getIsSignIn} from "redux/authReduce/authSelector.ts";
+import {getIsSignIn} from "redux/authReduce/authSelector";
 import {GlobalState} from "src/redux/storeRedux";
 
-export type UsersContainerProps = { currentPage: number, countUsersInPage: number, loaded: boolean,
-    getUsers: typeof getUsers, setProfile: typeof setProfile }
+export type UsersContainerProps =  MapStateProps&MapDispatchToProps
+// export type UsersContainerProps = { currentPage: number, countUsersInPage: number, loaded: boolean,
+//     getUsers: typeof getUsers, setProfile: typeof setProfile }
 
 class UsersContainer extends React.Component <UsersContainerProps> {
     componentDidMount() {
@@ -33,7 +34,7 @@ class UsersContainer extends React.Component <UsersContainerProps> {
     }
 }
 
-let mapStateProper = (state: GlobalState) => {
+const mapStateToProps = (state: GlobalState) => {
     return {
         isSignIn: getIsSignIn(state),
         users: state.Users.users,
@@ -46,18 +47,22 @@ let mapStateProper = (state: GlobalState) => {
     };
 };
 
+const mapDispatchToProps = {
+    subscribe,
+    unsubscribe,
+    setCurrentPage,
+    addInBlockButtons,
+    removeFromBlockButtons,
+    getUsers,
+    setProfile,
+    setKit
+};
+type MapStateProps = ReturnType<typeof mapStateToProps>
+type MapDispatchToProps = typeof mapDispatchToProps
+
 export default compose<UsersContainerProps>(
     connect(
-        mapStateProper,
-        {
-            subscribe,
-            unsubscribe,
-            setCurrentPage,
-            addInBlockButtons,
-            removeFromBlockButtons,
-            getUsers,
-            setProfile,
-            setKit
-        }
+        mapStateToProps,
+        mapDispatchToProps
     )
 )(UsersContainer);

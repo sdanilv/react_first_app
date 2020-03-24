@@ -1,12 +1,13 @@
-import React from "react";
+import React, {FC} from "react";
 import User from "./user/User";
 // import style from "./Users.module.css";
 import Pagination from "../../common/Pagination/Pagination";
 import SubsButton from "./SubsButton/SubsButton";
+import {UsersContainerProps} from "src/components/users/UsersContainer";
 
-const Users = props => {
+const Users:FC<UsersContainerProps> = props => {
     let numbersPage = Math.ceil(props.allUsersCount / props.countUsersInPage);
-    const onPageClick = page => {
+    const onPageClick = (page:number):void => {
         props.setCurrentPage(page);
         props.getUsers(page, props.countUsersInPage);
     };
@@ -17,7 +18,7 @@ const Users = props => {
                 userId={u.id}
                 avaImg={u.photos.small}
                 name={u.name}
-                status={u.status}
+                description={u.status}
             >
                 {props.isSignIn && <SubsButton
                     userId={u.id}

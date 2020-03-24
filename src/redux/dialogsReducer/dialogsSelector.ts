@@ -1,24 +1,23 @@
 import {createSelector} from "reselect";
-import {GlobalState} from "src/redux/storeRedux";
-import {UserDialogType} from "redux/dialogsReducer/dialogsReducer";
+import {GlobalState} from "redux/storeRedux";
+import {DialogType} from "redux/dialogsReducer/dialogsReducer";
+import { Selector } from "react-redux";
 
-export const getDialogsMessages = (state: GlobalState): Array<UserDialogType> => {
+// import React from "react";
+
+export type LastMessageType = {id:number, name:string, lastMessage: string, ava:string}
+
+export const getDialogsMessages:Selector<GlobalState, Array<DialogType>> = (state)  => {
     return state.DialogsPage.Messages;
 };
-type LastMessage = {
-    id: number,
-    name: string,
-    lastMessages: string,
-    ava: string
-} | null
-export const getLastMessages = createSelector<GlobalState, {}, Array<UserDialogType>, Array<LastMessage>>
-([getDialogsMessages], (mes: Array<UserDialogType>) => {
+export const getLastMessage = createSelector<GlobalState, Array<DialogType>,  Array<LastMessageType |null>>([getDialogsMessages],
+        mes => {
     return mes.map(m => {
             if (m.messages !== undefined)
                 return {
                     id: m.id,
                     name: m.name,
-                    lastMessages: m.messages.slice(-1)[0].message,
+                    lastMessage: m.messages.slice(-1)[0].message,
                     ava: m.img
                 };
             return null;

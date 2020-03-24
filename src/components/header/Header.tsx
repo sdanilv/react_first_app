@@ -1,11 +1,13 @@
-import React from "react";
+import React, {FC} from "react";
 import style from "./Header.module.css";
 import Ava from "../../common/Ava/Ava";
 import {NavLink} from "react-router-dom";
+import {HeaderProps} from "src/components/header/HeaderContainer";
 
-const Header = props => {
+
+const Header: FC<HeaderProps> = ({logout, isSignIn, myId, login, avaImg}) => {
     let onLogout = () => {
-        props.logout();
+        logout();
     };
     return (
         <div className={style.header}>
@@ -14,7 +16,7 @@ const Header = props => {
                 alt='abc'
             />
             <div className={style.topic}>Smile:</div>
-            {!props.isSignIn ? (
+            {!isSignIn ? (
                 <>
                     <NavLink to='/login'>
                         <button> SigIn</button>
@@ -23,12 +25,12 @@ const Header = props => {
                 </>
             ) : (
                 <>
-                    <NavLink to={`/profile/${props.myId}`}>
+                    <NavLink to={`/profile/${myId}`}>
                         <div className={style.ava}>
-                            <Ava avaImg={props.avaImg}/>
+                            <Ava avaImg={avaImg}/>
                         </div>
                     </NavLink>
-                    <div className={style.login}>{props.login}</div>
+                    <div className={style.login}>{login}</div>
                     <NavLink to='/login'>
                         <button onClick={onLogout}>Logout</button>
                     </NavLink>

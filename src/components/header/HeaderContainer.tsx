@@ -19,14 +19,15 @@ class HeaderContainer extends React.Component<HeaderProps> {
     }
 }
 
-let mapStateToProps = (state: GlobalState) => ({
+const mapStateToProps = (state: GlobalState) => ({
     isSignIn: getIsSignIn(state),
     login: getMyLogin(state),
     avaImg: getMySmallAvatar(state),
     myId: getMyId(state)
 });
+const mapDispatchToProps = {auth, getMe, logout};
 
-export default compose<HeaderProps>( connect(
+export default compose<HeaderProps>(connect(
     mapStateToProps,
-    {auth, getMe, logout}
+    mapDispatchToProps
 ))(HeaderContainer);

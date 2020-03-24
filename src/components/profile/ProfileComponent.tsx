@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import Profile from "./Profile";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {withRouter, Redirect, RouteComponentProps} from "react-router-dom";
 import {connect} from "react-redux";
 import {
     changeMyProfileInfo,
@@ -13,24 +13,26 @@ import {
 import {loading} from "src/redux/commonReducer/commonReducer";
 import {compose} from "redux";
 import PageLoader from "src/common/PageLoader/PageLoader";
-import {getMyId} from "redux/authReduce/authSelector.ts";
+
 import {getProfile, getProfileStatus} from "redux/profileReducer/profileSelector.ts";
+import {getMyId} from "redux/authReduce/authSelector";
+
 import {GlobalState} from "src/redux/storeRedux";
 
 //TODO change profile to my profile if paramsUserId null
 
 type MatchProps = { userId: string | undefined }
-type ComponentProps = {
+type Props = {
     getUserStatus: typeof getUserStatus, getUserProfile: typeof getUserProfile,
-    profile: ProfileType, myId: string
+    myId: string
 }
-type ProfileProps = {
-    changePhoto: typeof changePhoto, status: string,
+export type ProfileProps = {
+    changePhoto: typeof changePhoto, status: string, profile: ProfileType
     setMyStatus: typeof setMyStatus, changeMyProfileInfo: typeof changeMyProfileInfo
 }
-type Props = ComponentProps & ProfileProps & RouteComponentProps<MatchProps>
-const ProfileComponent: React.FC<Props> = (props) => {
-    const {getUserStatus, getUserProfile, profile, myId} = props;
+
+const ProfileComponent = (props: Props & ProfileProps & RouteComponentProps<MatchProps>) => {
+    const {getUserStatus, getUserProfile, profile, myId, status, changePhoto} = props;
     const paramsUserId = props.match.params.userId;
     const userId = paramsUserId || myId;
 
@@ -43,8 +45,8 @@ const ProfileComponent: React.FC<Props> = (props) => {
     if (!profile) return <PageLoader/>;
     return (
         <Profile
-            changePhoto={props.changePhoto}
-            status={props.status}
+            changePhoto={changePhoto}
+            status={status}
             profile={profile}
             setMyStatus={props.setMyStatus}
             changeMyProfileInfo={props.changeMyProfileInfo}

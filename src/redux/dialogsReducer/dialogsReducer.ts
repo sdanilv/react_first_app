@@ -1,12 +1,12 @@
 const ADD_CHAT_MESSAGE = "myApp/dialogs/ADD-CHAT-MESSAGE";
 const LOAD_ALL_CHAT_MESSAGE = "myApp/dialogs/LOAD_ALL_CHAT_MESSAGE";
 
-export type MessageType = { message: string, userId: number }
-export type UserDialogType = { id: number, name: string, messages: Array<MessageType>, img: string }
+ type MessageType = { message: string, userId: number }
+export type DialogType = { id: number, name: string, messages: Array<MessageType>, img: string }
 type Action<T, K = void> = K extends void ? { type: T } : { type: T } & K;
 type ActionType = Action<typeof ADD_CHAT_MESSAGE, { message: string, id: string, userId: number }> |
     Action<typeof LOAD_ALL_CHAT_MESSAGE, { chats: Array<MessageType> }>
-type StateType = { Messages: Array<UserDialogType> }
+type StateType = { Messages: Array<DialogType> }
 const initiationState: StateType = {
     Messages: [
         {

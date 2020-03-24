@@ -16,10 +16,10 @@ import {compose} from "redux";
 import {getIsSignIn} from "redux/authReduce/authSelector.ts";
 import {GlobalState} from "src/redux/storeRedux";
 
-type Props = { currentPage: number, countUsersInPage: number, loaded: boolean,
+export type UsersContainerProps = { currentPage: number, countUsersInPage: number, loaded: boolean,
     getUsers: typeof getUsers, setProfile: typeof setProfile }
 
-class UsersContainer extends React.Component <Props> {
+class UsersContainer extends React.Component <UsersContainerProps> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.countUsersInPage);
         this.props.setProfile(null);
@@ -46,7 +46,7 @@ let mapStateProper = (state: GlobalState) => {
     };
 };
 
-export default compose<Props>(
+export default compose<UsersContainerProps>(
     connect(
         mapStateProper,
         {

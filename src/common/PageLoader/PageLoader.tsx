@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {FC} from 'react';
 import style from './PageLoader.module.css'
 
 
-const PageLoader = () => {
+const PageLoader:FC = () => {
     return (
         <div className={style.loader}>
             <div className={style.l_main}>

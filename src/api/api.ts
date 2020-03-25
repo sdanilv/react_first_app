@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ChangeMyProfileInfoType} from "redux/profileReducer/profileReducer";
 
 const axiosInstance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -9,17 +10,17 @@ const axiosInstance = axios.create({
 });
 
 export const UsersApi = {
-    getUsers: (page, count) => {
+    getUsers: (page:number, count:number) => {
         return axiosInstance
             .get(`users?count=${count}&page=${page}`)
             .then(result => {
                 return result.data;
             });
     },
-    follow: userId => {
+    follow: (userId:number) => {
         return axiosInstance.post(`follow/${userId}`);
     },
-    unfollow: userId => {
+    unfollow: (userId:number) => {
         return axiosInstance.delete(`follow/${userId}`);
     }
 };
@@ -29,7 +30,7 @@ export const AuthApi = {
         const response = await axiosInstance.get(`auth/me`);
         return response.data;
     },
-    signIn: async request => {
+    signIn: async (request:{id: number, email:string, login: string}) => {
         const response = await axiosInstance.post(`auth/login`, {...request});
         return response.data;
     },
@@ -44,21 +45,21 @@ export const AuthApi = {
 
 };
 export const ProfileApi = {
-    getUserProfile: userId => {
+    getUserProfile: (userId:string) => {
         return axiosInstance.get(`profile/${userId}`);
     },
 
-    getUserStatus: userId => {
+    getUserStatus: (userId:string) => {
         return axiosInstance.get(`profile/status/${userId}`);
     },
 
-    setMyStatus: status => {
+    setMyStatus: (status:string) => {
         return axiosInstance.put(`profile/status/`, {status: status});
     },
-    setMyProfileInfo: profile => {
+    setMyProfileInfo: (profile:ChangeMyProfileInfoType) => {
         return axiosInstance.put(`profile`, {...profile})
     },
-    uploadPhoto: (img) => {
+    uploadPhoto: (img:File) => {
 
         let formData = new FormData();
         formData.append("image", img);

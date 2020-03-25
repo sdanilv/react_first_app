@@ -1,7 +1,9 @@
-import React from "react";
+import React, {FC} from "react";
 import style from "./FormController.module.css";
+import { WrappedFieldProps } from "redux-form";
 
-export const MyTextArea = ({input, label, meta: {touched, error}}) => {
+type MyTextAreaType = {label:string}
+export const MyTextArea:FC<MyTextAreaType&WrappedFieldProps> = ({input, label, meta: {touched, error}}) => {
     return (
         <>
       <textarea
@@ -15,7 +17,8 @@ export const MyTextArea = ({input, label, meta: {touched, error}}) => {
     );
 };
 
-export const MyInput = ({input, label, type, meta: {touched, error}}) => {
+type MyInputType = {label:string, type:string}
+export const MyInput:FC<WrappedFieldProps&MyInputType> = ({input, label, type, meta: {touched, error}}) => {
     return (
         <>
             <input
@@ -28,3 +31,4 @@ export const MyInput = ({input, label, type, meta: {touched, error}}) => {
         </>
     );
 };
+// @ts-ignore

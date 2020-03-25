@@ -1,14 +1,14 @@
 import React, {FC} from "react";
 import style from "./Chat.css";
 import Message from "./Message/Message";
-import TextForm from "src/common/TextForm/TextForm";
+import TextForm from "common/TextForm/TextForm";
 import {ChatProps} from "src/components/Chat/ChatContainer";
 import {RouteComponentProps} from "react-router-dom";
 
 
 const Chat: FC<ChatProps & RouteComponentProps<{ userId: string }>> = (props) => {
-    let {myId, Messages, destroy} = props;
-    let userId = props.match.params.userId;
+    const {myId, Messages, destroy} = props;
+    const userId = props.match.params.userId;
     const user = Messages.find(
         m => m.id.toString() === userId);
     const chatSubmit = (formData: { dialogs: string }) => {

@@ -4,7 +4,7 @@ import {Field, reduxForm, InjectedFormProps, } from "redux-form";
 import {signIn} from "redux/authReduce/authReduce";
 import {connect} from "react-redux";
 import {MyInput} from "src/common/FormControllers/FormController";
-import {maxSize, required} from "src/utilits/validators/validate";
+import {maxSize, required} from "src/utilits/validators/validate.ts";
 import {Redirect, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {getCaptchaURL, getIsSignIn} from "redux/authReduce/authSelector";

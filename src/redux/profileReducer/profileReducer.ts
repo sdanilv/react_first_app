@@ -1,4 +1,4 @@
-import {ProfileApi} from "src/api/api";
+import {ProfileApi} from "src/api/api.ts";
 import MyAva from "src/img/MyAva.jpg";
 import {stopSubmit} from "redux-form";
 
@@ -161,7 +161,7 @@ export const changePhoto = (img: File) => async (dispatch: Function, getState: F
         }
     });
 };
-type ChangeMyProfileInfoType =
+export type ChangeMyProfileInfoType =
     {
         contacts:
             {

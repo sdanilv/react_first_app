@@ -1,4 +1,4 @@
-import {AuthApi} from "src/api/api";
+import {AuthApi} from "src/api/api.ts";
 import {stopSubmit} from "redux-form";
 
 

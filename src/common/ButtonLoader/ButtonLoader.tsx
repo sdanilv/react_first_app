@@ -1,8 +1,8 @@
-import React from "react";
+import React, {FC} from "react";
 import style from "./ButtonLoader.module.css";
 import loader from "../../img/loader1.svg";
 
-const ButtonLoader = () => {
+const ButtonLoader:FC = () => {
     return (
         <div>
             <img className={style.loader} alt='loader' src={loader}/>

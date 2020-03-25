@@ -1,8 +1,8 @@
-import React from "react";
+import React, {FC} from "react";
 import avaIcon from "../../img/avatar.ico";
 import style from "./Ava.module.css";
 
-const Ava = props => {
+const Ava:FC<{avaImg:string}> = props => {
     return (
         <img
             className={style.ava}

@@ -2,7 +2,7 @@ import {ProfileApi} from "src/api/api.ts";
 import MyAva from "src/img/MyAva.jpg";
 import {stopSubmit, FormAction} from "redux-form";
 import {GlobalState} from "redux/storeRedux";
-import { ThunkAction } from "redux-thunk";
+import {ThunkAction} from "redux-thunk";
 
 const ADD_POST = "myApp/profile/ADD-POST";
 const SET_PROFILE = "myApp/profile/SET_PROFILE";
@@ -14,13 +14,13 @@ type ActionType = Action<typeof ADD_POST, { post: string, id: number }> |
     Action<typeof SET_PROFILE, { profile: ProfileType | null }> |
     Action<typeof SET_STATUS, { status: string }> |
     Action<typeof SET_MY_PROFILE, { profile: ProfileType }> ;
-type ThunkActionType = ThunkAction<void, GlobalState,{}, ActionType>;
+type ThunkActionType = ThunkAction<void, GlobalState, {}, ActionType>;
 
 export type ProfileType = {
-    isMe?:boolean,
+    isMe?: boolean,
     userId: string,
-    photos:{small:string|null, large:string|null}
-}&MoreType
+    photos: { small: string | null, large: string | null }
+} & MoreType
 type InitState = typeof initState
 export type MyOldProfilePostsType = typeof initState.myOldProfile.posts
 
@@ -67,7 +67,7 @@ const initState = {
     status: null as string | null
 };
 
-const profileReducer = (state = initState, action:ActionType):InitState => {
+const profileReducer = (state = initState, action: ActionType): InitState => {
 
     switch (action.type) {
         case ADD_POST:
@@ -126,37 +126,42 @@ export const setStatus = (status: string): ActionType => ({
 });
 
 
-export const getUserProfile = (userId: string):ThunkActionType => (dispatch) => {
-    ProfileApi.getUserProfile(userId).then(data => {
-        dispatch(setProfile(data));
-    });
+export const getUserProfile = (userId: string): ThunkActionType => (dispatch) => {
+    if (userId) {
+        ProfileApi.getUserProfile(userId).then(data => {
+            dispatch(setProfile(data));
+        });
+    }
 };
-export const setMyProfile = ():ThunkActionType => (dispatch, getState) => {
+export const setMyProfile = (): ThunkActionType => (dispatch, getState) => {
     const userId = getState().Auth.id;
-    if(userId)
-    return ProfileApi.getUserProfile(userId).then(data => {
-        dispatch(setMyProfileAC(data));
-    });
+    if (userId)
+        return ProfileApi.getUserProfile(userId).then(data => {
+            dispatch(setMyProfileAC(data));
+        });
 };
-export const getUserStatus = (userId: string):ThunkActionType => (dispatch) => {
-    ProfileApi.getUserStatus(userId).then(result => {
-        dispatch(setStatus(result.data));
-    });
+export const getUserStatus = (userId: string): ThunkActionType => (dispatch) => {
+    if (userId) {
+        ProfileApi.getUserStatus(userId).then(result => {
+            dispatch(setStatus(result.data));
+        });
+    }
 };
-export const setMyStatus = (status: string):ThunkActionType=> (dispatch) => {
+export const setMyStatus = (status: string): ThunkActionType => (dispatch) => {
     ProfileApi.setMyStatus(status).then(() => {
         dispatch(setStatus(status));
     });
 };
 
-export const changePhoto = (img: File):ThunkActionType => async (dispatch, getState) => {
+export const changePhoto = (img: File): ThunkActionType => async (dispatch, getState) => {
     ProfileApi.uploadPhoto(img).then(data => {
         if (data.resultCode === 0) {
-            const myProfile  = getState().ProfilePage.myProfile;
-            if(myProfile)
-           { const userId = myProfile.userId;
-            dispatch(getUserProfile(userId));
-            dispatch(setMyProfile())}
+            const myProfile = getState().ProfilePage.myProfile;
+            if (myProfile) {
+                const userId = myProfile.userId;
+                dispatch(getUserProfile(userId));
+                dispatch(setMyProfile())
+            }
         }
     });
 };
@@ -164,41 +169,42 @@ export type MoreType =
     {
         contacts:
             {
-                [key: string]: string| null
-            }, lookingForAJob: boolean, lookingForAJobDescription: string|null, aboutMe: string|null, fullName: string
+                [key: string]: string | null
+            }, lookingForAJob: boolean, lookingForAJobDescription: string | null, aboutMe: string | null, fullName: string
     }
 export const changeMyProfileInfo = (profile: MoreType)
-    :ThunkAction<Promise<boolean>, GlobalState,{}, FormAction> =>
+    : ThunkAction<Promise<boolean>, GlobalState, {}, FormAction> =>
     async (dispatch, getState) => {
-    const myProfile = getState().ProfilePage.myProfile;
+        const myProfile = getState().ProfilePage.myProfile;
 
-    if(myProfile)
- {      const userId = myProfile.userId;
-     return ProfileApi.setMyProfileInfo(profile).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(getUserProfile(userId));
-            return true;
-        } else {
-            let messages: string = data.messages[0];
-            const indexOfBracers: number = messages.lastIndexOf("(");
-            let brokenField: string = messages.substring(indexOfBracers + 1, messages.length - 1);
-            const indexOfArray: number = brokenField.search("-");
-            messages = messages.substring(0, indexOfBracers - 1);
-            const error: { [brokenField: string]: string | Object } = {};
-            if (indexOfArray === -1) {
-                brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
-                error[brokenField] = messages;
-            } else {
-                brokenField = brokenField.slice(indexOfArray + 2);
-                brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
-                const contacts: { [brokenField: string]: string } = {};
-                contacts[brokenField] = messages;
-                error["contacts"] = contacts;
-            }
-            dispatch(stopSubmit("editMore", error));
-            return false;
+        if (myProfile) {
+            const userId = myProfile.userId;
+            return ProfileApi.setMyProfileInfo(profile).then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(getUserProfile(userId));
+                    return true;
+                } else {
+                    let messages: string = data.messages[0];
+                    const indexOfBracers: number = messages.lastIndexOf("(");
+                    let brokenField: string = messages.substring(indexOfBracers + 1, messages.length - 1);
+                    const indexOfArray: number = brokenField.search("-");
+                    messages = messages.substring(0, indexOfBracers - 1);
+                    const error: { [brokenField: string]: string | Object } = {};
+                    if (indexOfArray === -1) {
+                        brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
+                        error[brokenField] = messages;
+                    } else {
+                        brokenField = brokenField.slice(indexOfArray + 2);
+                        brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
+                        const contacts: { [brokenField: string]: string } = {};
+                        contacts[brokenField] = messages;
+                        error["contacts"] = contacts;
+                    }
+                    dispatch(stopSubmit("editMore", error));
+                    return false;
+                }
+            });
         }
-    });}
-    return false
-};
+        return false
+    };
 export default profileReducer;

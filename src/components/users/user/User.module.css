@@ -17,9 +17,9 @@
     color: black
 }
 
-.description {
-    float: left;
-    margin: 10px
+.description{    float: left;}
+.description > * {
+    margin: 0 0 10px 20px
 }
 
 

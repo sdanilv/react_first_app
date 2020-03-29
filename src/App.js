@@ -17,7 +17,6 @@ const style = require("./App.module.css");
 
 
 const App = (props) => {
-console.log(props);
     useEffect(() => {
         props.getMe()
             .then((data) => {

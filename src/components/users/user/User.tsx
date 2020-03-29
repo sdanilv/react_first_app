@@ -11,13 +11,14 @@ const User: FC<Props> = props => {
                 <NavLink to={`profile/${props.userId}`}>
                     <div className={style.avaImg}>
                         <Ava avaImg={props.avaImg}/>
-                        <div>{props.name}</div>
+                        {props.children}
                     </div>
                 </NavLink>
             </div>
-            {props.children}
-
-            <div className={style.description}>{props.description}</div>
+            <div className={style.description}>
+                <h3>{props.name}</h3>
+                <div>{props.description}</div>
+            </div>
         </div>
     );
 };

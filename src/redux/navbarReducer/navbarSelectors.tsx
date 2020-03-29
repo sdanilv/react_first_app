@@ -6,7 +6,7 @@ import {GlobalState} from "redux/storeRedux";
 
 export const getNavbarLinks = (state:GlobalState): Array<JSX.Element> => {
     const myId = getMyId(state);
-    const profileLink  = <div> <NavLink
+    const profileLink  = <div key={47}> <NavLink
         to={`/profile/${myId || ""}`}
         activeClassName={style.active}>
         <img

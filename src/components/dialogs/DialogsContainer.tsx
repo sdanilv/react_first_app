@@ -15,7 +15,7 @@ const mapDispatchToProps  = {AddMessageToChat, destroy};
 
 type  ReturnMapStateToProps = ReturnType<typeof mapStateToProps>
 type MapDispatchToProps = typeof  mapDispatchToProps
-export type DialogsProps = ReturnMapStateToProps&MapDispatchToProps
+export type DialogsProps = ReturnMapStateToProps & MapDispatchToProps
 
 export default compose<DialogsProps>(
     withAuthRedirect,

@@ -1,6 +1,6 @@
 import {GlobalState} from "redux/storeRedux";
 
-export const  getMyId = (state:GlobalState):number|null =>  state.Auth.id;
+export const  getMyId = (state:GlobalState):string|null =>  state.Auth.id;
 // export const  getMyEmail = (state:GlobalState):string|null => state.Auth.email;
 export const  getMyLogin = (state:GlobalState):string|null => state.Auth.login;
 export  const  getCaptchaURL = (state:GlobalState):string|null => state.Auth.captchaURL;

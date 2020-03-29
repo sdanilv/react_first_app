@@ -19,8 +19,6 @@ import {getMyId} from "redux/authReduce/authSelector";
 
 import {GlobalState} from "src/redux/storeRedux";
 
-//TODO change profile to my profile if paramsUserId null
-
 type MatchProps = { userId: string | undefined }
 type Props = {
     getUserStatus: typeof getUserStatus, getUserProfile: typeof getUserProfile,

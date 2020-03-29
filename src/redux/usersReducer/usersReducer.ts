@@ -1,4 +1,6 @@
 import {UsersApi} from "src/api/api.ts";
+import {ThunkAction} from "redux-thunk";
+import {GlobalState} from "redux/storeRedux";
 // import React from "react";
 const SUBSCRIBE_USER = "SUBSCRIBE-USER";
 const UNSUBSCRIBE_USER = "UNSUBSCRIBE-USER";
@@ -11,15 +13,15 @@ const REMOVE_FROM_BLOCK_BUTTONS = "REMOVE_IN_BLOCK_BUTTONS";
 const SET_TOGGLE_LOADER = "SET_TOGGLE_LOADER";
 const SET_KIT = "SET_KIT";
 
-type Action<K, T = void> = T extends void ? { type: K } : { type: K } & T
+
 export type UserType = {
     id: number,
-    // avaImg: {},
     photos:{small:string, large:string}
     name: string,
     status: string
     followed:boolean
 }
+type Action<K, T = void> = T extends void ? { type: K } : { type: K } & T
 type ActionType =
     | Action<typeof SET_KIT, { kit: number }>
     | Action<typeof SUBSCRIBE_USER, { userId: number }>
@@ -32,7 +34,9 @@ type ActionType =
     | Action<typeof REMOVE_FROM_BLOCK_BUTTONS, { blockedButton: number }>
     | Action<typeof SET_TOGGLE_LOADER, { toggle: boolean }>
 
-let initiationState = {
+type ThunkActionType = ThunkAction<void, GlobalState,{}, ActionType>;
+
+const initiationState = {
     users: [] as Array<UserType>,
     allUsersCount: 0,
     countUsersInPage: 6,
@@ -42,7 +46,7 @@ let initiationState = {
     kit: 1
 };
 type StateType = typeof  initiationState;
-let usersReducer = (state = initiationState, action:ActionType) :StateType => {
+const usersReducer = (state = initiationState, action:ActionType) :StateType => {
     switch (action.type) {
         case SET_KIT:
             return {...state, kit: action.kit};
@@ -93,44 +97,45 @@ export const setKit = (kit: number):ActionType => ({
     type: SET_KIT,
     kit
 });
-export let subsAC = (userId:number):ActionType => ({
+export const subsAC = (userId:number):ActionType => ({
     type: SUBSCRIBE_USER,
     userId
 });
-export let unsubsAC = (userId:number):ActionType => ({
+export const unsubsAC = (userId:number):ActionType => ({
     type: UNSUBSCRIBE_USER,
     userId
 });
-export let setUsers = (users:Array<UserType>):ActionType => ({
+export const setUsers = (users:Array<UserType>):ActionType => ({
     type: SET_USERS,
     users
 });
-export let setCurrentPage = (number:number):ActionType => ({
+export const setCurrentPage = (number:number):ActionType => ({
     type: CHANGE_PAGE,
     numberPage: number
 });
-export let setAllUsersCount = (count:number):ActionType => ({
+export const setAllUsersCount = (count:number):ActionType => ({
     type: CHANGE_ALL_USERS_COUNT,
     allUsersCount: count
 });
-export let setCountUsersInPage = (count:number):ActionType => ({
+export const setCountUsersInPage = (count:number):ActionType => ({
     type: CHANGE_PAGE_USERS_COUNT,
     countUsersInPage: count
 });
-export let addInBlockButtons = (button:number):ActionType => ({
+export const addInBlockButtons = (button:number):ActionType => ({
     type: ADD_IN_BLOCK_BUTTONS,
     blockedButton: button
 });
-export let removeFromBlockButtons = (button: number):ActionType => ({
+export const removeFromBlockButtons = (button: number):ActionType => ({
     type: REMOVE_FROM_BLOCK_BUTTONS,
     blockedButton: button
 });
-export let loading = (toggle:boolean):ActionType => ({
+export const loading = (toggle:boolean):ActionType => ({
     type: SET_TOGGLE_LOADER,
     toggle
 });
 
-export let getUsers = (currentPage:number, countUsersInPage:number) => (dispatch: Function) => {
+
+export const getUsers = (currentPage:number, countUsersInPage:number) : ThunkActionType => dispatch => {
     dispatch(loading(true));
     UsersApi.getUsers(currentPage, countUsersInPage).then(result => {
         dispatch(setUsers(result.items));
@@ -139,7 +144,7 @@ export let getUsers = (currentPage:number, countUsersInPage:number) => (dispatch
     });
 };
 
-export let subscribe = (userId:number) => (dispatch: Function) => {
+export const subscribe = (userId:number):ThunkActionType => dispatch => {
     dispatch(addInBlockButtons(userId));
     UsersApi.follow(userId).then(response => {
         dispatch(removeFromBlockButtons(userId));
@@ -147,7 +152,7 @@ export let subscribe = (userId:number) => (dispatch: Function) => {
     });
 };
 
-export let unsubscribe = (userId:number) => (dispatch: Function) => {
+export const unsubscribe = (userId:number):ThunkAction<void, GlobalState,{}, ActionType> => (dispatch) => {
     dispatch(addInBlockButtons(userId));
     UsersApi.unfollow(userId).then(response => {
         dispatch(removeFromBlockButtons(userId));

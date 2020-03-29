@@ -22,7 +22,7 @@ console.log(props);
         props.getMe()
             .then((data) => {
                 if (data.id) {
-                    props.setMyProfile(data.id)
+                    props.setMyProfile()
                         .then(props.unlockPage());
                 } else props.unlockPage()
             })

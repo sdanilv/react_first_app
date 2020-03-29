@@ -8,8 +8,8 @@ import {ProfileInfoPropsType} from "src/components/profile/Profile";
 export type OtherProfileInfoType = {
     contacts:
         {
-            [key: string]: string
-        }, lookingForAJob: boolean, lookingForAJobDescription: string, aboutMe: string
+            [contact: string]: string| null
+        }, lookingForAJob: boolean, lookingForAJobDescription: string| null, aboutMe: string| null
 }
 const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, isMe, setMyStatus, changeMyProfileInfo, status, changePhoto}) => {
     const {userId, photos, fullName, ...more} = profile;

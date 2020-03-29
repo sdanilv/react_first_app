@@ -1,5 +1,7 @@
-import {AuthApi} from "src/api/api.ts";
+import {APIType, AuthApi, MyDataType} from "src/api/api.ts";
 import {stopSubmit} from "redux-form";
+import {GlobalState} from "redux/storeRedux";
+import { ThunkAction } from "redux-thunk";
 
 
 const AUTHORIZATION = "AUTHORIZATION";
@@ -7,14 +9,16 @@ const SIGN_OUT = "SIGN_OUT";
 const SET_CAPTCHA = "AUTH_SET_CAPTCHA";
 
 type Action<T, K = {}> = { type: T } & K
-type dataType = {id: number, email:string, login: string}
+type dataType = {id: string, email:string, login: string}
 type ActionType = | Action<typeof AUTHORIZATION, {data:dataType}>
     | Action<typeof SIGN_OUT>
     | Action<typeof SET_CAPTCHA, { captchaURL:string }>
-// type ThunkResult<R> = ThunkAction<R, authStateType, undefined, ActionType>;
 
-let initiationState = {
-    id: null as number | null,
+
+// type ThunkResult<R> = ThunkAction<R, authStateType, undefined, ActionType>;
+type  ThunkActionType <R> = ThunkAction<R, GlobalState,{}, ActionType>
+const  initiationState = {
+    id: null as string | null,
     email: null as string | null,
     login: null as string | null,
     isSignIn: false ,
@@ -49,12 +53,12 @@ const authReduce = (state = initiationState, action:ActionType): authStateType =
     }
 };
 
-type authData = { id: number, email: string, login: string }
-export let auth = (data: authData): ActionType=> ({
+type authData = { id: string, email: string, login: string }
+export const  auth = (data: authData): ActionType=> ({
     type: AUTHORIZATION,
     data
 });
-export let signOut = (): ActionType => ({
+export const  signOut = (): ActionType => ({
     type: SIGN_OUT
 });
 
@@ -64,7 +68,7 @@ const setCaptchaURL = (captchaURL: string): ActionType => ({
     captchaURL: captchaURL
 });
 
-const getCaptchaURL = () => async (dispatch:Function) => {
+const getCaptchaURL = ():ThunkActionType<Promise<string|null>> => async (dispatch) => {
     const captchaURL: captchaURL = await AuthApi.getCaptcha();
     if (captchaURL) {
         dispatch(setCaptchaURL(captchaURL));
@@ -72,8 +76,8 @@ const getCaptchaURL = () => async (dispatch:Function) => {
     return captchaURL;
 };
 
-export const getMe = () => async (dispatch:Function) => {
-    const response:{resultCode:number, data:any} = await AuthApi.getMe();
+export const getMe = ():ThunkActionType<Promise<MyDataType>> => async (dispatch) => {
+    const response = await AuthApi.getMe();
     if (response.resultCode === 0) {
         dispatch(auth(response.data));
     }
@@ -81,25 +85,25 @@ export const getMe = () => async (dispatch:Function) => {
 };
 
 
-export const signIn = (formData:dataType) => async (dispatch:Function) => {
+export const signIn = (formData:dataType): ThunkActionType<APIType<{userId:string}>> => async (dispatch) => {
     const request = {
         ...formData
     };
     const data = await AuthApi.signIn(request);
     switch (data.resultCode) {
         case 0 :
-            dispatch(getMe());
-            break;
+            await  dispatch(getMe());
+            return data;
         case 10:
             dispatch(stopSubmit("auth", {_error: data.messages}));
-            dispatch(getCaptchaURL());
-            break;
+            await  dispatch(getCaptchaURL());
+            return data;
         default:
             dispatch(stopSubmit("auth", {_error: data.messages}));
             return data;
     }
 };
-export const logout = () => async (dispatch:Function) => {
+export const logout = ():ThunkActionType<void> => async (dispatch) => {
     const resultCode = await AuthApi.logout();
     if (resultCode === 0) dispatch(signOut());
 };

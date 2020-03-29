@@ -1,32 +1,29 @@
 import {ProfileApi} from "src/api/api.ts";
 import MyAva from "src/img/MyAva.jpg";
-import {stopSubmit} from "redux-form";
+import {stopSubmit, FormAction} from "redux-form";
+import {GlobalState} from "redux/storeRedux";
+import { ThunkAction } from "redux-thunk";
 
 const ADD_POST = "myApp/profile/ADD-POST";
 const SET_PROFILE = "myApp/profile/SET_PROFILE";
 const SET_STATUS = "myApp/profile/SET_STATUS";
 const SET_MY_PROFILE = "myApp/profile/SET_MY_PROFILE";
-export type ProfileType = {
-    isMe?:boolean,
-    aboutMe: string,
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string,
-    fullName: string,
-    userId: number,
-    photos: {
-        small: string,
-        large: string
-    }
-    contacts:
-        {
-            [key: string]: string
-        }
-}
+
 type Action<K, V = void> = V extends void ? { type: K } : { type: K } & V
 type ActionType = Action<typeof ADD_POST, { post: string, id: number }> |
     Action<typeof SET_PROFILE, { profile: ProfileType | null }> |
     Action<typeof SET_STATUS, { status: string }> |
     Action<typeof SET_MY_PROFILE, { profile: ProfileType }> ;
+type ThunkActionType = ThunkAction<void, GlobalState,{}, ActionType>;
+
+export type ProfileType = {
+    isMe?:boolean,
+    userId: string,
+    photos:{small:string|null, large:string|null}
+}&MoreType
+type InitState = typeof initState
+export type MyOldProfilePostsType = typeof initState.myOldProfile.posts
+
 const initState = {
     myOldProfile: {
         aboutMe: "About me. I`m I",
@@ -69,13 +66,12 @@ const initState = {
     profile: null as ProfileType | null,
     status: null as string | null
 };
-type InitState = typeof initState
-export type MyOldProfilePostsType = typeof initState.myOldProfile.posts
+
 const profileReducer = (state = initState, action:ActionType):InitState => {
 
     switch (action.type) {
         case ADD_POST:
-            let postComponent = {
+            const postComponent = {
                 id: action.id,
                 name: "My",
                 age: 26,
@@ -130,70 +126,79 @@ export const setStatus = (status: string): ActionType => ({
 });
 
 
-export let getUserProfile = (userId: string) => (dispatch: Function) => {
-    ProfileApi.getUserProfile(userId).then(result => {
-        dispatch(setProfile(result.data));
+export const getUserProfile = (userId: string):ThunkActionType => (dispatch) => {
+    ProfileApi.getUserProfile(userId).then(data => {
+        dispatch(setProfile(data));
     });
 };
-export let setMyProfile = () => (dispatch: Function, getState: Function) => {
+export const setMyProfile = ():ThunkActionType => (dispatch, getState) => {
     const userId = getState().Auth.id;
-    return ProfileApi.getUserProfile(userId).then(result => {
-        dispatch(setMyProfileAC(result.data));
+    if(userId)
+    return ProfileApi.getUserProfile(userId).then(data => {
+        dispatch(setMyProfileAC(data));
     });
 };
-export let getUserStatus = (userId: string) => (dispatch: Function) => {
+export const getUserStatus = (userId: string):ThunkActionType => (dispatch) => {
     ProfileApi.getUserStatus(userId).then(result => {
         dispatch(setStatus(result.data));
     });
 };
-export let setMyStatus = (status: string) => (dispatch: Function) => {
+export const setMyStatus = (status: string):ThunkActionType=> (dispatch) => {
     ProfileApi.setMyStatus(status).then(() => {
         dispatch(setStatus(status));
     });
 };
 
-export const changePhoto = (img: File) => async (dispatch: Function, getState: Function) => {
-    ProfileApi.uploadPhoto(img).then(result => {
-        if (result.data.resultCode === 0) {
-            const userId = getState().ProfilePage.myProfile.userId;
+export const changePhoto = (img: File):ThunkActionType => async (dispatch, getState) => {
+    ProfileApi.uploadPhoto(img).then(data => {
+        if (data.resultCode === 0) {
+            const myProfile  = getState().ProfilePage.myProfile;
+            if(myProfile)
+           { const userId = myProfile.userId;
             dispatch(getUserProfile(userId));
-            dispatch(setMyProfile())
+            dispatch(setMyProfile())}
         }
     });
 };
-export type ChangeMyProfileInfoType =
+export type MoreType =
     {
         contacts:
             {
-                [key: string]: string
-            }, lookingForAJob: boolean, lookingForAJobDescription: string, aboutMe: string, fullName: string
+                [key: string]: string| null
+            }, lookingForAJob: boolean, lookingForAJobDescription: string|null, aboutMe: string|null, fullName: string
     }
-export const changeMyProfileInfo = (profile: ChangeMyProfileInfoType) => async (dispatch: Function, getState: Function): Promise<boolean> => {
-    const userId = getState().ProfilePage.myProfile.userId;
-    return ProfileApi.setMyProfileInfo(profile).then(result => {
-        if (result.data.resultCode === 0) {
+export const changeMyProfileInfo = (profile: MoreType)
+    :ThunkAction<Promise<boolean>, GlobalState,{}, FormAction> =>
+    async (dispatch, getState) => {
+    const myProfile = getState().ProfilePage.myProfile;
+
+    if(myProfile)
+ {      const userId = myProfile.userId;
+     return ProfileApi.setMyProfileInfo(profile).then(data => {
+        if (data.resultCode === 0) {
             dispatch(getUserProfile(userId));
             return true;
         } else {
-            let messages: string = result.data.messages[0];
+            let messages: string = data.messages[0];
             const indexOfBracers: number = messages.lastIndexOf("(");
             let brokenField: string = messages.substring(indexOfBracers + 1, messages.length - 1);
             const indexOfArray: number = brokenField.search("-");
             messages = messages.substring(0, indexOfBracers - 1);
-            let error: { [brokenField: string]: string | Object } = {};
+            const error: { [brokenField: string]: string | Object } = {};
             if (indexOfArray === -1) {
                 brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
                 error[brokenField] = messages;
             } else {
                 brokenField = brokenField.slice(indexOfArray + 2);
                 brokenField = brokenField.charAt(0).toLowerCase() + brokenField.slice(1);
-                let contacts: { [brokenField: string]: string } = {};
+                const contacts: { [brokenField: string]: string } = {};
                 contacts[brokenField] = messages;
                 error["contacts"] = contacts;
             }
             dispatch(stopSubmit("editMore", error));
             return false;
         }
-    });
+    });}
+    return false
 };
 export default profileReducer;

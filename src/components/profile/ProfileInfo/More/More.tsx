@@ -21,7 +21,7 @@ const More: FC<Props> = ({profile, isMe, saveAllMyProfileInfo}) => {
 
     const contactsKeys = Object.keys(profile.contacts);
     const contacts = contactsKeys.map(key => {
-        let link: string = profile.contacts[key];
+        let link = profile.contacts[key];
         if (link)
             return <div className={style.contact}>{key} : <a href={link}>{link}</a></div>;
         return null

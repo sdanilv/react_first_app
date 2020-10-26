@@ -1,24 +1,16 @@
-import React, {FC} from "react";
-import {connect} from "react-redux";
-import {Redirect} from "react-router-dom";
-import {GlobalState} from "redux/storeRedux";
-// import Auth from "../components/auth/Auth";
+import React, { FC } from "react";
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { getIsSignIn } from "redux/authReduce/authSelector";
 
-const mapStateToProps = (state:GlobalState) => ({
-    isSignIn: state.Auth.isSignIn
-});
-
-export const withAuthRedirect = (Component:FC) => {
-    class AuthRedirect extends React.Component<{isSignIn:boolean}> {
-        render() {
-            if (!this.props.isSignIn) {
-                //
-                console.log(!this.props.isSignIn);
-                return <Redirect to='/login'/>;
-            }
-            return <Component {...this.props} />;
-        }
+export const withAuthRedirect = (Component: FC) => {
+  const AuthRedirect: React.FC = (props) => {
+    const isSignIn = useSelector(getIsSignIn);
+    if (!isSignIn) {
+      return <Redirect to="/login" />;
     }
+    return <Component {...props} />;
+  };
 
-    return connect(mapStateToProps)(AuthRedirect);
+  return AuthRedirect;
 };

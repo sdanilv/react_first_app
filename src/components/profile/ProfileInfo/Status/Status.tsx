@@ -1,16 +1,19 @@
 import React, {FC, useEffect, useState} from "react";
 import style from "./Status.module.css"
+import {useDispatch} from "react-redux";
+import {setMyStatus} from "redux/profileReducer/profileReducer";
 
-type Props = { myStatus: string, isMe: boolean, setMyStatus: (newStatus: string) => void }
-const Status: FC<Props> = ({myStatus, setMyStatus, isMe}) => {
+type Props = { myStatus: string, isMe: boolean }
+const Status: FC<Props> = ({myStatus, isMe}) => {
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(myStatus);
 
+    const dispatch = useDispatch();
     const editModeToggle = (toggle: boolean) => {
         if (toggle) setEditMode(toggle);
         else {
             setEditMode(toggle);
-            setMyStatus(status);
+            dispatch(setMyStatus(status))
         }
     };
 

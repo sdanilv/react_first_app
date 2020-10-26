@@ -1,7 +1,6 @@
 import {UsersApi} from "src/api/api.ts";
 import {ThunkAction} from "redux-thunk";
 import {GlobalState} from "redux/storeRedux";
-// import React from "react";
 const SUBSCRIBE_USER = "SUBSCRIBE-USER";
 const UNSUBSCRIBE_USER = "UNSUBSCRIBE-USER";
 const SET_USERS = "SET-USER";
@@ -45,8 +44,8 @@ const initiationState = {
     loaded: false,
     kit: 1
 };
-type StateType = typeof  initiationState;
-const usersReducer = (state = initiationState, action:ActionType) :StateType => {
+export  type UsersStateType = typeof  initiationState;
+const usersReducer = (state = initiationState, action:ActionType) :UsersStateType => {
     switch (action.type) {
         case SET_KIT:
             return {...state, kit: action.kit};

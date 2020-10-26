@@ -4,22 +4,27 @@ import Status from "./Status/Status";
 import More from "./More/More";
 import React, {FC} from "react";
 import {ProfileInfoPropsType} from "src/components/profile/Profile";
+import {getProfileStatus} from "redux/profileReducer/profileSelector";
+import {useDispatch, useSelector} from "react-redux";
+import {changeMyProfileInfo, changePhoto} from "redux/profileReducer/profileReducer";
 
 export type OtherProfileInfoType = {
     contacts:
         {
-            [contact: string]: string| null
-        }, lookingForAJob: boolean, lookingForAJobDescription: string| null, aboutMe: string| null
+            [contact: string]: string | null
+        }, lookingForAJob: boolean, lookingForAJobDescription: string | null, aboutMe: string | null
 }
-const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, isMe, setMyStatus, changeMyProfileInfo, status, changePhoto}) => {
+const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, isMe}) => {
     const {userId, photos, fullName, ...more} = profile;
+    const status = useSelector(getProfileStatus);
+    const dispatch = useDispatch();
 
     const changePhotoHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files)
-            changePhoto(e.target.files[0])
+            dispatch(changePhoto(e.target.files[0]))
     };
     const saveAllMyProfileInfo = (callback: () => void) => async (moreProfileInfo: OtherProfileInfoType): Promise<void> => {
-        const isProfileChange = await changeMyProfileInfo({...moreProfileInfo, fullName});
+        const isProfileChange = await dispatch(changeMyProfileInfo({...moreProfileInfo, fullName}));
         if (!isProfileChange) {
             return;
         }
@@ -38,7 +43,6 @@ const ProfileInfo: FC<ProfileInfoPropsType> = ({profile, isMe, setMyStatus, chan
                 <div className={style.nameAndStatus}>
                     <div className={style.fullName}> {fullName}</div>
                     <Status
-                        setMyStatus={setMyStatus}
                         myStatus={status || "***"}
                         isMe={isMe}
                     />
